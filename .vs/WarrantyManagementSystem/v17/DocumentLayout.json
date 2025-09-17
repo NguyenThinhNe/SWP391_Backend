@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{23F6968F-A920-4F41-AC79-A155569CDEBA}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{23F6968F-A920-4F41-AC79-A155569CDEBA}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{A947F6E0-ED0D-439B-9799-E454F5F3C49E}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A947F6E0-ED0D-439B-9799-E454F5F3C49E}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A947F6E0-ED0D-439B-9799-E454F5F3C49E}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.api\\warrantymanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{A947F6E0-ED0D-439B-9799-E454F5F3C49E}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\warrantymanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A947F6E0-ED0D-439B-9799-E454F5F3C49E}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A947F6E0-ED0D-439B-9799-E454F5F3C49E}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{23F6968F-A920-4F41-AC79-A155569CDEBA}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{23F6968F-A920-4F41-AC79-A155569CDEBA}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D72D5D9D-0B7D-4F71-9AB7-D7FE3CDB3CFC}|WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.dll\\warrantymanagement.dal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -23,12 +31,12 @@
       "RelativeMoniker": "D:0:0:{D72D5D9D-0B7D-4F71-9AB7-D7FE3CDB3CFC}|WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dll\\repository\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D72D5D9D-0B7D-4F71-9AB7-D7FE3CDB3CFC}|WarrantyManagement.DLL\\WarrantyManagement.DLL.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.dll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D72D5D9D-0B7D-4F71-9AB7-D7FE3CDB3CFC}|WarrantyManagement.DLL\\WarrantyManagement.DLL.csproj|solutionrelative:warrantymanagement.dll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{23F6968F-A920-4F41-AC79-A155569CDEBA}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{23F6968F-A920-4F41-AC79-A155569CDEBA}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D72D5D9D-0B7D-4F71-9AB7-D7FE3CDB3CFC}|WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj|d:\\asp\\demotrenlop\\warrantymanagementsystem\\warrantymanagement.dll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D72D5D9D-0B7D-4F71-9AB7-D7FE3CDB3CFC}|WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,73 +46,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UnitOfWork.cs",
-              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
-              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
-              "RelativeToolTip": "WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T02:39:54.739Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GenericRepository.cs",
-              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
-              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
-              "RelativeToolTip": "WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T02:37:57.773Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WarrantyManagement.DAL",
-              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
-              "RelativeDocumentMoniker": "WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
-              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
-              "RelativeToolTip": "WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-17T02:36:31.416Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WarrantyManagement.BLL",
-              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
-              "RelativeDocumentMoniker": "WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
-              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
-              "RelativeToolTip": "WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-17T02:35:47.159Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "WarrantyManagement.API",
-              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "RelativeDocumentMoniker": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "RelativeToolTip": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-17T02:34:03.283Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -127,7 +70,96 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\Dockerfile",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\Dockerfile",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\Dockerfile",
+              "RelativeToolTip": "WarrantyManagement.API\\Dockerfile",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-17T03:00:32.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "WarrantyManagement.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-17T02:57:38.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
+              "RelativeToolTip": "WarrantyManagement.DLL\\Repository\\Basic\\GenericRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T02:37:57.773Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WarrantyManagement.DAL.csproj",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
+              "RelativeDocumentMoniker": "WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
+              "RelativeToolTip": "WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-17T02:36:31.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WarrantyManagement.BLL.csproj",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+              "RelativeDocumentMoniker": "WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+              "RelativeToolTip": "WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-17T02:35:47.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WarrantyManagement.API.csproj",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "RelativeToolTip": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-17T02:34:03.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
+              "ToolTip": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
+              "RelativeToolTip": "WarrantyManagement.DLL\\Repository\\UnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T02:39:54.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Class1.cs",
               "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\Class1.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DLL\\Class1.cs",
@@ -135,12 +167,11 @@
               "RelativeToolTip": "WarrantyManagement.DLL\\Class1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T02:30:19.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T02:30:19.841Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Class1.cs",
               "DocumentMoniker": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\Class1.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Class1.cs",
@@ -148,8 +179,7 @@
               "RelativeToolTip": "WarrantyManagement.BLL\\Class1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T02:29:58.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T02:29:58.514Z"
             }
           ]
         },

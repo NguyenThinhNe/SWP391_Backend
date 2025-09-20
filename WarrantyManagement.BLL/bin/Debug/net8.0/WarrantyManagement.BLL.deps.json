@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "WarrantyManagement.BLL/1.0.0": {
+        "dependencies": {
+          "WarrantyManagement.DAL": "1.0.0"
+        },
+        "runtime": {
+          "WarrantyManagement.BLL.dll": {}
+        }
+      },
+      "WarrantyManagement.DAL/1.0.0": {
+        "runtime": {
+          "WarrantyManagement.DAL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WarrantyManagement.BLL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WarrantyManagement.DAL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

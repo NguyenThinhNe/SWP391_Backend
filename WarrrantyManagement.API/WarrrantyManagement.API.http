@@ -1,0 +1,6 @@
+@WarrrantyManagement.API_HostAddress = http://localhost:5081
+
+GET {{WarrrantyManagement.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

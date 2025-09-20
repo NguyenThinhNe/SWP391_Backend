@@ -1,0 +1,11 @@
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\bin\Debug\net8.0\WarrantyManagement.DAL.deps.json
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\bin\Debug\net8.0\WarrantyManagement.DAL.dll
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\bin\Debug\net8.0\WarrantyManagement.DAL.pdb
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\WarrantyManagement.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\WarrantyManagement.DAL.AssemblyInfoInputs.cache
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\WarrantyManagement.DAL.AssemblyInfo.cs
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\WarrantyManagement.DAL.csproj.CoreCompileInputs.cache
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\WarrantyManagement.DAL.dll
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\refint\WarrantyManagement.DAL.dll
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\WarrantyManagement.DAL.pdb
+D:\SWP391_Backend\WarrantyManagement_SWP391_BE\WarrantyManagement.DLL\obj\Debug\net8.0\ref\WarrantyManagement.DAL.dll

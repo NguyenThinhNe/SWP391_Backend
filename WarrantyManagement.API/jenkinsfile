@@ -20,7 +20,7 @@ pipeline {
 
         // Environment-specific variable
         ENVIRONMENT = "${env.BRANCH_NAME == 'master' ? 'production' : 'development'}"
-        K8S_NAMESPACE = "${env.BRANCH_NAME == 'master' ? 'prod' : 'dev'}"
+        // K8S_NAMESPACE = "${env.BRANCH_NAME == 'master' ? 'prod' : 'dev'}"
     }
 
     stages {

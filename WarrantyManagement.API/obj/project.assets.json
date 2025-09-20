@@ -95,29 +95,6 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
-      },
-      "WarrantyManagement.BLL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "WarrantyManagement.DAL": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/WarrantyManagement.BLL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/WarrantyManagement.BLL.dll": {}
-        }
-      },
-      "WarrantyManagement.DAL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/WarrantyManagement.DAL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/WarrantyManagement.DAL.dll": {}
-        }
       }
     }
   },
@@ -549,43 +526,32 @@
         "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
-    },
-    "WarrantyManagement.BLL/1.0.0": {
-      "type": "project",
-      "path": "../WarrantyManagement.BLL/WarrantyManagement.BLL.csproj",
-      "msbuildProject": "../WarrantyManagement.BLL/WarrantyManagement.BLL.csproj"
-    },
-    "WarrantyManagement.DAL/1.0.0": {
-      "type": "project",
-      "path": "../WarrantyManagement.DLL/WarrantyManagement.DAL.csproj",
-      "msbuildProject": "../WarrantyManagement.DLL/WarrantyManagement.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.22.1",
-      "Swashbuckle.AspNetCore >= 6.6.2",
-      "WarrantyManagement.BLL >= 1.0.0"
+      "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Users\\jso\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "projectUniqueName": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
       "projectName": "WarrantyManagement.API",
-      "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\obj\\",
+      "projectPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "packagesPath": "C:\\Users\\jso\\.nuget\\packages\\",
+      "outputPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jso\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -599,11 +565,7 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {
-            "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-              "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -650,7 +612,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

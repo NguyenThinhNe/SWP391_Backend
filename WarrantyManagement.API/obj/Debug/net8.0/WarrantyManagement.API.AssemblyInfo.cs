@@ -11,11 +11,11 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("02a227b5-7c8d-4551-9f1c-73552a64dc96")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("5da9a3b0-959d-4dff-9026-d9cab5848bed")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("WarrantyManagement.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49e782862e31a8c248c716a2fe87f833183189b7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+558d361824dcf5c242141789e988667c1102927a")]
 [assembly: System.Reflection.AssemblyProductAttribute("WarrantyManagement.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WarrantyManagement.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

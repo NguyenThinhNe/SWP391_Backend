@@ -4,21 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>02a227b5-7c8d-4551-9f1c-73552a64dc96</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <UserSecretsId>5da9a3b0-959d-4dff-9026-d9cab5848bed</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MiddleWare\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WarrantyManagement.BLL\WarrantyManagement.BLL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {}
+    "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {}
   },
   "projects": {
-    "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {
+    "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+        "projectUniqueName": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
         "projectName": "WarrantyManagement.API",
-        "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.API\\obj\\",
+        "projectPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+        "packagesPath": "C:\\Users\\jso\\.nuget\\packages\\",
+        "outputPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jso\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -31,11 +31,7 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {
-              "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-                "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -82,141 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
-        "projectName": "WarrantyManagement.BLL",
-        "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.BLL\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj": {
-                "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
-        "projectName": "WarrantyManagement.DAL",
-        "projectPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\WarrantyManagement.DAL.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\ASP\\DemoTrenLop\\WarrantyManagementSystem\\WarrantyManagement.DLL\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

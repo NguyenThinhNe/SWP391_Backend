@@ -161,7 +161,7 @@ pipeline {
                 echo "#====================== Docker Test ======================#"
                 script {
                     def containerName = "test-${APP_NAME}-${env.BUILD_NUMBER}"
-                    def testPort = env.BRANCH_NAME == 'master' ? '9342' : '9455'
+                    def testPort = env.BRANCH_NAME == 'master' ? '9342' : '9456'
 
                     // Test docker in background
                     sh """
@@ -173,11 +173,11 @@ pipeline {
                         sleep 10
 
                         # Test if the container respone
-                        curl -f http://localhost:${testPort}/swagger/index.html || exit 1
+                        curl -f https://localhost:${testPort}/swagger/index.html || exit 1
 
                         # Clean up
-                        docker stop ${containerName}
-                        docker rm ${containerName}
+                        #docker stop ${containerName}
+                        #docker rm ${containerName}
                     """
                 }
             }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {}
+    "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {}
   },
   "projects": {
-    "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {
+    "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+        "projectUniqueName": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
         "projectName": "WarrantyManagement.DAL",
-        "projectPath": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\obj\\",
+        "projectPath": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+        "packagesPath": "C:\\Users\\jso\\.nuget\\packages\\",
+        "outputPath": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jso\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

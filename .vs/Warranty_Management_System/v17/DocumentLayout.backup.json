@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Cabinet\\Github\\SWP391_Backend\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|e:\\cabinet\\github\\swp391_backend\\warrantymanagement.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|e:\\cabinet\\github\\swp391_backend\\warrantymanagement.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -47,32 +38,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\Dockerfile",
-              "RelativeDocumentMoniker": "WarrantyManagement.API\\Dockerfile",
-              "ToolTip": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\Dockerfile",
-              "RelativeToolTip": "WarrantyManagement.API\\Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-09-20T15:44:09.561Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "WarrantyManagement.API\\Properties\\launchSettings.json",
-              "ToolTip": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\Properties\\launchSettings.json",
-              "RelativeToolTip": "WarrantyManagement.API\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBsAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-20T15:40:44.775Z",
-              "EditorCaption": ""
             }
           ]
         },

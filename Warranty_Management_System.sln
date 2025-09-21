@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarrantyManagement.API", "WarrantyManagement.API\WarrantyManagement.API.csproj", "{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarrantyManagement.BLL", "WarrantyManagement.BLL\WarrantyManagement.BLL.csproj", "{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarrantyManagement.DAL", "WarrantyManagement.DAL\WarrantyManagement.DAL.csproj", "{F796FDB1-2117-4124-9E52-61BEBFCDA00E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F796FDB1-2117-4124-9E52-61BEBFCDA00E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F796FDB1-2117-4124-9E52-61BEBFCDA00E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F796FDB1-2117-4124-9E52-61BEBFCDA00E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F796FDB1-2117-4124-9E52-61BEBFCDA00E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

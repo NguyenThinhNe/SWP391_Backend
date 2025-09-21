@@ -15,7 +15,7 @@ ENV ASPNETCORE_URLS=http://+:9455;https://+:9456
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["WarrantyManagement.API/WarrantyManagement.API.csproj", "WarrantyManagement.API/"]
+COPY ["WarrantyManagement.API.csproj", "WarrantyManagement.API/"]
 RUN dotnet restore "./WarrantyManagement.API/WarrantyManagement.API.csproj"
 COPY . ./WarrantyManagement.API
 WORKDIR "/src/WarrantyManagement.API"

@@ -161,7 +161,7 @@ pipeline {
                 echo "#====================== Docker Test ======================#"
                 script {
                     def containerName = "test-${APP_NAME}-${env.BUILD_NUMBER}"
-                    def testPort = env.BRANCH_NAME == 'master' ? '9342' : '9456'
+                    def testPort = env.BRANCH_NAME == 'master' ? '9342' : '9455'
 
                     // Test docker in background
                     sh """

@@ -176,8 +176,8 @@ pipeline {
                         curl -f http://localhost:${testPort}/swagger/index.html || exit 1
 
                         # Clean up
-                        #docker stop ${containerName}
-                        #docker rm ${containerName}
+                        docker stop ${containerName}
+                        docker rm ${containerName}
                     """
                 }
             }
@@ -334,14 +334,14 @@ pipeline {
             echo "💥 Pipeline failed. Check the logs for details."
         }
 
-        // cleanup {
-        //     sh """
-        //         echo "🧹 Cleaning up Docker resources..."
-        //         docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} || true
-        //         docker rmi ${env.IMAGE_TAGGED} || true
-        //         docker system prune -f || true
-        //         echo "✅ Cleanup completed"
-        //     """
-        // }
+        cleanup {
+            sh """
+                echo "🧹 Cleaning up Docker resources..."
+                docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} || true
+                docker rmi ${env.IMAGE_TAGGED} || true
+                docker system prune -f || true
+                echo "✅ Cleanup completed"
+            """
+        }
     }
 }

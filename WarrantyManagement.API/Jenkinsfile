@@ -173,7 +173,7 @@ pipeline {
                         sleep 10
 
                         # Test if the container respone
-                        curl -f https://localhost:${testPort}/swagger/index.html || exit 1
+                        curl -f http://localhost:${testPort}/swagger/index.html || exit 1
 
                         # Clean up
                         #docker stop ${containerName}

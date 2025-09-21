@@ -6,9 +6,8 @@ USER $APP_UID
 WORKDIR /app
 
 EXPOSE 9455
-EXPOSE 9456
 
-ENV ASPNETCORE_URLS=http://+:9455;https://+:9456
+ENV ASPNETCORE_URLS=http://+:9455
 
 
 # This stage is used to build the service project

@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\SWP391_Backend\\SWP391_Backend\\",
+  "WorkspaceRootPath": "D:\\Stuff\\Github\\SWP391_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\swp391_backend\\swp391_backend\\warrantymanagement.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\stuff\\github\\swp391_backend\\warrantymanagement.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_backend\\swp391_backend\\warrantymanagement.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\stuff\\github\\swp391_backend\\warrantymanagement.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,6 +20,14 @@
           "DockedWidth": 200,
           "SelectedChildIndex": 8,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -42,25 +50,17 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:4:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Class1.cs",
-              "DocumentMoniker": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\Class1.cs",
+              "DocumentMoniker": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\Class1.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Class1.cs",
-              "ToolTip": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.DAL\\Class1.cs",
+              "ToolTip": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\Class1.cs",
               "RelativeToolTip": "WarrantyManagement.DAL\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-21T00:27:50.296Z",
               "EditorCaption": ""
@@ -69,14 +69,13 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Class1.cs",
-              "DocumentMoniker": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.BLL\\Class1.cs",
+              "DocumentMoniker": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.BLL\\Class1.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Class1.cs",
-              "ToolTip": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.BLL\\Class1.cs",
+              "ToolTip": "D:\\Stuff\\Github\\SWP391_Backend\\WarrantyManagement.BLL\\Class1.cs",
               "RelativeToolTip": "WarrantyManagement.BLL\\Class1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T00:25:16.508Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-21T00:25:16.508Z"
             }
           ]
         },

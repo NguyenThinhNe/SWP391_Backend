@@ -109,17 +109,6 @@ pipeline {
                         archiveArtifacts artifacts: 'trivy.*', allowEmptyArchive: true
                     }
                 }
-
-                stage('NPM Audit') {
-                    steps {
-                        echo "#====================== NPM Security Audit ======================#"
-                        sh """
-                            npm audit --audit-level=high --json > npm-audit.json || true
-                            npm audit --audit-level=high || true
-                        """
-                        archiveArtifacts artifacts: 'npm-audit.json', allowEmptyArchive: true
-                    }
-                }
             }
         }
 

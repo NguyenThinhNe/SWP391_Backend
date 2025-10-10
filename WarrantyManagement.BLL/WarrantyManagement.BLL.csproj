@@ -8,8 +8,16 @@
 
   <ItemGroup>
     <Folder Include="Infrastructures\" />
-    <Folder Include="Services\Implements\" />
-    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WarrantyManagement.DAL\WarrantyManagement.DAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,6 +19,7 @@ namespace WarrantyManagement.DAL.Mapper
             _mapper = mapper;
         }
 
+        // For Map create user request
         public User MapToEntity(CreateUserRequest request)
         {
             return _mapper.Map<User>(request);

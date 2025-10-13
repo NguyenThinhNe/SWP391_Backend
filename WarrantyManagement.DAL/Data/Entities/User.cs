@@ -26,13 +26,15 @@ namespace WarrantyManagement.DAL.Data.Entities
 
         [ForeignKey(nameof(ServiceCenterId))]
         public ServiceCenter ServiceCenter { get; set; }
+
+        public ICollection<WarrantyClaim> warrantyClaims { get; set; }
     }
 
     public enum UserRole
     {
-       SCStaff = 1,
-       SCTech = 2,
-       EVMStaff = 3,
-       Admin = 4
+        SCStaff = 1,
+        SCTech = 2,
+        EVMStaff = 3,
+        Admin = 4
     }
 }

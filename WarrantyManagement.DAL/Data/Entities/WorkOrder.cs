@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Enums;
 
 namespace WarrantyManagement.DAL.Data.Entities
 {
@@ -24,33 +25,30 @@ namespace WarrantyManagement.DAL.Data.Entities
         
         public int EstimateHour { get; set; }
 
+        [Required]
+        public WorkOrderStatus Status { get; set; } = WorkOrderStatus.Pending;
+
+        [Required]
+        public WorkOrderPriority Priority { get; set; } = WorkOrderPriority.Low;
+
+        [Required]
         public Guid ClaimId { get; set; }
         [ForeignKey(nameof(ClaimId))]
         public WarrantyClaim WarrantyClaim { get; set; }
 
+        [Required]
         public Guid PartId { get; set; }
         [ForeignKey(nameof(PartId))]
         public ICollection<Part> Parts { get; set; }
-        
+
+        [Required]
         public Guid UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
         
+        [Required]
         public Guid CustomerId { get; set; }
         [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }
-
-        public enum Priority
-        {
-            Low, Medium, High
-        }
-
-        public enum Status
-        {
-            Pending,
-            InProgress,
-            Completed,
-            Overdue
-        }
     }
 }

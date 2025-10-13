@@ -11,7 +11,6 @@ namespace WarrantyManagement.DAL.Data.Entities
     public class CustomerVehicle
     {
         [Key]
-        [Required]
         public string VIN {  get; set; }
 
         [Required]
@@ -23,14 +22,17 @@ namespace WarrantyManagement.DAL.Data.Entities
         public DateTime PurchaseDate { get; set; }
         
         public int MileAge { get; set; }
-        
-        [ForeignKey(nameof(CampaignId))]
+
+        [Required]
         public Guid CampaignId { get; set; }
+        [ForeignKey(nameof(CampaignId))]
         public Campaign Campaign { get; set; }
 
         [Required]
-        [ForeignKey(nameof(CustomerId))]
         public Guid CustomerId { get; set; }
+        [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }
+
+        public ICollection<VehiclePart> vehicleParts { get; set; }
     }
 }

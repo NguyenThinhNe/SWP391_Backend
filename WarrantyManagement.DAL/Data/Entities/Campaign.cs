@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Enums;
 
 namespace WarrantyManagement.DAL.Data.Entities
 {
     public class Campaign
     {
         [Key]
-        [Required]
         public Guid CampaignId { get; set; }
         
         [Required]
@@ -29,12 +29,7 @@ namespace WarrantyManagement.DAL.Data.Entities
         [Required]
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        public enum Status
-        {
-            Pending,
-            InProgress,
-            Completed,
-            Overdue
-        }
+        [Required]
+        public CampaignStatus Status { get; set; } = CampaignStatus.Pending;
     }
 }

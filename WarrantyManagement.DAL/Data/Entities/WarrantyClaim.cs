@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Enums;
 
 namespace WarrantyManagement.DAL.Data.Entities
 {
@@ -19,6 +20,9 @@ namespace WarrantyManagement.DAL.Data.Entities
 
         [MaxLength(200)]
         public string ClaimDescription { get; set; }
+
+        [Required]
+        public WarrantyClaimStatus Status { get; set; } = WarrantyClaimStatus.Pending;
 
         [Required]
         [MaxLength(200)]
@@ -40,13 +44,5 @@ namespace WarrantyManagement.DAL.Data.Entities
         public WarrantyPolicy WarrantyPolicy { get; set; }
 
         public ICollection<PartItem> PartItems { get; set; }
-
-        public enum ClaimStatus
-        {
-            Pending,
-            InProgress,
-            Completed,
-            Overdue
-        }
     }
 }

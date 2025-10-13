@@ -1884,11 +1884,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "projectUniqueName": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
       "projectName": "WarrantyManagement.API",
-      "projectPath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "projectPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
       "packagesPath": "C:\\Users\\jso\\.nuget\\packages\\",
-      "outputPath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
+      "outputPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1909,8 +1909,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-              "projectPath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
+            "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
+              "projectPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
             }
           }
         }

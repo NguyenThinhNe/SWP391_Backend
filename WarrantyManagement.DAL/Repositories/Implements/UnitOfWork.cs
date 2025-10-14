@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,63 @@ using WarrantyManagement.DAL.Repositories.Interfaces;
 namespace WarrantyManagement.DAL.Repositories.Implements
 {
     public class UnitOfWork : IUnitOfWork
+
     {
         private readonly WarrantyDbContext _context;
-        public IUserRepository Users { get; }
-        //public IServiceCenterRepository ServiceCenters { get; }
-
-        public UnitOfWork(WarrantyDbContext context,
-                          IUserRepository userRepo)
-                          //IServiceCenterRepository serviceCenterRepo
+        private IDbContextTransaction? _transaction;
+        public UnitOfWork(WarrantyDbContext context)
         {
             _context = context;
-            Users = userRepo;
-            //ServiceCenters = serviceCenterRepo;
+        }
+        public async Task<int> SaveChangesAsync()
+        => await _context.SaveChangesAsync();
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+            => await _context.SaveChangesAsync(cancellationToken);
+
+        // Transaction methods
+        public async Task BeginTransactionAsync()
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
         }
 
-        public async  Task<int> SaveChangesAsync()
-        => await _context.SaveChangesAsync();
+        public async Task CommitTransactionAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+                if (_transaction != null)
+                    await _transaction.CommitAsync();
+            }
+            catch
+            {
+                await RollbackTransactionAsync();
+                throw;
+            }
+            finally
+            {
+                if (_transaction != null)
+                {
+                    await _transaction.DisposeAsync();
+                    _transaction = null;
+                }
+            }
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            _transaction?.Dispose();
+            _context.Dispose();
+        }
     }
 }

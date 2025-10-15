@@ -37,6 +37,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         [ForeignKey(nameof(ServiceCenterId))]
         public ServiceCenter ServiceCenter { get; set; }
 
-        public ICollection<WarrantyClaim> warrantyClaims { get; set; }
+        public ICollection<WarrantyClaim> WarrantyClaims { get; set; }
     }
 }

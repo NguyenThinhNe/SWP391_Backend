@@ -36,7 +36,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         [ForeignKey(nameof(ClaimId))]
         public WarrantyClaim WarrantyClaim { get; set; }
 
-        [Required]
         public Guid PartId { get; set; }
         [ForeignKey(nameof(PartId))]
         public ICollection<Part> Parts { get; set; }

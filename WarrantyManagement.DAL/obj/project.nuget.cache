@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PH1xD3jxh+Y=",
+  "dgSpecHash": "tE0g1V0Ph8A=",
   "success": true,
-  "projectFilePath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+  "projectFilePath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jso\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\jso\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

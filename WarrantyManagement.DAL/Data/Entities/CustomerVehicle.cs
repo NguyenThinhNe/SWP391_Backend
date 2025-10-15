@@ -33,6 +33,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }
 
-        public ICollection<VehiclePart> vehicleParts { get; set; }
+        public ICollection<VehiclePart> VehicleParts { get; set; }
     }
 }

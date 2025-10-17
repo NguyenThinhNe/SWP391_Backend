@@ -1878,23 +1878,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Users\\jso\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "projectUniqueName": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
       "projectName": "WarrantyManagement.API",
-      "projectPath": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
+      "projectPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "packagesPath": "C:\\Users\\jso\\.nuget\\packages\\",
+      "outputPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jso\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1909,8 +1909,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-              "projectPath": "D:\\SWP391_Backend\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
+            "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
+              "projectPath": "E:\\Cabinet\\Github\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
             }
           }
         }
@@ -1963,7 +1963,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -29,7 +29,7 @@ namespace WarrantyManagement.DAL.Data.Entities
         
         [Required]
         public DateTime CreateTime { get; set; } = DateTime.Now;
-
+        
         public ICollection<WarrantyClaim> warrantyClaims { get; set; }
     }
 }

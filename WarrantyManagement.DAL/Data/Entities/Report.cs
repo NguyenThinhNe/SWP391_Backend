@@ -35,5 +35,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         public Guid UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
+
     }
 }

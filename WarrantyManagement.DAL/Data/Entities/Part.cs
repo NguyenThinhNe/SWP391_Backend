@@ -27,6 +27,11 @@ namespace WarrantyManagement.DAL.Data.Entities
         [ForeignKey(nameof(PolicyId))]
         public WarrantyPolicy WarrantyPolicy { get; set; }
 
+        public Guid WorkOrderId { get; set; }
+        [ForeignKey(nameof(WorkOrderId))]
         public WorkOrder WorkOrder { get; set; }
+
+        public ICollection<PartItem> PartItems { get; set; }
+        public ICollection<VehiclePart> VehicleParts { get; set; }
     }
 }

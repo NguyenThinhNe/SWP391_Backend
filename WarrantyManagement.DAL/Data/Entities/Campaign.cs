@@ -31,5 +31,7 @@ namespace WarrantyManagement.DAL.Data.Entities
 
         [Required]
         public CampaignStatus Status { get; set; } = CampaignStatus.Pending;
+
+        public ICollection<CustomerVehicle> CustomerVehicles { get; set; } 
     }
 }

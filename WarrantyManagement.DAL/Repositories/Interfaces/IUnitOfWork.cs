@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace WarrantyManagement.DAL.Repositories.Interfaces
 {
-    public interface IUnitOfWork :IDisposable
+    public interface IUnitOfWork : IGenericRepositoryFactory, IDisposable
     {
-        // Save change methods
+        Task<T> ExecuteInTransactionAsync<T>(Func<Task<T>> operation);
+        Task ExecuteInTransactionAsync(Func<Task> operation);
         Task<int> SaveChangesAsync();
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
-        // Transaction support
-        Task BeginTransactionAsync();
-        Task CommitTransactionAsync();
-        Task RollbackTransactionAsync();
-
-
+    }
+    public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
+    {
+        TContext Context { get; }
     }
 }

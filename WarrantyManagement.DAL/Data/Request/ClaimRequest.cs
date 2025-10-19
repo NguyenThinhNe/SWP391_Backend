@@ -16,7 +16,6 @@ namespace WarrantyManagement.DAL.Data.Request
         public Guid ServiceCenterId { get; set; }
 
         [Required(ErrorMessage = "VIN is required")]
-        [StringLength(17, MinimumLength = 17, ErrorMessage = "VIN must be exactly 17 characters")]
         public string VIN { get; set; }
 
         [Required(ErrorMessage = "Vehicle name is required")]
@@ -44,5 +43,8 @@ namespace WarrantyManagement.DAL.Data.Request
 
         [MaxLength(200, ErrorMessage = "Claim description cannot exceed 200 characters")]
         public string ClaimDescription { get; set; }
+
+        [Required(ErrorMessage = "Policy ID is required")]
+        public Guid PolicyId { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using WarrantyManagement.DAL.Data.Response;
 
 namespace WarrantyManagement.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/claims")]
     [ApiController]
     public class ClaimController : ControllerBase
     {
@@ -22,75 +22,7 @@ namespace WarrantyManagement.API.Controllers
             _logger = logger;
         }
 
-        #region Create Claim
-
-        /// <summary>
-        /// Create a new warranty claim
-        /// </summary>
-        /// <param name="request">Claim request data with TechnicianId</param>
-        /// <returns>Created claim response</returns>
-        /// <response code="200">Returns the newly created claim</response>
-        /// <response code="400">If the request is invalid or business rules are violated</response>
-        /// <response code="404">If referenced entities (vehicle, part) are not found</response>
-        [HttpPost]
-        [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
-        public async Task<IActionResult> CreateClaim([FromBody] ClaimRequestWithTechnician request)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "Invalid request data",
-                        Errors = ModelState.Values
-                            .SelectMany(v => v.Errors)
-                            .Select(e => e.ErrorMessage)
-                            .ToList()
-                    });
-                }
-
-                var response = await _claimService.CreateClaimAsync(
-                    request.ClaimRequest,
-                    request.TechnicianId);
-
-                return Ok(new SuccessResponse<ClaimResponse>
-                {
-                    Success = true,
-                    Message = "Claim created successfully",
-                    Data = response
-                });
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while creating the claim",
-                    Details = ex.Message
-                });
-            }
-        }
-
-        #endregion
-
         #region Get Claims
-
         /// <summary>
         /// Get claim by ID
         /// </summary>
@@ -143,13 +75,13 @@ namespace WarrantyManagement.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
         public async Task<IActionResult> GetClaims(
-            [FromQuery] WarrantyClaimStatus? status = null,
+            
             [FromQuery] Guid? serviceCenterId = null)
         {
             try
             {
                 var response = await _claimService.GetClaimsAsync(
-                    status,
+                 
                     serviceCenterId);
 
                 return Ok(new SuccessResponse<ICollection<ClaimResponse>>
@@ -198,23 +130,32 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
-
         /// <summary>
-        /// Get all pending claims
+        /// Get claims by status
         /// </summary>
-        /// <returns>List of pending claims</returns>
-        [HttpGet("pending")]
-        [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
-        public async Task<IActionResult> GetPendingClaims()
+        /// <param name="Status">Status</param>
+        /// <returns>List of claims searched by status</returns>
+        [HttpGet("status")]
+        public async Task<IActionResult> GetClaimsByStatus([FromQuery] WarrantyClaimStatus status)
         {
             try
             {
-                var response = await _claimService.GetPendingClaimsAsync();
+                var response = await _claimService.GetClaimsByStatusAsync(status);
+
+                if (response == null || response.Count == 0)
+                {
+                    return Ok(new SuccessResponse<ICollection<ClaimResponse>>
+                    {
+                        Success = true,
+                        Message = $"No claims found with status {status}",
+                        Data = new List<ClaimResponse>()
+                    });
+                }
 
                 return Ok(new SuccessResponse<ICollection<ClaimResponse>>
                 {
                     Success = true,
-                    Message = $"Retrieved {response.Count} pending claims",
+                    Message = $"Retrieved {response.Count} claims with status {status}",
                     Data = response
                 });
             }
@@ -222,41 +163,11 @@ namespace WarrantyManagement.API.Controllers
             {
                 return StatusCode(500, new ErrorResponse
                 {
-                    Message = "An error occurred while retrieving pending claims",
-                    Details = ex.Message
+                    Message = "An error occurred while retrieving claims",
+                    Details = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }
-
-        /// <summary>
-        /// Get all overdue claims
-        /// </summary>
-        /// <returns>List of overdue claims</returns>
-        [HttpGet("overdue")]
-        [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
-        public async Task<IActionResult> GetOverdueClaims()
-        {
-            try
-            {
-                var response = await _claimService.GetOverdueClaimsAsync();
-
-                return Ok(new SuccessResponse<ICollection<ClaimResponse>>
-                {
-                    Success = true,
-                    Message = $"Retrieved {response.Count} overdue claims",
-                    Data = response
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while retrieving overdue claims",
-                    Details = ex.Message
-                });
-            }
-        }
-
         #endregion
 
         #region Update Claim Status

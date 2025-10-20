@@ -17,14 +17,19 @@ namespace WarrantyManagement.DAL.Data.Mapper
         {
             CreateMap<ClaimRequest, WarrantyClaim>()
                 .ForMember(dest => dest.ClaimId, opt => opt.Ignore())
+                .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => WarrantyClaimStatus.Pending))
-                .ForMember(dest => dest.UserId, opt => opt.Ignore()) // vẫn ignore để set trong service
-                .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
-                .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
                 .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
                 .ForMember(dest => dest.ClaimDescription, opt => opt.MapFrom(src => src.ClaimDescription))
-                .ForAllOtherMembers(opt => opt.Ignore());
+                .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
+                .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
+                .ForMember(dest => dest.UserId, opt => opt.Ignore()) // Set in service
+                .ForMember(dest => dest.User, opt => opt.Ignore())
+                .ForMember(dest => dest.CustomerVehicle, opt => opt.Ignore())
+                .ForMember(dest => dest.WarrantyPolicy, opt => opt.Ignore())
+                .ForMember(dest => dest.PartItems, opt => opt.Ignore());
 
+            // ✅ WarrantyClaim → ClaimResponse
             CreateMap<WarrantyClaim, ClaimResponse>()
                 // Direct mappings
                 .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId))
@@ -73,6 +78,7 @@ namespace WarrantyManagement.DAL.Data.Mapper
 
                 // User information (Technician)
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
+        
         }
 
     }

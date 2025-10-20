@@ -12,9 +12,6 @@ namespace WarrantyManagement.DAL.Data.Request
         [Required(ErrorMessage = "Claim date is required")]
         public DateTime ClaimDate { get; set; }
 
-        [Required(ErrorMessage = "Service center ID is required")]
-        public Guid ServiceCenterId { get; set; }
-
         [Required(ErrorMessage = "VIN is required")]
         public string VIN { get; set; }
 

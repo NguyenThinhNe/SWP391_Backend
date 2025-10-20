@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bR0o9ZtI/YQ=",
+  "dgSpecHash": "FE6WRk8JMbo=",
   "success": true,
-  "projectFilePath": "D:\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+  "projectFilePath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

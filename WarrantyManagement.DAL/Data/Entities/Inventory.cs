@@ -16,9 +16,7 @@ namespace WarrantyManagement.DAL.Data.Entities
         [Required, MaxLength(100)]
         public string PartName { get; set; }
 
-        [Required]
-        public Guid PartItemId { get; set; }
-        [ForeignKey(nameof(PartItemId))]
+        
         public ICollection<PartItem> PartItems { get; set; }
 
         [Required]

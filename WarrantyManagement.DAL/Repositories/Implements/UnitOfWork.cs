@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,64 +10,88 @@ using WarrantyManagement.DAL.Repositories.Interfaces;
 
 namespace WarrantyManagement.DAL.Repositories.Implements
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : DbContext
 
     {
-        private readonly WarrantyDbContext _context;
-        private IDbContextTransaction? _transaction;
-        public UnitOfWork(WarrantyDbContext context)
-        {
-            _context = context;
-        }
-        public async Task<int> SaveChangesAsync()
-        => await _context.SaveChangesAsync();
+        public TContext Context { get; }
+        private Dictionary<Type, object> _repositories;
 
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
-            => await _context.SaveChangesAsync(cancellationToken);
-
-        // Transaction methods
-        public async Task BeginTransactionAsync()
+        public UnitOfWork(TContext context)
         {
-            _transaction = await _context.Database.BeginTransactionAsync();
+            Context = context;
         }
 
-        public async Task CommitTransactionAsync()
+        #region Repository Management
+        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            try
+            _repositories ??= new Dictionary<Type, object>();
+            if (_repositories.TryGetValue(typeof(TEntity), out object repository))
             {
-                await _context.SaveChangesAsync();
-                if (_transaction != null)
-                    await _transaction.CommitAsync();
+                return (IGenericRepository<TEntity>)repository;
             }
-            catch
+
+            repository = new GenericRepository<TEntity>(Context);
+            _repositories.Add(typeof(TEntity), repository);
+            return (IGenericRepository<TEntity>)repository;
+        }
+        #endregion
+
+        #region Transaction Management
+        public async Task<T> ExecuteInTransactionAsync<T>(Func<Task<T>> operation)
+        {
+            var executionStrategy = Context.Database.CreateExecutionStrategy();
+            return await executionStrategy.ExecuteAsync(async () =>
             {
-                await RollbackTransactionAsync();
-                throw;
-            }
-            finally
-            {
-                if (_transaction != null)
+                await using var transaction = await Context.Database.BeginTransactionAsync();
+                try
                 {
-                    await _transaction.DisposeAsync();
-                    _transaction = null;
+                    var result = await operation();
+                    await Context.SaveChangesAsync(); // Automatically handle validation
+                    await transaction.CommitAsync();
+                    return result;
                 }
-            }
+                catch
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+            });
         }
 
-        public async Task RollbackTransactionAsync()
+        public async Task ExecuteInTransactionAsync(Func<Task> operation)
         {
-            if (_transaction != null)
+            var executionStrategy = Context.Database.CreateExecutionStrategy();
+            await executionStrategy.ExecuteAsync(async () =>
             {
-                await _transaction.RollbackAsync();
-                await _transaction.DisposeAsync();
-                _transaction = null;
-            }
+                await using var transaction = await Context.Database.BeginTransactionAsync();
+                try
+                {
+                    await operation();
+                    await Context.SaveChangesAsync(); // Automatically handle validation
+                    await transaction.CommitAsync();
+                }
+                catch
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+            });
         }
+        #endregion
 
+        #region Save Changes
+        public async Task<int> SaveChangesAsync()
+        {
+            return await Context.SaveChangesAsync();
+        }
+        #endregion
+
+        #region IDisposable Implementation
         public void Dispose()
         {
-            _transaction?.Dispose();
-            _context.Dispose();
+            Context?.Dispose();
+            GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

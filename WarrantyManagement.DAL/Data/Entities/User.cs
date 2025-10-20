@@ -38,5 +38,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         public ServiceCenter ServiceCenter { get; set; }
 
         public ICollection<WarrantyClaim> WarrantyClaims { get; set; }
+        public ICollection<Report> Reports { get; set; }
     }
 }

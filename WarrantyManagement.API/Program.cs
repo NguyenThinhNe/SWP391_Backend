@@ -1,3 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using WarrantyManagement.BLL.Services.Implements;
+using WarrantyManagement.BLL.Services.Interfaces;
+using WarrantyManagement.DAL.Data.Context;
+using WarrantyManagement.DAL.Repositories.Implements;
+using WarrantyManagement.DAL.Repositories.Interfaces;
+using WarrantyManagement.DAL.Data.Mapper;
 
 namespace WarrantyManagement.API
 {
@@ -7,32 +16,76 @@ namespace WarrantyManagement.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
+            // =============================
+            // Services configuration
+            // =============================
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            // AutoMapper 
+            builder.Services.AddAutoMapper(typeof(ClaimMappingProfile).Assembly);
+
+            // DbContext
+            builder.Services.AddDbContext<WarrantyDbContext>(options =>
+                options.UseNpgsql(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("WarrantyManagement.DAL")
+                )
+            );
+
+            // Dependency Injection
+            builder.Services.AddScoped<IUnitOfWork<WarrantyDbContext>, UnitOfWork<WarrantyDbContext>>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IClaimService, ClaimService>();
+
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
+            // Swagger
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Warranty Management API",
+                    Version = "v1",
+                    Description = "API for managing electric vehicle warranty claims (No Authentication)"
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                if (File.Exists(xmlPath))
+                    options.IncludeXmlComments(xmlPath);
+            });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            // if (app.Environment.IsDevelopment())
-            // {
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI();
-            // }
+            // =============================
+            // Middleware pipeline
+            // =============================
 
+            // Swagger always enabled
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            app.UseHttpsRedirection();
+         
+            var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+            if (!isDocker)
+            {
+                app.UseHttpsRedirection();
+            }
 
+            app.UseCors("AllowAll");
             app.UseAuthorization();
-
-
             app.MapControllers();
-
+          
             app.Run();
         }
     }

@@ -29,8 +29,8 @@ namespace WarrantyManagement.DAL.Data.Entities
         public string IssueDescription { get; set; }
         
         [Required]
-        [ForeignKey(nameof(VIN))]
         public string VIN {  get; set; }
+        [ForeignKey(nameof(VIN))]
         public CustomerVehicle CustomerVehicle { get; set; }
         
         [Required]

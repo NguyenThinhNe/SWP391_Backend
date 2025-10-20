@@ -26,5 +26,9 @@ namespace WarrantyManagement.DAL.Data.Entities
         public string VIN {  get; set; }
         [ForeignKey(nameof(VIN))]
         public CustomerVehicle Vehicle { get; set; }
+
+        public Guid PartId { get; set; }
+        [ForeignKey(nameof(PartId))]
+        public Part Part { get; set; }
     }
 }

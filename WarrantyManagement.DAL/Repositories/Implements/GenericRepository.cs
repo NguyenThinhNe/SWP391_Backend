@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,100 +13,201 @@ namespace WarrantyManagement.DAL.Repositories.Implements
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly WarrantyDbContext _context;
+        protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
-        public GenericRepository(WarrantyDbContext context)
+
+        public GenericRepository(DbContext context)
         {
-            _context = context;
-            _dbSet = _context.Set<T>();
-        }
-        public virtual async Task<List<T>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
+            _dbContext = context;
+            _dbSet = context.Set<T>();
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id)
+        public void Dispose()
         {
-            return await _dbSet.FindAsync(id);
+            _dbContext?.Dispose();
         }
 
-        public virtual async Task<T?> FindAsync(Expression<Func<T, bool>> predicate)
+        #region Get Async
+
+        public virtual async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
-            return await _dbSet.FirstOrDefaultAsync(predicate);
+            IQueryable<T> query = _dbSet;
+            if (include != null) query = include(query);
+
+            if (predicate != null) query = query.Where(predicate);
+
+            if (orderBy != null) return await orderBy(query).FirstOrDefaultAsync();
+
+            return await query.FirstOrDefaultAsync();
         }
 
-        public virtual async Task<List<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<TResult> FirstOrDefaultAsync<TResult>(Expression<Func<T, TResult>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            IQueryable<T> query = _dbSet;
+            if (include != null) query = include(query);
+
+            if (predicate != null) query = query.Where(predicate);
+
+            if (orderBy != null) return await orderBy(query).Select(selector).FirstOrDefaultAsync();
+
+            return await query.Select(selector).FirstOrDefaultAsync();
         }
 
-        public virtual async Task<bool> ExistsAsync(Guid id)
+        public virtual async Task<ICollection<T>> GetListAsync(
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int? take = null)
         {
-            var entity = await _dbSet.FindAsync(id);
-            return entity != null;
+            IQueryable<T> query = _dbSet;
+
+            if (include != null) query = include(query);
+
+            if (predicate != null) query = query.Where(predicate);
+
+            if (orderBy != null) query = orderBy(query);
+
+            if (take.HasValue) query = query.Take(take.Value);
+
+            return await query.ToListAsync();
         }
 
-        // === COMMAND METHODS ===
-
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task<ICollection<TResult>> GetListAsync<TResult>(
+            Expression<Func<T, TResult>> selector,
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int? take = null)
         {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
+            IQueryable<T> query = _dbSet;
 
+            if (include != null) query = include(query);
+
+            if (predicate != null) query = query.Where(predicate);
+
+            if (orderBy != null) query = orderBy(query);
+
+            IQueryable<TResult> resultQuery = query.Select(selector);
+
+            if (take.HasValue) resultQuery = resultQuery.Take(take.Value);
+
+            return await resultQuery.ToListAsync();
+        }
+
+        //public Task<PagingResponse<T>> GetPagingListAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int page = 1,
+        //    int size = 10)
+        //{
+        //    IQueryable<T> query = _dbSet;
+        //    if (include != null) query = include(query);
+        //    if (predicate != null) query = query.Where(predicate);
+        //    if (orderBy != null) return orderBy(query).ToPagingResponse(page, size, 1);
+        //    return query.ToPagingResponse(page, size, 1);
+        //}
+
+        //public Task<PagingResponse<TResult>> GetPagingListAsync<TResult>(Expression<Func<T, TResult>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        //    Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int page = 1, int size = 10)
+        //{
+        //    IQueryable<T> query = _dbSet;
+        //    if (include != null) query = include(query);
+        //    if (predicate != null) query = query.Where(predicate);
+        //    if (orderBy != null) return orderBy(query).Select(selector).ToPagingResponse(page, size, 1);
+        //    return query.Select(selector).ToPagingResponse(page, size, 1);
+        //}
+
+        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
+        {
+            if (predicate != null) return await _dbSet.CountAsync(predicate);
+            return await _dbSet.CountAsync();
+        }
+
+        public virtual async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        {
+            IQueryable<T> query = _dbSet;
+            if (include != null) query = include(query);
+
+            if (predicate != null) query = query.Where(predicate);
+
+            if (orderBy != null) return await orderBy(query).SingleOrDefaultAsync();
+
+            return await query.SingleOrDefaultAsync();
+        }
+
+        public virtual async Task<TResult> SingleOrDefaultAsync<TResult>(Expression<Func<T, TResult>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        {
+            IQueryable<T> query = _dbSet;
+            if (include != null) query = include(query);
+
+            if (predicate != null) query = query.Where(predicate);
+
+            if (orderBy != null) return await orderBy(query).Select(selector).SingleOrDefaultAsync();
+
+            return await query.Select(selector).SingleOrDefaultAsync();
+        }
+
+        #endregion
+
+        #region Insert
+
+        public async Task InsertAsync(T entity)
+        {
+            if (entity == null) return;
             await _dbSet.AddAsync(entity);
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<T> entities)
+        public async Task InsertRangeAsync(IEnumerable<T> entities)
         {
-            if (entities == null || !entities.Any())
-                throw new ArgumentNullException(nameof(entities));
-
             await _dbSet.AddRangeAsync(entities);
         }
 
-        public virtual async Task Update(T entity)
+        #endregion
+
+        #region Update
+        public void UpdateAsync(T entity)
         {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
-
-            var entry = _context.Entry(entity);
-
-            if (entry.State == EntityState.Detached)
-            {
-                _dbSet.Attach(entity);
-            }
-
-            entry.State = EntityState.Modified;
-            await Task.CompletedTask;
+            _dbSet.Update(entity);
         }
 
-        public virtual async Task UpdateRange(IEnumerable<T> entities)
+        public void UpdateRange(IEnumerable<T> entities)
         {
-            if (entities == null || !entities.Any())
-                throw new ArgumentNullException(nameof(entities));
-
             _dbSet.UpdateRange(entities);
-            await Task.CompletedTask;
         }
+        #endregion
 
-        public virtual async Task<bool> Delete(Guid id)
+        #region delete
+        public void DeleteAsync(T entity)
         {
-            var entity = await _dbSet.FindAsync(id);
-
-            if (entity == null)
-                return false;
-
             _dbSet.Remove(entity);
-            return true;
         }
 
-        public virtual async Task<bool> DeleteRange(IEnumerable<T> entities)
+        public void DeleteRangeAsync(IEnumerable<T> entities)
         {
-            if (entities == null || !entities.Any())
-                return false;
-
             _dbSet.RemoveRange(entities);
-            return true;
         }
+        #endregion
+
+        #region queryable
+        public virtual IQueryable<T> CreateBaseQuery(
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool asNoTracking = true)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (include != null)
+                query = include(query);
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            if (asNoTracking)
+                query = query.AsNoTracking();
+
+            return query;
+        }
+
+        #endregion
     }
 }

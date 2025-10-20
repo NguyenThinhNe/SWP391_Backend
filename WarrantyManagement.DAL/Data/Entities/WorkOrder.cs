@@ -12,7 +12,7 @@ namespace WarrantyManagement.DAL.Data.Entities
     public class WorkOrder
     {
         [Key]
-        public Guid WorkId { get; set; }
+        public Guid WorkOrderId { get; set; }
 
         [MaxLength(200)]
         public string Description { get; set; }
@@ -35,9 +35,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         public Guid ClaimId { get; set; }
         [ForeignKey(nameof(ClaimId))]
         public WarrantyClaim WarrantyClaim { get; set; }
-
-        public Guid PartId { get; set; }
-        [ForeignKey(nameof(PartId))]
         public ICollection<Part> Parts { get; set; }
 
         [Required]

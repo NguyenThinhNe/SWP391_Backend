@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {}
+    "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {}
   },
   "projects": {
-    "D:\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {
+    "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+        "projectUniqueName": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
         "projectName": "WarrantyManagement.API",
-        "projectPath": "D:\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+        "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
+        "outputPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-                "projectPath": "D:\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
+              "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
+                "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
               }
             }
           }
@@ -102,14 +102,14 @@
         }
       }
     },
-    "D:\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
+    "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+        "projectUniqueName": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
         "projectName": "WarrantyManagement.BLL",
-        "projectPath": "D:\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
+        "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\SWP391_Backend\\WarrantyManagement.BLL\\obj\\",
+        "outputPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -130,8 +130,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {
-                "projectPath": "D:\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj"
+              "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {
+                "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj"
               }
             }
           }
@@ -185,14 +185,14 @@
         }
       }
     },
-    "D:\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {
+    "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+        "projectUniqueName": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
         "projectName": "WarrantyManagement.DAL",
-        "projectPath": "D:\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+        "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\SWP391_Backend\\WarrantyManagement.DAL\\obj\\",
+        "outputPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

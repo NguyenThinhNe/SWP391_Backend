@@ -70,12 +70,13 @@ namespace WarrantyManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception here
+                Console.WriteLine($"❌ ERROR in CreateClaim: {ex}");
                 return StatusCode(500, new
                 {
                     success = false,
                     message = "An error occurred while creating the claim",
-                    error = ex.Message
+                    error = ex.Message,
+                    detail = ex.InnerException?.Message
                 });
             }
         }

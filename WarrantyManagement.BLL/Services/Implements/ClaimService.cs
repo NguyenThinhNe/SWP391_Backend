@@ -29,102 +29,90 @@ namespace WarrantyManagement.BLL.Services.Implements
         #region Create warranty claim 
         public async Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid technicianId)
         {
-            return await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            Guid newClaimId = Guid.Empty;
+
+            await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
-                // Get repositories
-                var vehicleRepo = _unitOfWork.GetRepository<CustomerVehicle>();
-                var policyRepo = _unitOfWork.GetRepository<WarrantyPolicy>();
-                var userRepo = _unitOfWork.GetRepository<User>();
+                // Repositories
                 var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
                 var partRepo = _unitOfWork.GetRepository<Part>();
                 var partItemRepo = _unitOfWork.GetRepository<PartItem>();
+                var vehicleRepo = _unitOfWork.GetRepository<CustomerVehicle>();
+                var policyRepo = _unitOfWork.GetRepository<WarrantyPolicy>();
+                var userRepo = _unitOfWork.GetRepository<User>();
 
-                // 1. Validate warranty eligibility
-                var isEligible = await ValidateWarrantyEligibilityAsync(request.VIN, request.PolicyId);
-                if (!isEligible)
-                {
-                    throw new InvalidOperationException("Vehicle is not eligible for warranty claim");
-                }
-
-                // 2. Get and validate vehicle
+                // ✅ 1. Lấy thông tin vehicle theo VIN
                 var vehicle = await vehicleRepo.FirstOrDefaultAsync(
                     predicate: v => v.VIN == request.VIN
                 );
 
                 if (vehicle == null)
-                {
                     throw new KeyNotFoundException($"Vehicle with VIN '{request.VIN}' not found");
-                }
 
-                // 3. Validate policy exists
+                // ✅ 2. Lấy policy
                 var policy = await policyRepo.FirstOrDefaultAsync(
                     predicate: p => p.PolicyId == request.PolicyId
                 );
 
                 if (policy == null)
-                {
                     throw new KeyNotFoundException($"Warranty policy with ID '{request.PolicyId}' not found");
-                }
 
-                // 4. Validate user exists and is technician
+                // ✅ 3. Lấy technician (user)
                 var user = await userRepo.FirstOrDefaultAsync(
                     predicate: u => u.UserId == technicianId
                 );
 
                 if (user == null)
-                {
                     throw new KeyNotFoundException($"User with ID '{technicianId}' not found");
-                }
 
-                // 5. Update vehicle information from request
+                // ✅ 4. Cập nhật lại thông tin vehicle (nếu có)
                 vehicle.VehicleName = request.VehicleName;
                 vehicle.PurchaseDate = request.PurchaseDate;
                 vehicle.MileAge = request.Mileage;
                 vehicleRepo.UpdateAsync(vehicle);
 
-                // 6. Map ClaimRequest to WarrantyClaim
+                // ✅ 5. Map ClaimRequest → WarrantyClaim
                 var claim = _mapper.Map<WarrantyClaim>(request);
                 claim.ClaimId = Guid.NewGuid();
                 claim.UserId = technicianId;
                 claim.Status = WarrantyClaimStatus.Pending;
 
-                // 7. Add the claim to database
+                // ✅ 6. Lưu Claim vào DB
                 await claimRepo.InsertAsync(claim);
+                newClaimId = claim.ClaimId;
 
-                // ✅ 8. Process ALL parts from request
-                foreach (var partItemRequest in request.PartItems)
+                // ✅ 7. Thêm danh sách PartItem
+                foreach (var item in request.PartItems)
                 {
-                    // 8.1 Validate part exists
-                    var existingPart = await partRepo.FirstOrDefaultAsync(
-                        predicate: p => p.PartId == partItemRequest.PartId
+                    // Kiểm tra Part tồn tại
+                    var part = await partRepo.FirstOrDefaultAsync(
+                        predicate: p => p.PartId == item.PartId
                     );
 
-                    if (existingPart == null)
-                    {
-                        throw new KeyNotFoundException(
-                            $"Part with ID '{partItemRequest.PartId}' not found");
-                    }
-
-                    // 8.2 Create PartItem linking the claim to the part
+                    if (part == null)
+                        throw new KeyNotFoundException($"Part with ID '{item.PartId}' not found");
+                    // Tạo PartItem mới
                     var partItem = new PartItem
                     {
                         PartItemId = Guid.NewGuid(),
                         ClaimId = claim.ClaimId,
-                        PartId = partItemRequest.PartId,
-                        PartNumber = partItemRequest.PartNumber,
-                        Quantity = partItemRequest.Quantity, // ✅ Lấy đúng quantity
+                        PartId = part.PartId,
+                        PartNumber = item.PartNumber,
+                        
+                        Quantity = item.Quantity
                     };
 
                     await partItemRepo.InsertAsync(partItem);
                 }
 
-                // 9. Save changes
+                // ✅ Lưu thay đổi trong transaction
                 await _unitOfWork.SaveChangesAsync();
-
-                // 10. Retrieve the complete claim with all details
-                return await GetClaimByIdAsync(claim.ClaimId);
             });
+
+            // ✅ Transaction đã commit
+            return await GetClaimByIdAsync(newClaimId);
         }
+
         #endregion
 
         #region Get Claims

@@ -29,8 +29,8 @@ namespace WarrantyManagement.DAL.Data.Entities
         public Guid ClaimId { get; set; }
         [ForeignKey(nameof(ClaimId))]
         public WarrantyClaim WarrantyClaim { get; set; }
-        public Guid InventoryId { get; set; }
+        public Guid? InventoryId { get; set; }
         [ForeignKey(nameof(InventoryId))]
-        public Inventory Inventory { get; set; }
+        public Inventory? Inventory { get; set; }
     }
 }

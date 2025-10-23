@@ -16,22 +16,19 @@ namespace WarrantyManagement.DAL.Data.Mapper
         public ClaimMappingProfile()
         {
             CreateMap<ClaimRequest, WarrantyClaim>()
-                .ForMember(dest => dest.ClaimId, opt => opt.Ignore())
-                .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => WarrantyClaimStatus.Pending))
-                .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
-                .ForMember(dest => dest.ClaimDescription, opt => opt.MapFrom(src => src.ClaimDescription))
-                .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
-                .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
-                .ForMember(dest => dest.UserId, opt => opt.Ignore()) // Set in service
-                .ForMember(dest => dest.User, opt => opt.Ignore())
-                .ForMember(dest => dest.CustomerVehicle, opt => opt.Ignore())
-                .ForMember(dest => dest.WarrantyPolicy, opt => opt.Ignore())
-                .ForMember(dest => dest.PartItems, opt => opt.Ignore());
+                 .ForMember(dest => dest.ClaimId, opt => opt.Ignore()) // Set in service
+                 .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
+                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
+                 .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
+                 .ForMember(dest => dest.UserId, opt => opt.Ignore()) // Set in service
+                 .ForMember(dest => dest.User, opt => opt.Ignore()) // Navigation property
+                 .ForMember(dest => dest.CustomerVehicle, opt => opt.Ignore()) // Navigation property
+                 .ForMember(dest => dest.WarrantyPolicy, opt => opt.Ignore()) // Navigation property
+                 .ForMember(dest => dest.PartItems, opt => opt.Ignore()); // Handled in service
 
             // ✅ WarrantyClaim → ClaimResponse
             CreateMap<WarrantyClaim, ClaimResponse>()
-                // Direct mappings
+                // Direct claim fields
                 .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId))
                 .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
@@ -47,19 +44,8 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.Mileage, opt => opt.MapFrom(src =>
                     src.CustomerVehicle != null ? src.CustomerVehicle.MileAge : 0))
 
-                // Part information from PartItems (get first part item)
-                .ForMember(dest => dest.PartId, opt => opt.MapFrom(src =>
-                    src.PartItems != null && src.PartItems.Any()
-                        ? src.PartItems.First().PartId
-                        : Guid.Empty))
-                .ForMember(dest => dest.PartName, opt => opt.MapFrom(src =>
-                    src.PartItems != null && src.PartItems.Any() && src.PartItems.First().Part != null
-                        ? src.PartItems.First().Part.PartName
-                        : string.Empty))
-                .ForMember(dest => dest.PartNumber, opt => opt.MapFrom(src =>
-                    src.PartItems != null && src.PartItems.Any()
-                        ? src.PartItems.First().PartNumber
-                        : string.Empty))
+                // Parts information (multiple parts)
+                .ForMember(dest => dest.Parts, opt => opt.MapFrom(src => src.PartItems))
 
                 // Policy information
                 .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
@@ -77,8 +63,24 @@ namespace WarrantyManagement.DAL.Data.Mapper
                         : string.Empty))
 
                 // User information (Technician)
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
-        
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.TechnicianName, opt => opt.MapFrom(src =>
+                    src.User != null ? src.User.Name : string.Empty));
+
+            // ✅ PartItem → PartItemResponse
+            CreateMap<PartItem, PartItemResponse>()
+                .ForMember(dest => dest.PartItemId, opt => opt.MapFrom(src => src.PartItemId))
+                .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.PartId))
+                .ForMember(dest => dest.PartName, opt => opt.MapFrom(src =>
+                    src.Part != null ? src.Part.PartName : string.Empty))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src =>
+                    src.Part != null ? src.Part.Description : string.Empty))
+                .ForMember(dest => dest.Cost, opt => opt.MapFrom(src =>
+                    src.Part != null ? src.Part.Cost : 0))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.TotalCost, opt => opt.MapFrom(src =>
+                    src.Part != null ? src.Part.Cost * src.Quantity : 0));
+                
         }
 
     }

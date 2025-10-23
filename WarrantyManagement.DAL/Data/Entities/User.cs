@@ -29,7 +29,7 @@ namespace WarrantyManagement.DAL.Data.Entities
 
         [Required]
         public DateTime CreatedTime { get; set; } = DateTime.Now;
-
+        public string Name { get; set; }
         public UserRole Role { get; set; } = UserRole.SCTech;
         
         // Foreign key reference

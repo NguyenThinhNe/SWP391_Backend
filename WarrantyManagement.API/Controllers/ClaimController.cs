@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WarrantyManagement.BLL.Services.Interfaces;
 using WarrantyManagement.DAL.Data.Enums;
 using WarrantyManagement.DAL.Data.Request;
@@ -13,463 +14,355 @@ namespace WarrantyManagement.API.Controllers
     public class ClaimController : ControllerBase
     {
         private readonly IClaimService _claimService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<ClaimController> _logger;
-        public ClaimController(IClaimService petService, IMapper mapper, ILogger<ClaimController> logger)
+
+        public ClaimController(IClaimService claimService)
         {
-            _claimService = petService;
-            _mapper = mapper;
-            _logger = logger;
+            _claimService = claimService;
         }
 
-        #region Get Claims
         /// <summary>
-        /// Get claim by ID
+        /// Create a new warranty claim
         /// </summary>
-        /// <param name="claimId">Claim ID</param>
-        /// <returns>Claim details</returns>
-        /// <response code="200">Returns the claim details</response>
-        /// <response code="404">If claim is not found</response>
-        [HttpGet("{claimId}")]
+        /// <param name="request">Claim request with selected parts</param>
+        /// <returns>Created claim response</returns>
+        [HttpPost]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
-        public async Task<IActionResult> GetClaimById(Guid claimId)
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> CreateClaim(
+            [FromBody] ClaimRequest request,
+            [FromQuery] Guid technicianId) // TODO: Get from JWT token after authentication
         {
             try
             {
-                var response = await _claimService.GetClaimByIdAsync(claimId);
-
-                return Ok(new SuccessResponse<ClaimResponse>
+                // Validate technicianId
+                if (technicianId == Guid.Empty)
                 {
-                    Success = true,
-                    Message = "Claim retrieved successfully",
-                    Data = response
+                    return BadRequest(new { message = "Technician ID is required" });
+                }
+
+                // Create the claim
+                var result = await _claimService.CreateClaimAsync(request, technicianId);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Claim created successfully",
+                    data = result
                 });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ErrorResponse
+                return NotFound(new
                 {
-                    Message = ex.Message
+                    success = false,
+                    message = ex.Message
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ErrorResponse
+                // Log the exception here
+                return StatusCode(500, new
                 {
-                    Message = "An error occurred while retrieving the claim",
-                    Details = ex.Message
+                    success = false,
+                    message = "An error occurred while creating the claim",
+                    error = ex.Message
                 });
             }
         }
 
         /// <summary>
-        /// Get all claims with optional filters
+        /// Get claim by ID
         /// </summary>
-        /// <param name="status">Filter by status</param>
-        /// <param name="serviceCenterId">Filter by service center</param>
-        /// <param name="vin">Filter by vehicle VIN</param>
-        /// <param name="fromDate">Filter claims from date</param>
-        /// <param name="toDate">Filter claims to date</param>
-        /// <returns>List of claims</returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
-        public async Task<IActionResult> GetClaims(
-            
-            [FromQuery] Guid? serviceCenterId = null)
+        [HttpGet("{claimId}")]
+        [ProducesResponseType(typeof(ClaimResponse), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetClaimById(Guid claimId)
         {
             try
             {
-                var response = await _claimService.GetClaimsAsync(
-                 
-                    serviceCenterId);
-
-                return Ok(new SuccessResponse<ICollection<ClaimResponse>>
+                var result = await _claimService.GetClaimByIdAsync(claimId);
+                return Ok(new
                 {
-                    Success = true,
-                    Message = $"Retrieved {response.Count} claims",
-                    Data = response
+                    success = true,
+                    data = result
                 });
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
-                return StatusCode(500, new ErrorResponse
+                return NotFound(new
                 {
-                    Message = "An error occurred while retrieving claims",
-                    Details = ex.Message
+                    success = false,
+                    message = ex.Message
                 });
             }
         }
 
         /// <summary>
-        /// Get claims by technician ID
+        /// Get all claims with optional service center filter
         /// </summary>
-        /// <param name="technicianId">Technician ID</param>
-        /// <returns>List of claims created by the technician</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
+        public async Task<IActionResult> GetClaims([FromQuery] Guid? serviceCenterId = null)
+        {
+            try
+            {
+                var results = await _claimService.GetClaimsAsync(serviceCenterId);
+                return Ok(new
+                {
+                    success = true,
+                    count = results.Count,
+                    data = results
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "An error occurred while retrieving claims",
+                    error = ex.Message
+                });
+            }
+        }
+
+        /// <summary>
+        /// Get claims by service center
+        /// </summary>
+        [HttpGet("service-center/{serviceCenterId}")]
+        [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetClaimsByServiceCenter(Guid serviceCenterId)
+        {
+            try
+            {
+                var results = await _claimService.GetClaimsAsync(serviceCenterId);
+                return Ok(new
+                {
+                    success = true,
+                    count = results.Count,
+                    data = results
+                });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        /// <summary>
+        /// Get claims by technician
+        /// </summary>
         [HttpGet("technician/{technicianId}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
         public async Task<IActionResult> GetClaimsByTechnician(Guid technicianId)
         {
             try
             {
-                var response = await _claimService.GetClaimsByTechnicianAsync(technicianId);
-
-                return Ok(new SuccessResponse<ICollection<ClaimResponse>>
+                var results = await _claimService.GetClaimsByTechnicianAsync(technicianId);
+                return Ok(new
                 {
-                    Success = true,
-                    Message = $"Retrieved {response.Count} claims for technician",
-                    Data = response
+                    success = true,
+                    count = results.Count,
+                    data = results
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ErrorResponse
+                return StatusCode(500, new
                 {
-                    Message = "An error occurred while retrieving claims",
-                    Details = ex.Message
+                    success = false,
+                    message = ex.Message
                 });
             }
         }
+
         /// <summary>
         /// Get claims by status
         /// </summary>
-        /// <param name="Status">Status</param>
-        /// <returns>List of claims searched by status</returns>
-        [HttpGet("status")]
-        public async Task<IActionResult> GetClaimsByStatus([FromQuery] WarrantyClaimStatus status)
+        [HttpGet("status/{status}")]
+        [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
+        public async Task<IActionResult> GetClaimsByStatus(WarrantyClaimStatus status)
         {
             try
             {
-                var response = await _claimService.GetClaimsByStatusAsync(status);
-
-                if (response == null || response.Count == 0)
+                var results = await _claimService.GetClaimsByStatusAsync(status);
+                return Ok(new
                 {
-                    return Ok(new SuccessResponse<ICollection<ClaimResponse>>
-                    {
-                        Success = true,
-                        Message = $"No claims found with status {status}",
-                        Data = new List<ClaimResponse>()
-                    });
-                }
-
-                return Ok(new SuccessResponse<ICollection<ClaimResponse>>
-                {
-                    Success = true,
-                    Message = $"Retrieved {response.Count} claims with status {status}",
-                    Data = response
+                    success = true,
+                    count = results.Count,
+                    data = results
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ErrorResponse
+                return StatusCode(500, new
                 {
-                    Message = "An error occurred while retrieving claims",
-                    Details = ex.InnerException?.Message ?? ex.Message
+                    success = false,
+                    message = ex.Message
                 });
             }
         }
-        #endregion
-
-        #region Update Claim Status
 
         /// <summary>
-        /// Start reviewing a claim - Changes status to InProgress
+        /// Start reviewing a claim
         /// </summary>
-        /// <param name="claimId">Claim ID</param>
-        /// <param name="evmStaffId">EVM Staff ID who is reviewing</param>
-        /// <returns>Updated claim</returns>
         [HttpPut("{claimId}/start-review")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
-        public async Task<IActionResult> StartReview(Guid claimId, [FromQuery] Guid evmStaffId)
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> StartReview(Guid claimId)
         {
             try
             {
-                if (evmStaffId == Guid.Empty)
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid userId))
                 {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "EVM Staff ID is required"
-                    });
+                    return Unauthorized(new { message = "Invalid or missing user authentication" });
                 }
 
-                var response = await _claimService.StartReviewAsync(claimId, evmStaffId);
-
-                return Ok(new SuccessResponse<ClaimResponse>
+                var result = await _claimService.StartReviewAsync(claimId, userId);
+                return Ok(new
                 {
-                    Success = true,
-                    Message = "Claim review started successfully",
-                    Data = response
+                    success = true,
+                    message = "Claim review started",
+                    data = result
                 });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
+                return NotFound(new { success = false, message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while starting claim review",
-                    Details = ex.Message
-                });
+                return BadRequest(new { success = false, message = ex.Message });
             }
         }
 
         /// <summary>
-        /// Approve a claim - Changes status to Completed
+        /// Approve a claim
         /// </summary>
-        /// <param name="claimId">Claim ID</param>
-        /// <param name="evmStaffId">EVM Staff ID who is approving</param>
-        /// <returns>Updated claim</returns>
         [HttpPut("{claimId}/approve")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
-        public async Task<IActionResult> ApproveClaim(Guid claimId, [FromQuery] Guid evmStaffId)
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> ApproveClaim(Guid claimId)
         {
             try
             {
-                if (evmStaffId == Guid.Empty)
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid userId))
                 {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "EVM Staff ID is required"
-                    });
+                    return Unauthorized(new { message = "Invalid or missing user authentication" });
                 }
 
-                var response = await _claimService.ApproveClaimAsync(claimId, evmStaffId);
-
-                return Ok(new SuccessResponse<ClaimResponse>
+                var result = await _claimService.ApproveClaimAsync(claimId, userId);
+                return Ok(new
                 {
-                    Success = true,
-                    Message = "Claim approved successfully",
-                    Data = response
+                    success = true,
+                    message = "Claim approved successfully",
+                    data = result
                 });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
+                return NotFound(new { success = false, message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while approving claim",
-                    Details = ex.Message
-                });
+                return BadRequest(new { success = false, message = ex.Message });
             }
         }
 
         /// <summary>
         /// Reject a claim
         /// </summary>
-        /// <param name="claimId">Claim ID</param>
-        /// <param name="request">Rejection request with EVM Staff ID and reason</param>
-        /// <returns>Updated claim</returns>
         [HttpPut("{claimId}/reject")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> RejectClaim(
             Guid claimId,
-            [FromBody] RejectClaimRequestWithStaff request)
+            [FromBody] RejectClaimRequestWithStaff  request)
         {
             try
             {
-                if (!ModelState.IsValid)
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid userId))
                 {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "Invalid request data",
-                        Errors = ModelState.Values
-                            .SelectMany(v => v.Errors)
-                            .Select(e => e.ErrorMessage)
-                            .ToList()
-                    });
+                    return Unauthorized(new { message = "Invalid or missing user authentication" });
                 }
 
-                var response = await _claimService.RejectClaimAsync(
+                var result = await _claimService.RejectClaimAsync(
                     claimId,
-                    request.EvmStaffId,
+                    userId,
                     request.RejectionReason);
 
-                return Ok(new SuccessResponse<ClaimResponse>
+                return Ok(new
                 {
-                    Success = true,
-                    Message = "Claim rejected successfully",
-                    Data = response
+                    success = true,
+                    message = "Claim rejected",
+                    data = result
                 });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
+                return NotFound(new { success = false, message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while rejecting claim",
-                    Details = ex.Message
-                });
+                return BadRequest(new { success = false, message = ex.Message });
             }
         }
 
         /// <summary>
-        /// Update claim status manually
+        /// Update claim status
         /// </summary>
-        /// <param name="claimId">Claim ID</param>
-        /// <param name="request">Status update request</param>
-        /// <returns>Updated claim</returns>
         [HttpPut("{claimId}/status")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateClaimStatus(
             Guid claimId,
             [FromBody] UpdateClaimStatusRequestWithUser request)
         {
             try
             {
-                if (!ModelState.IsValid)
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid userId))
                 {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "Invalid request data",
-                        Errors = ModelState.Values
-                            .SelectMany(v => v.Errors)
-                            .Select(e => e.ErrorMessage)
-                            .ToList()
-                    });
+                    return Unauthorized(new { message = "Invalid or missing user authentication" });
                 }
 
-                var response = await _claimService.UpdateClaimStatusAsync(
+                var result = await _claimService.UpdateClaimStatusAsync(
                     claimId,
                     request.NewStatus,
-                    request.UserId);
+                    userId);
 
-                return Ok(new SuccessResponse<ClaimResponse>
+                return Ok(new
                 {
-                    Success = true,
-                    Message = "Claim status updated successfully",
-                    Data = response
+                    success = true,
+                    message = "Claim status updated",
+                    data = result
                 });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
+                return NotFound(new { success = false, message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new ErrorResponse
-                {
-                    Message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while updating claim status",
-                    Details = ex.Message
-                });
+                return BadRequest(new { success = false, message = ex.Message });
             }
         }
-
-        #endregion
-
-        #region Validation
-
-        /// <summary>
-        /// Check if vehicle is eligible for warranty claim
-        /// </summary>
-        /// <param name="vin">Vehicle VIN</param>
-        /// <param name="policyId">Policy ID</param>
-        /// <returns>Eligibility status</returns>
-        [HttpGet("validate-eligibility")]
-        [ProducesResponseType(typeof(WarrantyEligibilityResponse), 200)]
-        public async Task<IActionResult> ValidateWarrantyEligibility(
-            [FromQuery] string vin,
-            [FromQuery] Guid policyId)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(vin))
-                {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "VIN is required"
-                    });
-                }
-
-                if (policyId == Guid.Empty)
-                {
-                    return BadRequest(new ErrorResponse
-                    {
-                        Message = "Policy ID is required"
-                    });
-                }
-
-                var isEligible = await _claimService.ValidateWarrantyEligibilityAsync(vin, policyId);
-
-                return Ok(new SuccessResponse<WarrantyEligibilityResponse>
-                {
-                    Success = true,
-                    Message = isEligible
-                        ? "Vehicle is eligible for warranty claim"
-                        : "Vehicle is not eligible for warranty claim",
-                    Data = new WarrantyEligibilityResponse
-                    {
-                        VIN = vin,
-                        PolicyId = policyId,
-                        IsEligible = isEligible
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorResponse
-                {
-                    Message = "An error occurred while validating warranty eligibility",
-                    Details = ex.Message
-                });
-            }
-        }
-
-        #endregion
     }
 }

@@ -360,10 +360,10 @@ D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebass
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.development.json
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\Warranty.4BFBCA26.Up2Date
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\WarrantyManagement.API.dll
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\refint\WarrantyManagement.API.dll
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\WarrantyManagement.API.pdb
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\WarrantyManagement.API.genruntimeconfig.cache
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\ref\WarrantyManagement.API.dll
+D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

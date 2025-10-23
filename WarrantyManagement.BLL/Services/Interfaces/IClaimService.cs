@@ -13,15 +13,14 @@ namespace WarrantyManagement.BLL.Services.Interfaces
     public interface IClaimService
     {
         /// Create a new warranty claim 
-        //Task<WarrantyClaim> CreateClaimAsync(ClaimRequest request, Guid technicianId);
-
+        Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid technicianId);
         /// Get claim by ID with full details
         Task<ClaimResponse> GetClaimByIdAsync(Guid claimId);
 
-        /// Get list of claims with filters
+        /// Get list of claims by service center id
         Task<ICollection<ClaimResponse>> GetClaimsAsync(
             Guid? serviceCenterId = null);
-
+        /// Get claims by status
         Task<ICollection<ClaimResponse>> GetClaimsByStatusAsync(WarrantyClaimStatus status);
 
         /// Start reviewing claim (EVM Staff) - Change status to InProgress
@@ -36,7 +35,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Update claim status
         Task<ClaimResponse> UpdateClaimStatusAsync(Guid claimId, WarrantyClaimStatus newStatus, Guid userId);
 
-        /// Check if vehicle is eligible for warranty
+        /// Check if vehicle is eligible for warranty- based on VIN and policy ID
         Task<bool> ValidateWarrantyEligibilityAsync(string vin, Guid policyId);
 
         /// Get claims by technician

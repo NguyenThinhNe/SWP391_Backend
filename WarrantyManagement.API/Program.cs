@@ -37,6 +37,7 @@ namespace WarrantyManagement.API
             builder.Services.AddScoped<IUnitOfWork<WarrantyDbContext>, UnitOfWork<WarrantyDbContext>>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IClaimService, ClaimService>();
+            builder.Services.AddScoped<IWorkOrderService, WorkOrderService>();
 
             // CORS
             builder.Services.AddCors(options =>

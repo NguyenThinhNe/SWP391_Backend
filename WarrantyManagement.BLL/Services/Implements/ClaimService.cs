@@ -15,18 +15,117 @@ using WarrantyManagement.DAL.Repositories.Interfaces;
 
 namespace WarrantyManagement.BLL.Services.Implements
 {
-    public class ClaimService: IClaimService
+    public class ClaimService : IClaimService
     {
-        private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
-        private readonly IMapper _mapper;
+       private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
+       private readonly IMapper _mapper;
+    
+       public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper)
+       {
+           _unitOfWork = unitOfWork;
+           _mapper = mapper;
+       }
 
-        public ClaimService(
-            IUnitOfWork<WarrantyDbContext> unitOfWork,
-            IMapper mapper)
+        #region Create warranty claim 
+        public async Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid technicianId)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            return await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                // Get repositories
+                var vehicleRepo = _unitOfWork.GetRepository<CustomerVehicle>();
+                var policyRepo = _unitOfWork.GetRepository<WarrantyPolicy>();
+                var userRepo = _unitOfWork.GetRepository<User>();
+                var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+                var partRepo = _unitOfWork.GetRepository<Part>();
+                var partItemRepo = _unitOfWork.GetRepository<PartItem>();
+
+                // 1. Validate warranty eligibility
+                var isEligible = await ValidateWarrantyEligibilityAsync(request.VIN, request.PolicyId);
+                if (!isEligible)
+                {
+                    throw new InvalidOperationException("Vehicle is not eligible for warranty claim");
+                }
+
+                // 2. Get and validate vehicle
+                var vehicle = await vehicleRepo.FirstOrDefaultAsync(
+                    predicate: v => v.VIN == request.VIN
+                );
+
+                if (vehicle == null)
+                {
+                    throw new KeyNotFoundException($"Vehicle with VIN '{request.VIN}' not found");
+                }
+
+                // 3. Validate policy exists
+                var policy = await policyRepo.FirstOrDefaultAsync(
+                    predicate: p => p.PolicyId == request.PolicyId
+                );
+
+                if (policy == null)
+                {
+                    throw new KeyNotFoundException($"Warranty policy with ID '{request.PolicyId}' not found");
+                }
+
+                // 4. Validate user exists and is technician
+                var user = await userRepo.FirstOrDefaultAsync(
+                    predicate: u => u.UserId == technicianId
+                );
+
+                if (user == null)
+                {
+                    throw new KeyNotFoundException($"User with ID '{technicianId}' not found");
+                }
+
+                // 5. Update vehicle information from request
+                vehicle.VehicleName = request.VehicleName;
+                vehicle.PurchaseDate = request.PurchaseDate;
+                vehicle.MileAge = request.Mileage;
+                vehicleRepo.UpdateAsync(vehicle);
+
+                // 6. Map ClaimRequest to WarrantyClaim
+                var claim = _mapper.Map<WarrantyClaim>(request);
+                claim.ClaimId = Guid.NewGuid();
+                claim.UserId = technicianId;
+                claim.Status = WarrantyClaimStatus.Pending;
+
+                // 7. Add the claim to database
+                await claimRepo.InsertAsync(claim);
+
+                // ✅ 8. Process ALL parts from request
+                foreach (var partItemRequest in request.PartItems)
+                {
+                    // 8.1 Validate part exists
+                    var existingPart = await partRepo.FirstOrDefaultAsync(
+                        predicate: p => p.PartId == partItemRequest.PartId
+                    );
+
+                    if (existingPart == null)
+                    {
+                        throw new KeyNotFoundException(
+                            $"Part with ID '{partItemRequest.PartId}' not found");
+                    }
+
+                    // 8.2 Create PartItem linking the claim to the part
+                    var partItem = new PartItem
+                    {
+                        PartItemId = Guid.NewGuid(),
+                        ClaimId = claim.ClaimId,
+                        PartId = partItemRequest.PartId,
+                        PartNumber = partItemRequest.PartNumber,
+                        Quantity = partItemRequest.Quantity, // ✅ Lấy đúng quantity
+                    };
+
+                    await partItemRepo.InsertAsync(partItem);
+                }
+
+                // 9. Save changes
+                await _unitOfWork.SaveChangesAsync();
+
+                // 10. Retrieve the complete claim with all details
+                return await GetClaimByIdAsync(claim.ClaimId);
+            });
         }
+        #endregion
 
         #region Get Claims
 
@@ -53,11 +152,8 @@ namespace WarrantyManagement.BLL.Services.Implements
             return _mapper.Map<ClaimResponse>(claim);
         }
 
-        public async Task<ICollection<ClaimResponse>> GetClaimsAsync(
-            
-            Guid? serviceCenterId = null)
+        public async Task<ICollection<ClaimResponse>> GetClaimsAsync(Guid? serviceCenterId = null)
         {
-            
             var query = _unitOfWork.Context.WarrantyClaims
                 .Include(c => c.CustomerVehicle)
                     .ThenInclude(v => v.Customer)
@@ -71,14 +167,11 @@ namespace WarrantyManagement.BLL.Services.Implements
                 .AsNoTracking()
                 .AsQueryable();
 
-            
-
             if (serviceCenterId.HasValue)
             {
                 query = query.Where(c => c.User.ServiceCenterId == serviceCenterId.Value);
             }
 
-            // Execute and order
             var claims = await query
                 .OrderByDescending(c => c.ClaimDate)
                 .ToListAsync();
@@ -88,9 +181,10 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         public async Task<ICollection<ClaimResponse>> GetClaimsByServiceCenterAsync(Guid serviceCenterId)
         {
-            // Validate service center exists
-            var serviceCenterExists = await _unitOfWork.Context.ServiceCenters
-                .AnyAsync(sc => sc.CenterId == serviceCenterId);
+            var serviceCenterRepo = _unitOfWork.GetRepository<ServiceCenter>();
+            var serviceCenterExists = await serviceCenterRepo.CountAsync(
+                predicate: sc => sc.CenterId == serviceCenterId
+            ) > 0;
 
             if (!serviceCenterExists)
             {
@@ -157,12 +251,6 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         #endregion
 
-        #region Create Claim
-
-
-
-        #endregion
-
         #region Update Claim Status
 
         public async Task<ClaimResponse> StartReviewAsync(Guid claimId, Guid evmStaffId)
@@ -179,8 +267,11 @@ namespace WarrantyManagement.BLL.Services.Implements
         {
             return await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
-                var claim = await _unitOfWork.Context.WarrantyClaims
-                    .FirstOrDefaultAsync(c => c.ClaimId == claimId);
+                var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+
+                var claim = await claimRepo.FirstOrDefaultAsync(
+                    predicate: c => c.ClaimId == claimId
+                );
 
                 if (claim == null)
                 {
@@ -190,9 +281,8 @@ namespace WarrantyManagement.BLL.Services.Implements
                 ValidateStatusTransition(claim.Status, WarrantyClaimStatus.Completed);
 
                 claim.Status = WarrantyClaimStatus.Completed;
-                
 
-                _unitOfWork.Context.WarrantyClaims.Update(claim);
+                claimRepo.UpdateAsync(claim);
                 await _unitOfWork.SaveChangesAsync();
 
                 return await GetClaimByIdAsync(claimId);
@@ -206,8 +296,11 @@ namespace WarrantyManagement.BLL.Services.Implements
         {
             return await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
-                var claim = await _unitOfWork.Context.WarrantyClaims
-                    .FirstOrDefaultAsync(c => c.ClaimId == claimId);
+                var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+
+                var claim = await claimRepo.FirstOrDefaultAsync(
+                    predicate: c => c.ClaimId == claimId
+                );
 
                 if (claim == null)
                 {
@@ -217,9 +310,8 @@ namespace WarrantyManagement.BLL.Services.Implements
                 ValidateStatusTransition(claim.Status, newStatus);
 
                 claim.Status = newStatus;
-                
 
-                _unitOfWork.Context.WarrantyClaims.Update(claim);
+                claimRepo.UpdateAsync(claim);
                 await _unitOfWork.SaveChangesAsync();
 
                 return await GetClaimByIdAsync(claimId);
@@ -232,16 +324,21 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         public async Task<bool> ValidateWarrantyEligibilityAsync(string vin, Guid policyId)
         {
-            var vehicle = await _unitOfWork.Context.CustomerVehicles
-                .FirstOrDefaultAsync(v => v.VIN == vin);
+            var vehicleRepo = _unitOfWork.GetRepository<CustomerVehicle>();
+            var policyRepo = _unitOfWork.GetRepository<WarrantyPolicy>();
+
+            var vehicle = await vehicleRepo.FirstOrDefaultAsync(
+                predicate: v => v.VIN == vin
+            );
 
             if (vehicle == null)
             {
                 return false;
             }
 
-            var policy = await _unitOfWork.Context.Policies
-                .FirstOrDefaultAsync(p => p.PolicyId == policyId);
+            var policy = await policyRepo.FirstOrDefaultAsync(
+                predicate: p => p.PolicyId == policyId
+            );
 
             if (policy == null)
             {

@@ -13,35 +13,41 @@ namespace WarrantyManagement.DAL.Data.Request
         public DateTime ClaimDate { get; set; }
 
         [Required(ErrorMessage = "VIN is required")]
+        [MaxLength(50)]
         public string VIN { get; set; }
-
-        [Required(ErrorMessage = "Vehicle name is required")]
-        [MaxLength(200, ErrorMessage = "Vehicle name cannot exceed 200 characters")]
         public string VehicleName { get; set; }
-
-        [Required(ErrorMessage = "Purchase date is required")]
         public DateTime PurchaseDate { get; set; }
-
-        [Required(ErrorMessage = "Mileage is required")]
-        [Range(0, int.MaxValue, ErrorMessage = "Mileage must be greater than or equal to 0")]
         public int Mileage { get; set; }
-
-        [Required(ErrorMessage = "Part name is required")]
-        [MaxLength(200, ErrorMessage = "Part name cannot exceed 200 characters")]
-        public string PartName { get; set; }
-
-        [Required(ErrorMessage = "Part number is required")]
-        [MaxLength(100, ErrorMessage = "Part number cannot exceed 100 characters")]
-        public string PartNumber { get; set; }
-
         [Required(ErrorMessage = "Issue description is required")]
-        [MaxLength(200, ErrorMessage = "Issue description cannot exceed 200 characters")]
+        [MaxLength(500)]
         public string IssueDescription { get; set; }
 
-        [MaxLength(200, ErrorMessage = "Claim description cannot exceed 200 characters")]
+        [MaxLength(500)]
         public string ClaimDescription { get; set; }
 
         [Required(ErrorMessage = "Policy ID is required")]
         public Guid PolicyId { get; set; }
+
+        /// <summary>
+        /// List of part IDs that need to be claimed
+        /// Technician selects from existing parts in the system
+        /// </summary>
+        [Required(ErrorMessage = "At least one part must be selected")]
+        [MinLength(1, ErrorMessage = "At least one part must be selected")]
+        public List<PartItemRequest> PartItems { get; set; }
+    }
+
+    public class PartItemRequest
+    {
+        [Required(ErrorMessage = "Part ID is required")]
+        public Guid PartId { get; set; }
+        
+        public string PartName { get; set; }
+        [Required(ErrorMessage = "Quantity is required")]
+        [Range(1, 100, ErrorMessage = "Quantity must be between 1 and 100")]
+        public int Quantity { get; set; } = 1;
+        [MaxLength(50, ErrorMessage = "Part number cannot exceed 50 characters")]
+        public string PartNumber  { get; set; }
+      
     }
 }

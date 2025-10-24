@@ -119,7 +119,7 @@ pipeline {
                 script {
                     echo "#====================== Docker Build ======================#"
                     // Dockerfile var
-                    def dockerfile = "Dockerfile.dev" // Add custom Dockerfile name ex: ./PathToDockerfile/PathToDockerfile/DevDockerfile
+                    def dockerfile = "Dockerfile.prod" // Add custom Dockerfile name ex: ./PathToDockerfile/PathToDockerfile/DevDockerfile
                     def contextDir = "."// Path to DockerFile ex: ./PathToDockerfile/PathToDockerfile
 
                     // Build Docker image with custom Dockerfile

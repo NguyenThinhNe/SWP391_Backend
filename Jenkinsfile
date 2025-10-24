@@ -156,7 +156,7 @@ pipeline {
                     sh """
                         # Start container in background
                         docker run -d --name ${containerName} \
-                        -p ${testPort}:${testPort} ${env.IMAGE_TAGGED}
+                        -p ${testPort}:8080 ${env.IMAGE_TAGGED}
 
                         # Wait for container to start
                         sleep 10

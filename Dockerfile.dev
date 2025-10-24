@@ -49,9 +49,9 @@ COPY . .
 RUN dotnet build WarrantyManagement.API/WarrantyManagement.API.csproj -c Debug
 
 # Expose ports
-EXPOSE 9455
+EXPOSE 8080
 
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 WORKDIR /src/WarrantyManagement.API
-ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:9455"]
+ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:8080"]

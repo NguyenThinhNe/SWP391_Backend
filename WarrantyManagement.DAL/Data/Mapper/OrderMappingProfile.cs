@@ -97,7 +97,7 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.PartId))
                 .ForMember(dest => dest.PartName, opt => opt.MapFrom(src => src.PartName))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Cost, opt => opt.MapFrom(src => src.Cost))
+                //.ForMember(dest => dest.Cost, opt => opt.MapFrom(src => src.Cost))
                 .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
                 // Aggregate data from PartItems
                 .ForMember(dest => dest.TotalQuantity, opt => opt.MapFrom(src =>
@@ -109,16 +109,27 @@ namespace WarrantyManagement.DAL.Data.Mapper
 
             // PartItem -> PartItemDto (for detailed part item information)
             CreateMap<PartItem, PartItemDto>()
-                .ForMember(dest => dest.PartItemId, opt => opt.MapFrom(src => src.PartItemId))
-                .ForMember(dest => dest.PartNumber, opt => opt.MapFrom(src => src.PartNumber))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
-                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
-                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
-                .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.PartId))
-                .ForMember(dest => dest.PartName, opt => opt.MapFrom(src =>
-                    src.Part != null ? src.Part.PartName : string.Empty))
-                .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId));
-                
+               .ForMember(dest => dest.PartItemId, opt => opt.MapFrom(src => src.PartItemId))
+               .ForMember(dest => dest.PartNumber, opt => opt.MapFrom(src => src.PartNumber))
+               .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+               .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
+               .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
+
+               // Part info
+               .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.PartId))
+               .ForMember(dest => dest.PartName, opt => opt.MapFrom(src =>
+                   src.Part != null ? src.Part.PartName : string.Empty))
+
+               // Claim info (through ClaimDetails)
+               .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src =>
+                   src.ClaimDetails != null && src.ClaimDetails.Any()
+                       ? src.ClaimDetails.First().ClaimId
+                       : Guid.Empty))
+               .ForMember(dest => dest.ClaimNumber, opt => opt.MapFrom(src =>
+                   src.ClaimDetails != null && src.ClaimDetails.Any() && src.ClaimDetails.First().WarrantyClaim != null
+                       ? src.ClaimDetails.First().WarrantyClaim.ClaimId.ToString()
+                       : string.Empty));
+
         }
     }
 }

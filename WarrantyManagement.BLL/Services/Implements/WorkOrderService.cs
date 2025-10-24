@@ -16,7 +16,7 @@ using WarrantyManagement.DAL.Repositories.Interfaces;
 
 namespace WarrantyManagement.BLL.Services.Implements
 {
-    public class WorkOrderService : IWorkOrderService
+    public class WorkOrderService  : IWorkOrderService
     {
         private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
         private readonly IMapper _mapper;
@@ -26,7 +26,6 @@ namespace WarrantyManagement.BLL.Services.Implements
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
         #region Create WorkOrder
 
         public async Task<WorkOrderResponse> CreateWorkOrderAsync(WorkOrderRequest request)
@@ -102,11 +101,11 @@ namespace WarrantyManagement.BLL.Services.Implements
                 predicate: wo => wo.WorkOrderId == workOrderId,
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.WarrantyPolicy)
                     .Include(wo => wo.User)
                     .Include(wo => wo.Customer)
                     .Include(wo => wo.Parts)
                         .ThenInclude(p => p.PartItems)
-                            .ThenInclude(pi => pi.WarrantyClaim)
             );
 
             if (workOrder == null)
@@ -114,12 +113,11 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             var response = _mapper.Map<WorkOrderResponse>(workOrder);
 
-            // Map PartItems separately if needed
+            // Lấy tất cả PartItem liên quan đến các Parts trong WorkOrder
             if (workOrder.Parts != null && workOrder.Parts.Any())
             {
                 response.PartItems = workOrder.Parts
-                    .Where(p => p.PartItems != null)
-                    .SelectMany(p => p.PartItems)
+                    .SelectMany(p => p.PartItems ?? new List<PartItem>())
                     .Select(pi => _mapper.Map<PartItemDto>(pi))
                     .ToList();
             }

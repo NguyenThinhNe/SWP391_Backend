@@ -113,11 +113,11 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
-        public async Task<IActionResult> GetClaims([FromQuery] Guid? serviceCenterId = null)
+        public async Task<IActionResult> GetClaims()
         {
             try
             {
-                var results = await _claimService.GetClaimsAsync(serviceCenterId);
+                var results = await _claimService.GetClaimsAsync();
                 return Ok(new
                 {
                     success = true,

@@ -15,9 +15,6 @@ namespace WarrantyManagement.DAL.Data.Request
         [Required(ErrorMessage = "VIN is required")]
         [MaxLength(50)]
         public string VIN { get; set; }
-        public string VehicleName { get; set; }
-        public DateTime PurchaseDate { get; set; }
-        public int Mileage { get; set; }
         [Required(ErrorMessage = "Issue description is required")]
         [MaxLength(500)]
         public string IssueDescription { get; set; }
@@ -48,6 +45,8 @@ namespace WarrantyManagement.DAL.Data.Request
         public int Quantity { get; set; } = 1;
         [MaxLength(50, ErrorMessage = "Part number cannot exceed 50 characters")]
         public string PartNumber  { get; set; }
-      
+        [Required(ErrorMessage = "Price is required")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
+        public decimal Price { get; set; }
     }
 }

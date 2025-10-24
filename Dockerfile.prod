@@ -1,0 +1,23 @@
+# ========== BUILD STAGE ==========
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+COPY *.sln ./
+COPY WarrantyManagement.API/*.csproj WarrantyManagement.API/
+COPY WarrantyManagement.DAL/*.csproj WarrantyManagement.DAL/
+COPY WarrantyManagement.BLL/*.csproj WarrantyManagement.BLL/
+RUN dotnet restore WarrantyManagement.API/WarrantyManagement.API.csproj
+
+COPY . .
+RUN dotnet publish WarrantyManagement.API/WarrantyManagement.API.csproj -c Release -o /app/publish
+
+# ========== RUNTIME STAGE ==========
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+EXPOSE 8080
+
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+ENTRYPOINT ["dotnet", "WarrantyManagement.API.dll"]

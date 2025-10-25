@@ -182,6 +182,43 @@ namespace WarrantyManagement.BLL.Services.Implements
             };
         }
 
+
+        public async Task<List<WorkOrderResponse>> GetWorkOrdersByPriorityAsync(WorkOrderPriority priority)
+        {
+            var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
+
+            var workOrders = await workOrderRepo.GetListAsync(
+                predicate: wo => wo.Priority == priority,
+                orderBy: query => query.OrderByDescending(wo => wo.StartDate),
+                include: query => query
+                    .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.User)
+                    .Include(wo => wo.Customer)
+                    .Include(wo => wo.Parts)
+                        .ThenInclude(p => p.PartItems)
+            );
+
+            var responses = new List<WorkOrderResponse>();
+
+            foreach (var workOrder in workOrders)
+            {
+                var response = _mapper.Map<WorkOrderResponse>(workOrder);
+
+                if (workOrder.Parts != null && workOrder.Parts.Any())
+                {
+                    response.PartItems = workOrder.Parts
+                        .SelectMany(p => p.PartItems ?? new List<PartItem>())
+                        .Select(pi => _mapper.Map<PartItemDto>(pi))
+                        .ToList();
+                }
+
+                responses.Add(response);
+            }
+
+            return responses;
+        }
+
         #endregion
 
         #region Update WorkOrder
@@ -348,6 +385,43 @@ namespace WarrantyManagement.BLL.Services.Implements
             );
 
             return _mapper.Map<List<WorkOrderSummaryResponse>>(workOrders);
+        }
+
+
+        public async Task<List<WorkOrderResponse>> GetWorkOrderByPriorityAsync(WorkOrderPriority priority)
+        {
+            var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
+
+            var workOrders = await workOrderRepo.GetListAsync(
+                predicate: wo => wo.Priority == priority,
+                orderBy: query => query.OrderByDescending(wo => wo.StartDate),
+                include: query => query
+                    .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.User)
+                    .Include(wo => wo.Customer)
+                    .Include(wo => wo.Parts)
+                        .ThenInclude(p => p.PartItems)
+            );
+
+            var responses = new List<WorkOrderResponse>();
+
+            foreach (var workOrder in workOrders)
+            {
+                var response = _mapper.Map<WorkOrderResponse>(workOrder);
+
+                if (workOrder.Parts != null && workOrder.Parts.Any())
+                {
+                    response.PartItems = workOrder.Parts
+                        .SelectMany(p => p.PartItems ?? new List<PartItem>())
+                        .Select(pi => _mapper.Map<PartItemDto>(pi))
+                        .ToList();
+                }
+
+                responses.Add(response);
+            }
+
+            return responses;
         }
 
         #endregion

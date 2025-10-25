@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using WarrantyManagement.BLL.Services.Interfaces;
+using WarrantyManagement.DAL.Data.Enums;
 using WarrantyManagement.DAL.Data.Request;
 using WarrantyManagement.DAL.Data.Response;
 
@@ -199,6 +200,39 @@ namespace WarrantyManagement.API.Controllers
                     Message = "Failed to retrieve claim work orders",
                     Details = ex.Message,
                     Errors = new List<string> { ex.ToString() }
+                });
+            }
+        }
+
+
+        /// <summary>
+        /// Get work orders by priority
+        /// GET: api/workorder/by-priority/{priority}
+        /// </summary>
+        /// <param name="priority">0=Low, 1=Medium, 2=High</param>
+        [HttpGet("by-priority/{priority}")]
+        public async Task<ActionResult<List<WorkOrderResponse>>> GetWorkOrderByPriority(WorkOrderPriority priority)
+        {
+            try
+            {
+                var workOrders = await _workOrderService.GetWorkOrderByPriorityAsync(priority);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = $"Lấy danh sách work orders với độ ưu tiên '{priority}' thành công",
+                    data = workOrders,
+                    total = workOrders.Count,
+                    priority = priority.ToString()
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Có lỗi xảy ra khi lấy danh sách work orders",
+                    error = ex.Message
                 });
             }
         }

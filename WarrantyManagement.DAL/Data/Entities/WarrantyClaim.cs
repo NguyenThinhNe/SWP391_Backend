@@ -43,6 +43,6 @@ namespace WarrantyManagement.DAL.Data.Entities
         [ForeignKey(nameof(PolicyId))]
         public WarrantyPolicy WarrantyPolicy { get; set; }
 
-        public ICollection<PartItem> PartItems { get; set; }
+        public ICollection<ClaimDetail> ClaimDetails { get; set; }
     }
 }

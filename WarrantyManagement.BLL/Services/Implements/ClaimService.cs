@@ -17,15 +17,14 @@ namespace WarrantyManagement.BLL.Services.Implements
 {
     public class ClaimService : IClaimService
     {
-       private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
-       private readonly IMapper _mapper;
-    
-       public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper)
-       {
-           _unitOfWork = unitOfWork;
-           _mapper = mapper;
-       }
+        private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
+        private readonly IMapper _mapper;
 
+        public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
         #region Create warranty claim 
         public async Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid technicianId)
         {
@@ -37,11 +36,12 @@ namespace WarrantyManagement.BLL.Services.Implements
                 var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
                 var partRepo = _unitOfWork.GetRepository<Part>();
                 var partItemRepo = _unitOfWork.GetRepository<PartItem>();
+                var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
                 var vehicleRepo = _unitOfWork.GetRepository<CustomerVehicle>();
                 var policyRepo = _unitOfWork.GetRepository<WarrantyPolicy>();
                 var userRepo = _unitOfWork.GetRepository<User>();
 
-                // ✅ 1. Lấy thông tin vehicle theo VIN
+                // ✅ 1. Kiểm tra vehicle tồn tại theo VIN
                 var vehicle = await vehicleRepo.FirstOrDefaultAsync(
                     predicate: v => v.VIN == request.VIN
                 );
@@ -49,7 +49,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 if (vehicle == null)
                     throw new KeyNotFoundException($"Vehicle with VIN '{request.VIN}' not found");
 
-                // ✅ 2. Lấy policy
+                // ✅ 2. Kiểm tra policy tồn tại
                 var policy = await policyRepo.FirstOrDefaultAsync(
                     predicate: p => p.PolicyId == request.PolicyId
                 );
@@ -57,7 +57,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 if (policy == null)
                     throw new KeyNotFoundException($"Warranty policy with ID '{request.PolicyId}' not found");
 
-                // ✅ 3. Lấy technician (user)
+                // ✅ 3. Kiểm tra technician (user) tồn tại
                 var user = await userRepo.FirstOrDefaultAsync(
                     predicate: u => u.UserId == technicianId
                 );
@@ -65,51 +65,50 @@ namespace WarrantyManagement.BLL.Services.Implements
                 if (user == null)
                     throw new KeyNotFoundException($"User with ID '{technicianId}' not found");
 
-                // ✅ 4. Cập nhật lại thông tin vehicle (nếu có)
-                vehicle.VehicleName = request.VehicleName;
-                vehicle.PurchaseDate = request.PurchaseDate;
-                vehicle.MileAge = request.Mileage;
-                vehicleRepo.UpdateAsync(vehicle);
-
-                // ✅ 5. Map ClaimRequest → WarrantyClaim
+                // ✅ 4. Map ClaimRequest → WarrantyClaim
                 var claim = _mapper.Map<WarrantyClaim>(request);
                 claim.ClaimId = Guid.NewGuid();
                 claim.UserId = technicianId;
                 claim.Status = WarrantyClaimStatus.Pending;
 
-                // ✅ 6. Lưu Claim vào DB
+                // ✅ 5. Lưu Claim vào DB
                 await claimRepo.InsertAsync(claim);
                 newClaimId = claim.ClaimId;
 
-                // ✅ 7. Thêm danh sách PartItem
-                foreach (var item in request.PartItems)
+                // ✅ 6. Xử lý PartItems và tạo ClaimDetails (many-to-many relationship)
+                foreach (var partItemRequest in request.PartItems)
                 {
                     // Kiểm tra Part tồn tại
                     var part = await partRepo.FirstOrDefaultAsync(
-                        predicate: p => p.PartId == item.PartId
+                        predicate: p => p.PartId == partItemRequest.PartId
                     );
 
                     if (part == null)
-                        throw new KeyNotFoundException($"Part with ID '{item.PartId}' not found");
-                    // Tạo PartItem mới
-                    var partItem = new PartItem
+                        throw new KeyNotFoundException($"Part with ID '{partItemRequest.PartId}' not found");
+
+                    // Map PartItemRequest → PartItem
+                    var partItem = _mapper.Map<PartItem>(partItemRequest);
+                    partItem.PartItemId = Guid.NewGuid();
+
+                    // Lưu PartItem
+                    await partItemRepo.InsertAsync(partItem);
+
+                    // Tạo ClaimDetail để liên kết Claim và PartItem (many-to-many)
+                    var claimDetail = new ClaimDetail
                     {
-                        PartItemId = Guid.NewGuid(),
+                        ClaimDetailId = Guid.NewGuid(),
                         ClaimId = claim.ClaimId,
-                        PartId = part.PartId,
-                        PartNumber = item.PartNumber,
-                        
-                        Quantity = item.Quantity
+                        PartItemId = partItem.PartItemId
                     };
 
-                    await partItemRepo.InsertAsync(partItem);
+                    await claimDetailRepo.InsertAsync(claimDetail);
                 }
 
-                // ✅ Lưu thay đổi trong transaction
+                // ✅ 7. Lưu thay đổi trong transaction
                 await _unitOfWork.SaveChangesAsync();
             });
 
-            // ✅ Transaction đã commit
+            // ✅ Transaction đã commit, lấy claim với đầy đủ thông tin
             return await GetClaimByIdAsync(newClaimId);
         }
 
@@ -124,8 +123,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     .ThenInclude(v => v.Customer)
                 .Include(c => c.CustomerVehicle)
                     .ThenInclude(v => v.Campaign)
-                .Include(c => c.PartItems)
-                    .ThenInclude(pi => pi.Part)
+                .Include(c => c.ClaimDetails)
+                    .ThenInclude(cd => cd.PartItem)
+                        .ThenInclude(pi => pi.Part)
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
@@ -147,8 +147,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     .ThenInclude(v => v.Customer)
                 .Include(c => c.CustomerVehicle)
                     .ThenInclude(v => v.Campaign)
-                .Include(c => c.PartItems)
-                    .ThenInclude(pi => pi.Part)
+                .Include(c => c.ClaimDetails)
+                    .ThenInclude(cd => cd.PartItem)
+                        .ThenInclude(pi => pi.Part)
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
@@ -184,8 +185,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     .ThenInclude(v => v.Customer)
                 .Include(c => c.CustomerVehicle)
                     .ThenInclude(v => v.Campaign)
-                .Include(c => c.PartItems)
-                    .ThenInclude(pi => pi.Part)
+                .Include(c => c.ClaimDetails)
+                    .ThenInclude(cd => cd.PartItem)
+                        .ThenInclude(pi => pi.Part)
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
@@ -204,8 +206,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     .ThenInclude(v => v.Customer)
                 .Include(c => c.CustomerVehicle)
                     .ThenInclude(v => v.Campaign)
-                .Include(c => c.PartItems)
-                    .ThenInclude(pi => pi.Part)
+                .Include(c => c.ClaimDetails)
+                    .ThenInclude(cd => cd.PartItem)
+                        .ThenInclude(pi => pi.Part)
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
@@ -224,8 +227,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     .ThenInclude(v => v.Customer)
                 .Include(c => c.CustomerVehicle)
                     .ThenInclude(v => v.Campaign)
-                .Include(c => c.PartItems)
-                    .ThenInclude(pi => pi.Part)
+                .Include(c => c.ClaimDetails)
+                    .ThenInclude(cd => cd.PartItem)
+                        .ThenInclude(pi => pi.Part)
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
@@ -269,6 +273,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 ValidateStatusTransition(claim.Status, WarrantyClaimStatus.Completed);
 
                 claim.Status = WarrantyClaimStatus.Completed;
+                // TODO: Lưu rejectionReason nếu cần (có thể thêm field vào WarrantyClaim entity)
 
                 claimRepo.UpdateAsync(claim);
                 await _unitOfWork.SaveChangesAsync();
@@ -333,6 +338,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 return false;
             }
 
+            // Kiểm tra warranty còn hiệu lực
             var warrantyEndDate = vehicle.PurchaseDate.AddMonths(policy.DurationMonth);
             if (DateTime.Now > warrantyEndDate)
             {

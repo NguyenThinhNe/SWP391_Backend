@@ -27,7 +27,7 @@ namespace WarrantyManagement.DAL.Data.Response
         public List<PartItemResponse> Parts { get; set; }
 
         // Total cost of all parts
-        public int TotalCost => Parts?.Sum(p => p.TotalCost) ?? 0;
+        public decimal TotalCost => Parts?.Sum(p => p.TotalCost) ?? 0;
 
         // Policy information
         public Guid PolicyId { get; set; }
@@ -47,11 +47,12 @@ namespace WarrantyManagement.DAL.Data.Response
 
         public Guid PartItemId { get; set; }
         public Guid PartId { get; set; }
+        public string PartNumber { get; set; }
         public string PartName { get; set; }
         public string Description { get; set; }
-        public int Cost { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public int TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
         
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Enums;
 using WarrantyManagement.DAL.Data.Request;
 using WarrantyManagement.DAL.Data.Response;
 
@@ -17,6 +18,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         Task<PagedWorkOrderResponse> GetWorkOrdersAsync(GetWorkOrdersRequest request);
         Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByTechnicianAsync(Guid technicianId);
         Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByClaimAsync(Guid claimId);
+        Task<List<WorkOrderResponse>> GetWorkOrderByPriorityAsync(WorkOrderPriority priority);
 
         // Update
         Task<WorkOrderResponse> UpdateWorkOrderAsync(Guid workOrderId, UpdateWorkOrderRequest request);

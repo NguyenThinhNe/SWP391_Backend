@@ -19,9 +19,6 @@ namespace WarrantyManagement.DAL.Data.Entities
 
         [MaxLength(200)]
         public string? Description { get; set; }
-
-        [Required]
-        public int Cost { get; set; } = 0;
         
         public Guid PolicyId { get; set; }
         [ForeignKey(nameof(PolicyId))]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using WarrantyManagement.BLL.Services.Interfaces;
@@ -30,6 +31,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(typeof(SuccessResponse<WorkOrderResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> CreateWorkOrder([FromBody] WorkOrderRequest request)
         {
             try
@@ -84,6 +86,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(typeof(SuccessResponse<WorkOrderResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech,SCStaff")]
         public async Task<IActionResult> GetWorkOrderById(Guid id)
         {
             try
@@ -116,6 +119,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(SuccessResponse<PagedWorkOrderResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech,SCStaff")]
         public async Task<IActionResult> GetWorkOrders([FromQuery] GetWorkOrdersRequest request)
         {
             try
@@ -148,6 +152,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpGet("technician/{technicianId}")]
         [ProducesResponseType(typeof(SuccessResponse<List<WorkOrderSummaryResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> GetWorkOrdersByTechnician(Guid technicianId)
         {
             try
@@ -211,6 +216,7 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         /// <param name="priority">0=Low, 1=Medium, 2=High</param>
         [HttpGet("by-priority/{priority}")]
+        [Authorize(Roles = "SCTech,SCStaff")]
         public async Task<ActionResult<List<WorkOrderResponse>>> GetWorkOrderByPriority(WorkOrderPriority priority)
         {
             try
@@ -252,6 +258,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> UpdateWorkOrder(Guid id, [FromBody] UpdateWorkOrderRequest request)
         {
             try
@@ -300,6 +307,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> UpdateWorkOrderStatus(Guid id, [FromBody] UpdateWorkOrderStatusRequest request)
         {
             try
@@ -348,6 +356,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCStaff")]
         public async Task<IActionResult> AssignTechnician(Guid id, [FromBody] AssignTechnicianRequest request)
         {
             try
@@ -398,6 +407,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(typeof(SuccessResponse<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> DeleteWorkOrder(Guid id)
         {
             try

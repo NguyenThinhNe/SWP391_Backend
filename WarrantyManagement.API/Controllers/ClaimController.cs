@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -30,6 +31,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> CreateClaim(
             [FromBody] ClaimRequest request,
             [FromQuery] Guid technicianId) // TODO: Get from JWT token after authentication
@@ -87,6 +89,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpGet("{claimId}")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
         public async Task<IActionResult> GetClaimById(Guid claimId)
         {
             try
@@ -113,6 +116,7 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
+        [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
         public async Task<IActionResult> GetClaims()
         {
             try
@@ -142,6 +146,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpGet("service-center/{serviceCenterId}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "EVMStaff")]
         public async Task<IActionResult> GetClaimsByServiceCenter(Guid serviceCenterId)
         {
             try
@@ -169,6 +174,7 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         [HttpGet("technician/{technicianId}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
+        [Authorize(Roles = "SCTech")]
         public async Task<IActionResult> GetClaimsByTechnician(Guid technicianId)
         {
             try
@@ -196,6 +202,7 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         [HttpGet("status/{status}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
+        [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
         public async Task<IActionResult> GetClaimsByStatus(WarrantyClaimStatus status)
         {
             try
@@ -217,47 +224,13 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
-
-        /// <summary>
-        /// Start reviewing a claim
-        /// </summary>
-        [HttpPut("{claimId}/start-review")]
-        [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> StartReview(Guid claimId)
-        {
-            try
-            {
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid userId))
-                {
-                    return Unauthorized(new { message = "Invalid or missing user authentication" });
-                }
-
-                var result = await _claimService.StartReviewAsync(claimId, userId);
-                return Ok(new
-                {
-                    success = true,
-                    message = "Claim review started",
-                    data = result
-                });
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(new { success = false, message = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
-            }
-        }
-
         /// <summary>
         /// Approve a claim
         /// </summary>
         [HttpPut("{claimId}/approve")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "EVMStaff")]
         public async Task<IActionResult> ApproveClaim(Guid claimId)
         {
             try
@@ -292,6 +265,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpPut("{claimId}/reject")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "EVMStaff")]
         public async Task<IActionResult> RejectClaim(
             Guid claimId,
             [FromBody] RejectClaimRequestWithStaff  request)
@@ -332,6 +306,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpPut("{claimId}/status")]
         [ProducesResponseType(typeof(ClaimResponse), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "EVMStaff")]
         public async Task<IActionResult> UpdateClaimStatus(
             Guid claimId,
             [FromBody] UpdateClaimStatusRequestWithUser request)
@@ -375,6 +350,7 @@ namespace WarrantyManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "SCTech, EVMStaff")]
         public async Task<IActionResult> DeleteClaim(Guid claimId)
         {
             try

@@ -3,8 +3,36 @@
   "WorkspaceRootPath": "D:\\SWP391_BE\\SWP391_Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\controllers\\claimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\controllers\\claimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\controllers\\workordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\controllers\\workordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\warrantymanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\warrantymanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.bll\\services\\implements\\claimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\services\\implements\\claimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.bll\\services\\interfaces\\iclaimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\services\\interfaces\\iclaimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.bll\\services\\implements\\workorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,18 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.dal\\data\\entities\\workorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dal\\data\\entities\\workorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\controllers\\claimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\controllers\\claimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.bll\\services\\implements\\claimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\services\\implements\\claimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.dal\\data\\entities\\warrantyclaim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,10 +87,6 @@
       "RelativeMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dal\\data\\mapper\\ordermappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F9BF84AC-E6AB-441D-BCFB-4AD7E6AB4892}|WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj|solutionrelative:warrantymanagement.bll\\warrantymanagement.bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.dal\\data\\mapper\\claimmappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dal\\data\\mapper\\claimmappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -85,10 +97,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.dal\\data\\request\\rejectclaimrequestwithstaff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|solutionrelative:warrantymanagement.dal\\data\\request\\rejectclaimrequestwithstaff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.api\\warrantymanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B928F5C6-F2C8-42BF-A19E-32FC71E3850D}|WarrantyManagement.API\\WarrantyManagement.API.csproj|solutionrelative:warrantymanagement.api\\warrantymanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F796FDB1-2117-4124-9E52-61BEBFCDA00E}|WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj|d:\\swp391_be\\swp391_backend\\warrantymanagement.dal\\data\\response\\claimresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -106,7 +114,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -138,92 +146,63 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:16:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:17:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WorkOrderPriority.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T01:14:38.633Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "WorkOrder.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAA0wDIAAAAAAAAAAAAAAA==",
+              "Title": "IClaimService.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Interfaces\\IClaimService.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Services\\Interfaces\\IClaimService.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Interfaces\\IClaimService.cs",
+              "RelativeToolTip": "WarrantyManagement.BLL\\Services\\Interfaces\\IClaimService.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwCwAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T00:38:29.226Z",
+              "WhenOpened": "2025-10-26T00:21:43.03Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\appsettings.json",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\appsettings.json",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\appsettings.json",
+              "RelativeToolTip": "WarrantyManagement.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-25T08:21:04.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ClaimService.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Implements\\ClaimService.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Services\\Implements\\ClaimService.cs",
               "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Implements\\ClaimService.cs",
               "RelativeToolTip": "WarrantyManagement.BLL\\Services\\Implements\\ClaimService.cs",
-              "ViewState": "AgIAAKYAAAAAAAAAAAAkwBIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAHEBAAAAAAAAAAAowHsBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T08:37:13.853Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ClaimController.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Controllers\\ClaimController.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.API\\Controllers\\ClaimController.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Controllers\\ClaimController.cs",
-              "RelativeToolTip": "WarrantyManagement.API\\Controllers\\ClaimController.cs",
-              "ViewState": "AgIAAJAAAAAAAAAAAAA7wHcAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T08:54:50.169Z",
+              "WhenOpened": "2025-10-24T08:37:13.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "WorkOrderController.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Controllers\\WorkOrderController.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.API\\Controllers\\WorkOrderController.cs",
               "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Controllers\\WorkOrderController.cs",
               "RelativeToolTip": "WarrantyManagement.API\\Controllers\\WorkOrderController.cs",
-              "ViewState": "AgIAAK8AAAAAAAAAAAAmwNEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHYBAAAAAAAAAAAgwKkBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-24T13:28:05.613Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IWorkOrderService.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
-              "RelativeToolTip": "WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAuwBQAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:13:56.91Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "WorkOrderService.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Implements\\WorkOrderService.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Services\\Implements\\WorkOrderService.cs",
@@ -231,121 +210,49 @@
               "RelativeToolTip": "WarrantyManagement.BLL\\Services\\Implements\\WorkOrderService.cs",
               "ViewState": "AgIAAH0BAAAAAAAAAAAWwIYBAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T12:58:05.571Z",
+              "WhenOpened": "2025-10-24T12:58:05.571Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WarrantyManagement.API.csproj",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "RelativeToolTip": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-24T08:54:36.599Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Program.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.API\\Program.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Program.cs",
-              "RelativeToolTip": "WarrantyManagement.API\\Program.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAQwCYAAABOAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ClaimController.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Controllers\\ClaimController.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\Controllers\\ClaimController.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Controllers\\ClaimController.cs",
+              "RelativeToolTip": "WarrantyManagement.API\\Controllers\\ClaimController.cs",
+              "ViewState": "AgIAAIIBAAAAAAAAAAAswJUBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T08:58:09.847Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "PartItem.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAIwCMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T08:38:47.498Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ClaimDetail.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAiwBsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T08:39:03.028Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "WorkOrderResponse.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAcwB8AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:13:34.857Z",
+              "WhenOpened": "2025-10-24T08:54:50.169Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PartItemDto.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T12:55:15.051Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "UnitOfWork.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAmwGEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:12:11.714Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "WarrantyClaim.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAcwDAAAAAAAAAAAAAAAA==",
+              "Title": "IWorkOrderService.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
+              "RelativeToolTip": "WarrantyManagement.BLL\\Services\\Interfaces\\IWorkOrderService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAuwBQAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:26:39.461Z"
+              "WhenOpened": "2025-10-24T13:13:56.91Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "GenericRepository.cs",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
-              "RelativeToolTip": "WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAAwNUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T13:11:39.523Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "WarrantyManagement.DAL.csproj",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
-              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
-              "RelativeToolTip": "WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-24T12:57:56.153Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 7,
               "Title": "WarrantyManagement.BLL.csproj",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
               "RelativeDocumentMoniker": "WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj",
@@ -357,7 +264,139 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Program.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.API\\Program.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\Program.cs",
+              "RelativeToolTip": "WarrantyManagement.API\\Program.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAQwCYAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T08:58:09.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WorkOrder.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\WorkOrder.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAA0wDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T00:38:29.226Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "WorkOrderPriority.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Enums\\WorkOrderPriority.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T01:14:38.633Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PartItem.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\PartItem.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAIwCMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T08:38:47.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ClaimDetail.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\ClaimDetail.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAiwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T08:39:03.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WorkOrderResponse.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Response\\WorkOrderResponse.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAcwB8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T13:13:34.857Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 16,
+              "Title": "PartItemDto.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Response\\PartItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T12:55:15.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Repositories\\Implements\\UnitOfWork.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAmwGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T13:12:11.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "WarrantyClaim.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Data\\Entities\\WarrantyClaim.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAcwDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T13:26:39.461Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
+              "RelativeToolTip": "WarrantyManagement.DAL\\Repositories\\Implements\\GenericRepository.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAAwNUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T13:11:39.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "WarrantyManagement.DAL.csproj",
+              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+              "RelativeDocumentMoniker": "WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+              "RelativeToolTip": "WarrantyManagement.DAL\\WarrantyManagement.DAL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-24T12:57:56.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
               "Title": "OrderMappingProfile.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Mapper\\OrderMappingProfile.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Mapper\\OrderMappingProfile.cs",
@@ -369,7 +408,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "GetWorkOrdersRequest.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Request\\GetWorkOrdersRequest.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Request\\GetWorkOrdersRequest.cs",
@@ -381,7 +420,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "RejectClaimRequestWithStaff.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Request\\RejectClaimRequestWithStaff.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Request\\RejectClaimRequestWithStaff.cs",
@@ -393,19 +432,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "WarrantyManagement.API.csproj",
-              "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "RelativeDocumentMoniker": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "ToolTip": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "RelativeToolTip": "WarrantyManagement.API\\WarrantyManagement.API.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-24T08:54:36.599Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "ClaimResponse.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Response\\ClaimResponse.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Response\\ClaimResponse.cs",
@@ -417,7 +444,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "ClaimMappingProfile.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Mapper\\ClaimMappingProfile.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Mapper\\ClaimMappingProfile.cs",
@@ -429,7 +456,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "ClaimRequest.cs",
               "DocumentMoniker": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.DAL\\Data\\Request\\ClaimRequest.cs",
               "RelativeDocumentMoniker": "WarrantyManagement.DAL\\Data\\Request\\ClaimRequest.cs",

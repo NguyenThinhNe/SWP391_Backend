@@ -365,5 +365,44 @@ namespace WarrantyManagement.API.Controllers
                 return BadRequest(new { success = false, message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Delete a warranty claim by ID
+        /// </summary>
+        /// <param name="claimId">The claim ID to delete</param>
+        /// <returns>Boolean indicating success or failure</returns>
+        [HttpDelete("{claimId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteClaim(Guid claimId)
+        {
+            try
+            {
+                var result = await _claimService.DeleteClaimAsync(claimId);
+
+                if (!result)
+                {
+                    return NotFound(new
+                    {
+                        message = $"Claim with ID {claimId} not found"
+                    });
+                }
+
+                return Ok(new
+                {
+                    message = "Claim deleted successfully",
+                    claimId = claimId
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = "An error occurred while deleting the claim",
+                    error = ex.Message
+                });
+            }
+        }
     }
 }

@@ -3597,23 +3597,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jso\\.nuget\\packages\\": {},
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "projectUniqueName": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
       "projectName": "WarrantyManagement.API",
-      "projectPath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
-      "packagesPath": "C:\\Users\\jso\\.nuget\\packages\\",
-      "outputPath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
+      "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\WarrantyManagement.API.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\jso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3628,8 +3628,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
-              "projectPath": "D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
+            "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj": {
+              "projectPath": "D:\\SWP391_BE\\SWP391_Backend\\WarrantyManagement.BLL\\WarrantyManagement.BLL.csproj"
             }
           }
         }
@@ -3694,16 +3694,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Stuff\\Github\\SWP391\\SWP391_Backend\\WarrantyManagement.API\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0."
-    }
-  ]
+  }
 }

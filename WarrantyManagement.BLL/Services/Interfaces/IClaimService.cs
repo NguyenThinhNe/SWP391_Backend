@@ -41,7 +41,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Get claims by technician
         Task<ICollection<ClaimResponse>> GetClaimsByTechnicianAsync(Guid technicianId);
 
-        
-        
+        //Delete claim by ID
+        Task<bool> DeleteClaimAsync(Guid claimId);
     }
 }

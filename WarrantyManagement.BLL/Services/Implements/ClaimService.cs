@@ -393,5 +393,46 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
+
+        #region Delete Claim
+
+        public async Task<bool> DeleteClaimAsync(Guid claimId)
+        {
+            return await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+                var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
+
+                // Kiểm tra claim tồn tại
+                var claim = await claimRepo.FirstOrDefaultAsync(
+                    predicate: c => c.ClaimId == claimId
+                );
+
+                if (claim == null)
+                {
+                    return false;
+                }
+
+                // Xóa các ClaimDetails liên quan (many-to-many relationship)
+                var claimDetails = await _unitOfWork.Context.ClaimDetails
+                    .Where(cd => cd.ClaimId == claimId)
+                    .ToListAsync();
+
+                foreach (var claimDetail in claimDetails)
+                {
+                    claimDetailRepo.DeleteAsync(claimDetail);
+                }
+
+                // Xóa claim
+                claimRepo.DeleteAsync(claim);
+
+                // Lưu thay đổi
+                await _unitOfWork.SaveChangesAsync();
+
+                return true;
+            });
+        }
+
+        #endregion
     }
 }

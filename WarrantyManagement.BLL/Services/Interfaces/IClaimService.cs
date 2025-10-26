@@ -23,9 +23,6 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Get claims by status
         Task<ICollection<ClaimResponse>> GetClaimsByStatusAsync(WarrantyClaimStatus status);
 
-        /// Start reviewing claim (EVM Staff) - Change status to InProgress
-        Task<ClaimResponse> StartReviewAsync(Guid claimId, Guid evmStaffId);
-
         /// Approve claim (EVM Staff) - Change status to Completed
         Task<ClaimResponse> ApproveClaimAsync(Guid claimId, Guid evmStaffId);
 

@@ -217,41 +217,6 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
-
-        /// <summary>
-        /// Start reviewing a claim
-        /// </summary>
-        [HttpPut("{claimId}/start-review")]
-        [ProducesResponseType(typeof(ClaimResponse), 200)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> StartReview(Guid claimId)
-        {
-            try
-            {
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid userId))
-                {
-                    return Unauthorized(new { message = "Invalid or missing user authentication" });
-                }
-
-                var result = await _claimService.StartReviewAsync(claimId, userId);
-                return Ok(new
-                {
-                    success = true,
-                    message = "Claim review started",
-                    data = result
-                });
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(new { success = false, message = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
-            }
-        }
-
         /// <summary>
         /// Approve a claim
         /// </summary>

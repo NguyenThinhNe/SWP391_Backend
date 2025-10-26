@@ -245,14 +245,10 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         #region Update Claim Status
 
-        public async Task<ClaimResponse> StartReviewAsync(Guid claimId, Guid evmStaffId)
-        {
-            return await UpdateClaimStatusAsync(claimId, WarrantyClaimStatus.InProgress, evmStaffId);
-        }
 
         public async Task<ClaimResponse> ApproveClaimAsync(Guid claimId, Guid evmStaffId)
         {
-            return await UpdateClaimStatusAsync(claimId, WarrantyClaimStatus.Completed, evmStaffId);
+            return await UpdateClaimStatusAsync(claimId, WarrantyClaimStatus.Accepted, evmStaffId);
         }
 
         public async Task<ClaimResponse> RejectClaimAsync(Guid claimId, Guid evmStaffId, string rejectionReason)
@@ -270,9 +266,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     throw new KeyNotFoundException($"Claim with ID {claimId} not found");
                 }
 
-                ValidateStatusTransition(claim.Status, WarrantyClaimStatus.Completed);
+                ValidateStatusTransition(claim.Status, WarrantyClaimStatus.Accepted);
 
-                claim.Status = WarrantyClaimStatus.Completed;
+                claim.Status = WarrantyClaimStatus.Accepted;
                 // TODO: Lưu rejectionReason nếu cần (có thể thêm field vào WarrantyClaim entity)
 
                 claimRepo.UpdateAsync(claim);
@@ -358,30 +354,29 @@ namespace WarrantyManagement.BLL.Services.Implements
                     WarrantyClaimStatus.Pending,
                     new List<WarrantyClaimStatus>
                     {
-                        WarrantyClaimStatus.InProgress,
-                        WarrantyClaimStatus.Overdue
+                        WarrantyClaimStatus.Accepted,
+                        WarrantyClaimStatus.Overdued
                     }
                 },
-                {
-                    WarrantyClaimStatus.InProgress,
-                    new List<WarrantyClaimStatus>
-                    {
-                        WarrantyClaimStatus.Completed,
-                        WarrantyClaimStatus.Overdue
-                    }
-                },
-                {
-                    WarrantyClaimStatus.Completed,
-                    new List<WarrantyClaimStatus>()
-                },
-                {
-                    WarrantyClaimStatus.Overdue,
-                    new List<WarrantyClaimStatus>
-                    {
-                        WarrantyClaimStatus.InProgress,
-                        WarrantyClaimStatus.Completed
-                    }
-                }
+            {
+            WarrantyClaimStatus.Accepted,
+            new List<WarrantyClaimStatus>
+            {
+                WarrantyClaimStatus.Overdued
+            }
+            },
+            {
+            WarrantyClaimStatus.Rejected,
+            new List<WarrantyClaimStatus>()
+            },
+            {
+            WarrantyClaimStatus.Overdued,
+            new List<WarrantyClaimStatus>
+            {
+                WarrantyClaimStatus.Accepted,
+                WarrantyClaimStatus.Rejected
+            }
+            }
             };
 
             if (!validTransitions.ContainsKey(currentStatus) ||
@@ -390,7 +385,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 throw new InvalidOperationException(
                     $"Invalid status transition from {currentStatus} to {newStatus}");
             }
-        }
+            }
 
         #endregion
 

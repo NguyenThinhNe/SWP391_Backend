@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -23,6 +24,7 @@ namespace WarrantyManagement.BLL.Services.Implements
     {
         private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
         private readonly JwtSettings _jwtSettings;
+        private readonly PasswordHasher<string> _passwordHasher = new PasswordHasher<string>();
         public AuthService(IUnitOfWork<WarrantyDbContext> unitOfWork, IOptions<JwtSettings> jwtSettings)
         {
             _unitOfWork = unitOfWork;
@@ -192,12 +194,6 @@ namespace WarrantyManagement.BLL.Services.Implements
                         Data = null
                     };
                 }
-
-                // Debug: Log password comparison
-                Console.WriteLine($"Input Password: {request.Password}");
-                Console.WriteLine($"Stored Password Hash: {user.Password}");
-                Console.WriteLine($"Generated Hash: {HashPassword(request.Password)}");
-
                 if (!VerifyPassword(request.Password, user.Password))
                 {
                     return new SuccessResponse<LoginResponse>
@@ -207,7 +203,6 @@ namespace WarrantyManagement.BLL.Services.Implements
                         Data = null
                     };
                 }
-
                 var token = GenerateJwtToken(user);
                 var expiration = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes);
 
@@ -276,17 +271,13 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         private string HashPassword(string password)
         {
-            using (var sha256 = SHA256.Create())
-            {
-                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
-            }
+            return _passwordHasher.HashPassword(null, password);
         }
 
         private bool VerifyPassword(string password, string hashedPassword)
         {
-            var hashOfInput = HashPassword(password);
-            return hashOfInput == hashedPassword;
+            var result = _passwordHasher.VerifyHashedPassword(null, hashedPassword, password);
+            return result == PasswordVerificationResult.Success;
         }
 
         #endregion

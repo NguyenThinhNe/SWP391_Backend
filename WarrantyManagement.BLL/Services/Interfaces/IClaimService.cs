@@ -23,9 +23,6 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Get claims by status
         Task<ICollection<ClaimResponse>> GetClaimsByStatusAsync(WarrantyClaimStatus status);
 
-        /// Start reviewing claim (EVM Staff) - Change status to InProgress
-        Task<ClaimResponse> StartReviewAsync(Guid claimId, Guid evmStaffId);
-
         /// Approve claim (EVM Staff) - Change status to Completed
         Task<ClaimResponse> ApproveClaimAsync(Guid claimId, Guid evmStaffId);
 
@@ -41,7 +38,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Get claims by technician
         Task<ICollection<ClaimResponse>> GetClaimsByTechnicianAsync(Guid technicianId);
 
-        
-        
+        //Delete claim by ID
+        Task<bool> DeleteClaimAsync(Guid claimId);
     }
 }

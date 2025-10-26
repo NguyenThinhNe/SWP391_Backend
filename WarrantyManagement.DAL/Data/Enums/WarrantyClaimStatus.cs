@@ -9,8 +9,8 @@ namespace WarrantyManagement.DAL.Data.Enums
     public enum WarrantyClaimStatus
     {
         Pending,
-        InProgress,
-        Completed,
-        Overdue
+        Accepted,
+        Rejected,
+        Overdued
     }
 }

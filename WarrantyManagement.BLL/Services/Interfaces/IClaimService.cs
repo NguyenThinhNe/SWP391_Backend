@@ -36,7 +36,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         Task<bool> ValidateWarrantyEligibilityAsync(string vin, Guid policyId);
 
         /// Get claims by technician
-        Task<ICollection<ClaimResponse>> GetClaimsByTechnicianAsync(Guid technicianId);
+        Task<ICollection<ClaimResponse>> GetClaimsByUserAsync(Guid userId);
 
         //Delete claim by ID
         Task<bool> DeleteClaimAsync(Guid claimId);

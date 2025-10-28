@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WarrantyManagement.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0bbd233c38bf5e6491e9f16eaaaf09ec5a14c8c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64aa418510a00a385331f42fcca8e762f3c299eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("WarrantyManagement.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WarrantyManagement.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

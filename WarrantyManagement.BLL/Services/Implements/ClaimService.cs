@@ -199,7 +199,7 @@ namespace WarrantyManagement.BLL.Services.Implements
             return _mapper.Map<ICollection<ClaimResponse>>(claims);
         }
 
-        public async Task<ICollection<ClaimResponse>> GetClaimsByTechnicianAsync(Guid technicianId)
+        public async Task<ICollection<ClaimResponse>> GetClaimsByUserAsync(Guid userId)
         {
             var claims = await _unitOfWork.Context.WarrantyClaims
                 .Include(c => c.CustomerVehicle)
@@ -213,7 +213,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
                 .AsNoTracking()
-                .Where(c => c.UserId == technicianId)
+                .Where(c => c.UserId == userId)
                 .OrderByDescending(c => c.ClaimDate)
                 .ToListAsync();
 

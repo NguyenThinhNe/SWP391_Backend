@@ -170,16 +170,16 @@ namespace WarrantyManagement.API.Controllers
         }
 
         /// <summary>
-        /// Get claims by technician
+        /// Get claims by user
         /// </summary>
-        [HttpGet("technician/{technicianId}")]
+        [HttpGet("user/{userId}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
-        [Authorize(Roles = "SCTech")]
-        public async Task<IActionResult> GetClaimsByTechnician(Guid technicianId)
+        [Authorize(Roles = "SCTech,EVMStaff,SCStaff")]
+        public async Task<IActionResult> GetClaimsByUser(Guid userId)
         {
             try
             {
-                var results = await _claimService.GetClaimsByTechnicianAsync(technicianId);
+                var results = await _claimService.GetClaimsByUserAsync(userId);
                 return Ok(new
                 {
                     success = true,

@@ -149,15 +149,15 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         /// <param name="technicianId">Technician user ID</param>
         /// <returns>List of work orders</returns>
-        [HttpGet("technician/{technicianId}")]
+        [HttpGet("user/{userId}")]
         [ProducesResponseType(typeof(SuccessResponse<List<WorkOrderSummaryResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
-        [Authorize(Roles = "SCTech")]
-        public async Task<IActionResult> GetWorkOrdersByTechnician(Guid technicianId)
+        [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
+        public async Task<IActionResult> GetWorkOrdersByUser(Guid userId)
         {
             try
             {
-                var result = await _workOrderService.GetWorkOrdersByTechnicianAsync(technicianId);
+                var result = await _workOrderService.GetWorkOrdersByUserAsync(userId);
 
                 return Ok(new SuccessResponse<List<WorkOrderSummaryResponse>>
                 {

@@ -371,12 +371,12 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         #region Get WorkOrders By Technician
 
-        public async Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByTechnicianAsync(Guid technicianId)
+        public async Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByUserAsync(Guid userId)
         {
             var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
 
             var workOrders = await workOrderRepo.GetListAsync(
-                predicate: wo => wo.UserId == technicianId,
+                predicate: wo => wo.UserId == userId,
                 orderBy: query => query.OrderByDescending(wo => wo.StartDate),
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)

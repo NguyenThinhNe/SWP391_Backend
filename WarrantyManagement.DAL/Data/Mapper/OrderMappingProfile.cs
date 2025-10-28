@@ -124,11 +124,7 @@ namespace WarrantyManagement.DAL.Data.Mapper
                .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src =>
                    src.ClaimDetails != null && src.ClaimDetails.Any()
                        ? src.ClaimDetails.First().ClaimId
-                       : Guid.Empty))
-               .ForMember(dest => dest.ClaimNumber, opt => opt.MapFrom(src =>
-                   src.ClaimDetails != null && src.ClaimDetails.Any() && src.ClaimDetails.First().WarrantyClaim != null
-                       ? src.ClaimDetails.First().WarrantyClaim.ClaimId.ToString()
-                       : string.Empty));
+                       : Guid.Empty));
 
         }
     }

@@ -24,10 +24,18 @@ namespace WarrantyManagement.DAL.Data.Response
 
         public Guid TechnicianId { get; set; }
         public string TechnicianName { get; set; } // Từ User
-
+        //Customer information
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; } // Từ Customer
         public string CustomerPhone { get; set; }
+        public string CustomerEmail { get; set; }
+
+        // Vehicle information
+        public string VIN { get; set; }
+        public string VehicleName { get; set; }
+        public string Model { get; set; }
+        public int MileAge { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
         // Parts information
         public List<PartSummaryDto> Parts { get; set; }

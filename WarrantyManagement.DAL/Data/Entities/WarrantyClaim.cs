@@ -18,16 +18,13 @@ namespace WarrantyManagement.DAL.Data.Entities
         [Required]
         public DateTime ClaimDate { get; set; } = DateTime.Now;
 
-        [MaxLength(200)]
-        public string ClaimDescription { get; set; }
-
         [Required]
         public WarrantyClaimStatus Status { get; set; } = WarrantyClaimStatus.Pending;
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(400)]
         public string IssueDescription { get; set; }
-        
+        public bool isActive { get; set; } = true;
         [Required]
         public string VIN {  get; set; }
         [ForeignKey(nameof(VIN))]

@@ -19,7 +19,7 @@ namespace WarrantyManagement.DAL.Data.Request
         [Required]
         public Guid CustomerId { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(400)]
         public string Description { get; set; }
 
         [Required]

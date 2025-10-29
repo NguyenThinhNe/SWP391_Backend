@@ -21,7 +21,7 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
                 .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
                 .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
-                .ForMember(dest => dest.ClaimDescription, opt => opt.MapFrom(src => src.ClaimDescription))
+             
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => WarrantyClaimStatus.Pending)) // Default status
                 .ForMember(dest => dest.UserId, opt => opt.Ignore()) // Set in service from current user
                 .ForMember(dest => dest.User, opt => opt.Ignore()) // Navigation property
@@ -40,7 +40,18 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.Inventory, opt => opt.Ignore()) // Set in service if needed
                 .ForMember(dest => dest.InventoryId, opt => opt.Ignore()) // Set in service if needed
                 .ForMember(dest => dest.ClaimDetails, opt => opt.Ignore()); // Handled in service
-
+                                                                            // Update claim request to entity mapping can be added here if needed
+            CreateMap<UpdateClaimRequest, WarrantyClaim>()
+               .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
+               .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
+               .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
+               
+               .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
+               .ForMember(dest => dest.ClaimDetails, opt => opt.Ignore()) // handled separately
+               .ForMember(dest => dest.Status, opt => opt.Ignore())       // don’t override current status
+               .ForMember(dest => dest.UserId, opt => opt.Ignore())       // assigned from logged user
+               .ForMember(dest => dest.CustomerVehicle, opt => opt.Ignore())
+               .ForMember(dest => dest.WarrantyPolicy, opt => opt.Ignore());
             // ✅ WarrantyClaim → ClaimResponse
             CreateMap<WarrantyClaim, ClaimResponse>()
                 // Direct claim fields
@@ -49,7 +60,6 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
                 .ForMember(dest => dest.ClaimStatus, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
-                .ForMember(dest => dest.ClaimDescription, opt => opt.MapFrom(src => src.ClaimDescription))
 
                 // Vehicle information from CustomerVehicle
                 .ForMember(dest => dest.VehicleName, opt => opt.MapFrom(src =>

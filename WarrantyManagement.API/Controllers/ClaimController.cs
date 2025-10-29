@@ -82,7 +82,38 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
+        ///// <summary>
+        ///// Update an existing warranty claim.
+        ///// </summary>
+        ///// <param name="claimId">Claim ID to update</param>
+        ///// <param name="updateRequest">Updated claim info</param>
+        ///// <returns>Updated claim data</returns>
+        //[HttpPut("{claimId}")]
+        //[Authorize(Roles = "SCTech")]
+        //public async Task<IActionResult> UpdateClaim(Guid claimId, [FromBody] UpdateClaimRequest updateRequest)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
+        //    try
+        //    {
+        //        var updatedClaim = await _claimService.UpdateClaimAsync(updateRequest, claimId);
+        //        return Ok(new
+        //        {
+        //            Success = true,
+        //            Message = "Claim updated successfully",
+        //            Data = updatedClaim
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            Success = false,
+        //            Message = ex.Message
+        //        });
+        //    }
+        //}
         /// <summary>
         /// Get claim by ID
         /// </summary>

@@ -102,6 +102,8 @@ namespace WarrantyManagement.BLL.Services.Implements
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
                         .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.WarrantyClaim)  // ✨ Thêm dòng này
+                        .ThenInclude(c => c.CustomerVehicle)  // ✨ Quan trọng!
                     .Include(wo => wo.User)
                     .Include(wo => wo.Customer)
                     .Include(wo => wo.Parts)
@@ -125,63 +127,22 @@ namespace WarrantyManagement.BLL.Services.Implements
             return response;
         }
 
-        public async Task<PagedWorkOrderResponse> GetWorkOrdersAsync(GetWorkOrdersRequest request)
+        public async Task<List<WorkOrderResponse>> GetAllWorkOrdersAsync()
         {
             var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
 
-            // Build predicate based on filters
-            Expression<Func<WorkOrder, bool>> predicate = wo => true;
-
-            if (request.ClaimId.HasValue)
-                predicate = predicate.And(wo => wo.ClaimId == request.ClaimId.Value);
-
-            if (request.TechnicianId.HasValue)
-                predicate = predicate.And(wo => wo.UserId == request.TechnicianId.Value);
-
-            if (request.CustomerId.HasValue)
-                predicate = predicate.And(wo => wo.CustomerId == request.CustomerId.Value);
-
-            if (request.Status.HasValue)
-                predicate = predicate.And(wo => wo.Status == request.Status.Value);
-
-            if (request.Priority.HasValue)
-                predicate = predicate.And(wo => wo.Priority == request.Priority.Value);
-
-            if (request.FromDate.HasValue)
-                predicate = predicate.And(wo => wo.StartDate >= request.FromDate.Value);
-
-            if (request.ToDate.HasValue)
-                predicate = predicate.And(wo => wo.EndDate <= request.ToDate.Value);
-
-            // Get total count
-            var totalCount = await workOrderRepo.CountAsync(predicate);
-
-            // Get paged data
             var workOrders = await workOrderRepo.GetListAsync(
-                predicate: predicate,
+                predicate: null, // Không filter
                 orderBy: query => query.OrderByDescending(wo => wo.StartDate),
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.CustomerVehicle)  
                     .Include(wo => wo.User)
-                    .Include(wo => wo.Customer),
-                take: request.PageSize
+                    .Include(wo => wo.Customer)
             );
 
-            // Apply skip manually since GetListAsync doesn't have skip parameter
-            var skip = (request.PageNumber - 1) * request.PageSize;
-            var pagedWorkOrders = workOrders.Skip(skip).ToList();
-
-            var summaries = _mapper.Map<List<WorkOrderSummaryResponse>>(pagedWorkOrders);
-
-            return new PagedWorkOrderResponse
-            {
-                Items = summaries,
-                TotalCount = totalCount,
-                PageNumber = request.PageNumber,
-                PageSize = request.PageSize
-            };
+            return _mapper.Map<List<WorkOrderResponse>>(workOrders);
         }
-
 
         public async Task<List<WorkOrderResponse>> GetWorkOrdersByPriorityAsync(WorkOrderPriority priority)
         {
@@ -193,6 +154,8 @@ namespace WarrantyManagement.BLL.Services.Implements
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
                         .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.WarrantyClaim)  
+                        .ThenInclude(c => c.CustomerVehicle)
                     .Include(wo => wo.User)
                     .Include(wo => wo.Customer)
                     .Include(wo => wo.Parts)
@@ -371,7 +334,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         #region Get WorkOrders By Technician
 
-        public async Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByUserAsync(Guid userId)
+        public async Task<List<WorkOrderResponse>> GetWorkOrdersByUserAsync(Guid userId)
         {
             var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
 
@@ -380,11 +343,16 @@ namespace WarrantyManagement.BLL.Services.Implements
                 orderBy: query => query.OrderByDescending(wo => wo.StartDate),
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.CustomerVehicle)
                     .Include(wo => wo.User)
                     .Include(wo => wo.Customer)
+                    .Include(wo => wo.Parts)
+                        .ThenInclude(p => p.PartItems)
             );
 
-            return _mapper.Map<List<WorkOrderSummaryResponse>>(workOrders);
+            return _mapper.Map<List<WorkOrderResponse>>(workOrders);
         }
 
 
@@ -398,6 +366,8 @@ namespace WarrantyManagement.BLL.Services.Implements
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
                         .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.WarrantyClaim)  
+                        .ThenInclude(c => c.CustomerVehicle)
                     .Include(wo => wo.User)
                     .Include(wo => wo.Customer)
                     .Include(wo => wo.Parts)
@@ -428,7 +398,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
         #region Get WorkOrders By Claim
 
-        public async Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByClaimAsync(Guid claimId)
+        public async Task<WorkOrderResponse> GetWorkOrdersByClaimAsync(Guid claimId)
         {
             var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
 
@@ -437,11 +407,16 @@ namespace WarrantyManagement.BLL.Services.Implements
                 orderBy: query => query.OrderByDescending(wo => wo.StartDate),
                 include: query => query
                     .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.WarrantyPolicy)
+                    .Include(wo => wo.WarrantyClaim)
+                        .ThenInclude(c => c.CustomerVehicle)
                     .Include(wo => wo.User)
                     .Include(wo => wo.Customer)
+                    .Include(wo => wo.Parts)
+                        .ThenInclude(p => p.PartItems)
             );
 
-            return _mapper.Map<List<WorkOrderSummaryResponse>>(workOrders);
+            return _mapper.Map<WorkOrderResponse>(workOrders);
         }
 
         #endregion

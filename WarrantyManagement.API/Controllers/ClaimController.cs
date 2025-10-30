@@ -227,7 +227,7 @@ namespace WarrantyManagement.API.Controllers
         [HttpGet("service-center/{serviceCenterId}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
         [ProducesResponseType(404)]
-        [Authorize(Roles = "EVMStaff")]
+        [Authorize(Roles = "EVMStaff,SCTech,SCStaff")]
         public async Task<IActionResult> GetClaimsByServiceCenter(Guid serviceCenterId)
         {
             try

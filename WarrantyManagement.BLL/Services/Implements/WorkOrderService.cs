@@ -41,7 +41,8 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 if (claim == null)
                     throw new Exception("Claim not found");
-
+                if (claim.Status != WarrantyClaimStatus.Accepted)
+                    throw new Exception("Claim must be approved before creating a work order");
                 // Validate technician exists
                 var userRepo = _unitOfWork.GetRepository<User>();
                 var technician = await userRepo.FirstOrDefaultAsync(
@@ -249,15 +250,40 @@ namespace WarrantyManagement.BLL.Services.Implements
                 if (workOrder == null)
                     throw new Exception("Work order not found");
 
-                // Update only status
-                workOrder.Status = request.Status;
+                var oldStatus = workOrder.Status;
+                var newStatus = request.Status;
+
+                
+                var validTransitions = new Dictionary<WorkOrderStatus, WorkOrderStatus[]>
+                {
+                    { WorkOrderStatus.Pending,    new[] { WorkOrderStatus.InProgress, WorkOrderStatus.Overdue } },
+                    { WorkOrderStatus.InProgress, new[] { WorkOrderStatus.Completed, WorkOrderStatus.Overdue } },
+                    { WorkOrderStatus.Completed,  Array.Empty<WorkOrderStatus>() },
+                    { WorkOrderStatus.Overdue,    new[] { WorkOrderStatus.InProgress, WorkOrderStatus.Completed } }
+                };
+
+                if (!validTransitions.ContainsKey(oldStatus) ||
+                    !validTransitions[oldStatus].Contains(newStatus))
+                {
+                    throw new Exception($"Invalid status transition from {oldStatus} to {newStatus}");
+                }
+
+                if (newStatus == WorkOrderStatus.Completed)
+                {
+                    workOrder.EndDate = DateTime.UtcNow;
+                }
+
+                
+                workOrder.Status = newStatus;
 
                 workOrderRepo.UpdateAsync(workOrder);
                 await _unitOfWork.SaveChangesAsync();
 
+                
                 return await GetWorkOrderByIdAsync(workOrderId);
             });
         }
+
 
         #endregion
 

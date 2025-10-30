@@ -15,7 +15,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Create a new warranty claim 
         Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid technicianId);
         /// Update existing claim
-        //Task<ClaimResponse> UpdateClaimAsync(UpdateClaimRequest updateRequest, Guid claimId);
+        Task<ClaimResponse> UpdateClaimAsync(UpdateClaimRequest updateRequest, Guid claimId);
         /// Get claim by ID with full details
         Task<ClaimResponse> GetClaimByIdAsync(Guid claimId);
 

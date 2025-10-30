@@ -257,7 +257,13 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
-
+        [HttpGet("by-center/{centerId}")]
+        [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
+        public async Task<IActionResult> GetWorkOrdersByCenter(Guid centerId)
+        {
+            var result = await _workOrderService.GetWorkOrdersByCenter(centerId);
+            return Ok(result);
+        }
         #endregion
 
         #region Update WorkOrder

@@ -113,6 +113,80 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
+        //#region Update Claim
+        //public async Task<ClaimResponse> UpdateClaimAsync(UpdateClaimRequest updateRequest, Guid claimId)
+        //{
+        //    var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+        //    var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
+
+        //    // Include current ClaimDetails so we can remove and re-add them
+        //    var existingClaim = await claimRepo.FirstOrDefaultAsync(
+        //        predicate: c => c.ClaimId == claimId,
+        //        include: query => query.Include(c => c.ClaimDetails)
+        //                               .ThenInclude(cd => cd.PartItem)
+        //                               .Include(c => c.WarrantyPolicy)
+        //                               .Include(c => c.User)
+        //                               .Include(c => c.CustomerVehicle)
+        //    );
+
+        //    if (existingClaim == null)
+        //        throw new Exception($"Claim with ID {claimId} not found");
+
+        //    // Map updated fields
+        //    _mapper.Map(updateRequest, existingClaim);
+
+        //    // Remove existing claim details
+        //    if (existingClaim.ClaimDetails != null && existingClaim.ClaimDetails.Any())
+        //    {
+        //        claimDetailRepo.DeleteRangeAsync(existingClaim.ClaimDetails);
+        //    }
+
+        //    // Add updated claim details
+        //    existingClaim.ClaimDetails = updateRequest.PartItems.Select(p => new ClaimDetail
+        //    {
+        //        ClaimDetailId = Guid.NewGuid(),
+        //        ClaimId = existingClaim.ClaimId,
+        //        PartItemId = p.PartId
+        //    }).ToList();
+
+        //    // Update in DB
+        //    claimRepo.UpdateAsync(existingClaim);
+        //    await _unitOfWork.SaveChangesAsync();
+
+        //    // Map response
+        //    var response = new ClaimResponse
+        //    {
+        //        ClaimId = existingClaim.ClaimId,
+        //        ClaimDate = existingClaim.ClaimDate,
+        //        VIN = existingClaim.VIN,
+        //        ClaimStatus = existingClaim.Status,
+        //        IssueDescription = existingClaim.IssueDescription,
+        //        ClaimDescription = existingClaim.ClaimDescription,
+        //        PolicyId = existingClaim.PolicyId,
+        //        PolicyName = existingClaim.WarrantyPolicy?.Name,
+        //        ServiceCenterId = existingClaim.User?.ServiceCenterId ?? Guid.Empty,
+        //        ServiceCenterName = existingClaim.User?.ServiceCenter?.CenterName ?? string.Empty,
+        //        UserId = existingClaim.UserId,
+        //        TechnicianName = existingClaim.User?.Name,
+        //        VehicleName = existingClaim.CustomerVehicle?.VehicleName ?? string.Empty,
+        //        PurchaseDate = existingClaim.CustomerVehicle?.PurchaseDate ?? DateTime.MinValue,
+        //        Mileage = existingClaim.CustomerVehicle?.MileAge ?? 0,
+        //        Parts = existingClaim.ClaimDetails?.Select(cd => new PartItemResponse
+        //        {
+        //            PartItemId = cd.PartItemId,
+        //            PartId = cd.PartItem.PartId,
+        //            PartNumber = cd.PartItem.PartNumber,
+        //            PartName = cd.PartItem.Part?.PartName ?? string.Empty,
+        //            Description = cd.PartItem.Part?.Description ?? string.Empty,
+        //            Price = cd.PartItem.Price,
+        //            Quantity = cd.PartItem.Quantity,
+        //            TotalCost = cd.PartItem.Price * cd.PartItem.Quantity
+        //        }).ToList()
+        //    };
+
+        //    return response;
+        //}
+        //#endregion
 
         #region Get Claims
 
@@ -199,7 +273,7 @@ namespace WarrantyManagement.BLL.Services.Implements
             return _mapper.Map<ICollection<ClaimResponse>>(claims);
         }
 
-        public async Task<ICollection<ClaimResponse>> GetClaimsByTechnicianAsync(Guid technicianId)
+        public async Task<ICollection<ClaimResponse>> GetClaimsByUserAsync(Guid userId)
         {
             var claims = await _unitOfWork.Context.WarrantyClaims
                 .Include(c => c.CustomerVehicle)
@@ -213,7 +287,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
                 .AsNoTracking()
-                .Where(c => c.UserId == technicianId)
+                .Where(c => c.UserId == userId)
                 .OrderByDescending(c => c.ClaimDate)
                 .ToListAsync();
 
@@ -396,32 +470,28 @@ namespace WarrantyManagement.BLL.Services.Implements
             return await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
                 var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
-                var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
 
-                // Kiểm tra claim tồn tại
+                // ✅ 1. Tìm claim theo ID
                 var claim = await claimRepo.FirstOrDefaultAsync(
                     predicate: c => c.ClaimId == claimId
                 );
 
                 if (claim == null)
                 {
-                    return false;
+                    throw new KeyNotFoundException($"Claim with ID {claimId} not found");
                 }
 
-                // Xóa các ClaimDetails liên quan (many-to-many relationship)
-                var claimDetails = await _unitOfWork.Context.ClaimDetails
-                    .Where(cd => cd.ClaimId == claimId)
-                    .ToListAsync();
-
-                foreach (var claimDetail in claimDetails)
+                // ✅ 2. Kiểm tra nếu claim đã bị xóa mềm
+                if (!claim.isActive)
                 {
-                    claimDetailRepo.DeleteAsync(claimDetail);
+                    throw new InvalidOperationException($"Claim with ID {claimId} is already deleted.");
                 }
 
-                // Xóa claim
-                claimRepo.DeleteAsync(claim);
+                // ✅ 3. Soft delete bằng cách set isActive = false
+                claim.isActive = false;
 
-                // Lưu thay đổi
+                // ✅ 4. Cập nhật vào DB
+                claimRepo.UpdateAsync(claim);
                 await _unitOfWork.SaveChangesAsync();
 
                 return true;

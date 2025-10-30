@@ -14,6 +14,8 @@ namespace WarrantyManagement.BLL.Services.Interfaces
     {
         /// Create a new warranty claim 
         Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid technicianId);
+        /// Update existing claim
+        //Task<ClaimResponse> UpdateClaimAsync(UpdateClaimRequest updateRequest, Guid claimId);
         /// Get claim by ID with full details
         Task<ClaimResponse> GetClaimByIdAsync(Guid claimId);
 
@@ -36,7 +38,7 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         Task<bool> ValidateWarrantyEligibilityAsync(string vin, Guid policyId);
 
         /// Get claims by technician
-        Task<ICollection<ClaimResponse>> GetClaimsByTechnicianAsync(Guid technicianId);
+        Task<ICollection<ClaimResponse>> GetClaimsByUserAsync(Guid userId);
 
         //Delete claim by ID
         Task<bool> DeleteClaimAsync(Guid claimId);

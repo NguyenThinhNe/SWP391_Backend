@@ -15,9 +15,9 @@ namespace WarrantyManagement.BLL.Services.Interfaces
 
         // Read
         Task<WorkOrderResponse> GetWorkOrderByIdAsync(Guid workOrderId);
-        Task<PagedWorkOrderResponse> GetWorkOrdersAsync(GetWorkOrdersRequest request);
-        Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByTechnicianAsync(Guid technicianId);
-        Task<List<WorkOrderSummaryResponse>> GetWorkOrdersByClaimAsync(Guid claimId);
+        Task<List<WorkOrderResponse>> GetAllWorkOrdersAsync();
+        Task<List<WorkOrderResponse>> GetWorkOrdersByUserAsync(Guid userId);
+        Task<WorkOrderResponse> GetWorkOrdersByClaimAsync(Guid claimId);
         Task<List<WorkOrderResponse>> GetWorkOrderByPriorityAsync(WorkOrderPriority priority);
 
         // Update

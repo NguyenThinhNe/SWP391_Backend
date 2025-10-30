@@ -82,7 +82,38 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
+        ///// <summary>
+        ///// Update an existing warranty claim.
+        ///// </summary>
+        ///// <param name="claimId">Claim ID to update</param>
+        ///// <param name="updateRequest">Updated claim info</param>
+        ///// <returns>Updated claim data</returns>
+        //[HttpPut("{claimId}")]
+        //[Authorize(Roles = "SCTech")]
+        //public async Task<IActionResult> UpdateClaim(Guid claimId, [FromBody] UpdateClaimRequest updateRequest)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
+        //    try
+        //    {
+        //        var updatedClaim = await _claimService.UpdateClaimAsync(updateRequest, claimId);
+        //        return Ok(new
+        //        {
+        //            Success = true,
+        //            Message = "Claim updated successfully",
+        //            Data = updatedClaim
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            Success = false,
+        //            Message = ex.Message
+        //        });
+        //    }
+        //}
         /// <summary>
         /// Get claim by ID
         /// </summary>
@@ -170,16 +201,16 @@ namespace WarrantyManagement.API.Controllers
         }
 
         /// <summary>
-        /// Get claims by technician
+        /// Get claims by user
         /// </summary>
-        [HttpGet("technician/{technicianId}")]
+        [HttpGet("user/{userId}")]
         [ProducesResponseType(typeof(ICollection<ClaimResponse>), 200)]
-        [Authorize(Roles = "SCTech")]
-        public async Task<IActionResult> GetClaimsByTechnician(Guid technicianId)
+        [Authorize(Roles = "SCTech,EVMStaff,SCStaff")]
+        public async Task<IActionResult> GetClaimsByUser(Guid userId)
         {
             try
             {
-                var results = await _claimService.GetClaimsByTechnicianAsync(technicianId);
+                var results = await _claimService.GetClaimsByUserAsync(userId);
                 return Ok(new
                 {
                     success = true,

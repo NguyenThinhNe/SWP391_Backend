@@ -16,7 +16,6 @@ namespace WarrantyManagement.DAL.Data.Response
         public string VIN { get; set; }
         public WarrantyClaimStatus ClaimStatus { get; set; }
         public string IssueDescription { get; set; }
-        public string ClaimDescription { get; set; }
 
         // Vehicle information
         public string VehicleName { get; set; }

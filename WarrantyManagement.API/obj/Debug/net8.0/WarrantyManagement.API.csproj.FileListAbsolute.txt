@@ -366,7 +366,6 @@ D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\refint\Warra
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\WarrantyManagement.API.pdb
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\WarrantyManagement.API.genruntimeconfig.cache
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\ref\WarrantyManagement.API.dll
-D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
@@ -374,3 +373,4 @@ D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\Microsoft.Ex
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\SWP391_BE\SWP391_Backend\WarrantyManagement.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

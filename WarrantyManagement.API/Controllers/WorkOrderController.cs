@@ -112,25 +112,40 @@ namespace WarrantyManagement.API.Controllers
         }
 
         /// <summary>
-        /// Get paginated list of work orders with filters
+        /// Get all work orders (no filters)
         /// </summary>
-        /// <param name="request">Filter and pagination parameters</param>
-        /// <returns>Paginated work orders</returns>
+        /// <returns>List of all work orders</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(SuccessResponse<PagedWorkOrderResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SuccessResponse<List<WorkOrderSummaryResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "SCTech,SCStaff")]
-        public async Task<IActionResult> GetWorkOrders([FromQuery] GetWorkOrdersRequest request)
+        public async Task<IActionResult> GetAllWorkOrders()
         {
             try
             {
-                var result = await _workOrderService.GetWorkOrdersAsync(request);
+                var allWorkOrders = await _workOrderService.GetAllWorkOrdersAsync();
 
-                return Ok(new SuccessResponse<PagedWorkOrderResponse>
+                // If allWorkOrders is List<WorkOrderResponse>, map to List<WorkOrderSummaryResponse>
+                var summaryList = allWorkOrders.Select(w => new WorkOrderSummaryResponse
+                {
+                    WorkOrderId = w.WorkOrderId,
+                    Description = w.Description,
+                    StartDate = w.StartDate,
+                    EndDate = w.EndDate,
+                    Status = w.Status,
+                    StatusDisplay = w.StatusDisplay,
+                    Priority = w.Priority,
+                    PriorityDisplay = w.PriorityDisplay,
+                    ClaimNumber = w.VIN, // Or w.ClaimNumber if available
+                    TechnicianName = w.TechnicianName,
+                    CustomerName = w.CustomerName
+                }).ToList();
+
+                return Ok(new SuccessResponse<List<WorkOrderSummaryResponse>>
                 {
                     Success = true,
                     Message = "Work orders retrieved successfully",
-                    Data = result
+                    Data = summaryList
                 });
             }
             catch (Exception ex)
@@ -149,17 +164,17 @@ namespace WarrantyManagement.API.Controllers
         /// </summary>
         /// <param name="technicianId">Technician user ID</param>
         /// <returns>List of work orders</returns>
-        [HttpGet("technician/{technicianId}")]
+        [HttpGet("user/{userId}")]
         [ProducesResponseType(typeof(SuccessResponse<List<WorkOrderSummaryResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
-        [Authorize(Roles = "SCTech")]
-        public async Task<IActionResult> GetWorkOrdersByTechnician(Guid technicianId)
+        [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
+        public async Task<IActionResult> GetWorkOrdersByUser(Guid userId)
         {
             try
             {
-                var result = await _workOrderService.GetWorkOrdersByTechnicianAsync(technicianId);
+                var result = await _workOrderService.GetWorkOrdersByUserAsync(userId);
 
-                return Ok(new SuccessResponse<List<WorkOrderSummaryResponse>>
+                return Ok(new SuccessResponse<List<WorkOrderResponse>>
                 {
                     Success = true,
                     Message = "Technician work orders retrieved successfully",
@@ -183,7 +198,7 @@ namespace WarrantyManagement.API.Controllers
         /// <param name="claimId">Claim ID</param>
         /// <returns>List of work orders</returns>
         [HttpGet("claim/{claimId}")]
-        [ProducesResponseType(typeof(SuccessResponse<List<WorkOrderSummaryResponse>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SuccessResponse<WorkOrderResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetWorkOrdersByClaim(Guid claimId)
         {
@@ -191,20 +206,20 @@ namespace WarrantyManagement.API.Controllers
             {
                 var result = await _workOrderService.GetWorkOrdersByClaimAsync(claimId);
 
-                return Ok(new SuccessResponse<List<WorkOrderSummaryResponse>>
+                return Ok(new SuccessResponse<WorkOrderResponse>
                 {
                     Success = true,
-                    Message = "Claim work orders retrieved successfully",
+                    Message = "Claim work order retrieved successfully",
                     Data = result
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ErrorResponse
+                return NotFound(new ErrorResponse
                 {
-                    Message = "Failed to retrieve claim work orders",
+                    Message = "Work order not found for the claim",
                     Details = ex.Message,
-                    Errors = new List<string> { ex.ToString() }
+                    Errors = new List<string> { $"No work order found for claim ID: {claimId}" }
                 });
             }
         }

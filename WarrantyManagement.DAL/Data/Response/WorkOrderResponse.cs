@@ -37,6 +37,10 @@ namespace WarrantyManagement.DAL.Data.Response
         public int MileAge { get; set; }
         public DateTime PurchaseDate { get; set; }
 
+        //Service center information
+        public Guid ServiceCenterId { get; set; }
+        public string ServiceCenterName { get; set; }
+
         // Parts information
         public List<PartSummaryDto> Parts { get; set; }
         public List<PartItemDto> PartItems { get; set; }

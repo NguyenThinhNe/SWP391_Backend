@@ -57,6 +57,7 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 // Direct claim fields
                 .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId))
                 .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
+                .ForMember(dest => dest.isActive, opt => opt.MapFrom(src => src.isActive))
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
                 .ForMember(dest => dest.ClaimStatus, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))

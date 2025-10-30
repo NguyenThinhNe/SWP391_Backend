@@ -45,6 +45,7 @@ namespace WarrantyManagement.API
             builder.Services.AddScoped<IClaimService, ClaimService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IPartItemService, PartItemService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             // CORS
             builder.Services.AddCors(options =>
             {

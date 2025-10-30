@@ -182,7 +182,24 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             return responses;
         }
+        public async Task<List<WorkOrderResponse>> GetWorkOrdersByCenter(Guid centerId)
+        {
+            var repo = _unitOfWork.GetRepository<WorkOrder>();
 
+            var workOrders = await repo.GetListAsync(
+                predicate: w => w.User != null && w.User.ServiceCenterId == centerId,
+                include: query => query
+                    .Include(w => w.User)
+                        .ThenInclude(u => u.ServiceCenter)
+                    .Include(w => w.Customer)
+                    .Include(w => w.WarrantyClaim)
+                        .ThenInclude(c => c.CustomerVehicle)
+                    .Include(w => w.Parts)
+                        .ThenInclude(p => p.PartItems)
+            );
+
+            return _mapper.Map<List<WorkOrderResponse>>(workOrders);
+        }
         #endregion
 
         #region Update WorkOrder

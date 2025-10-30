@@ -97,6 +97,11 @@ namespace WarrantyManagement.DAL.Data.Mapper
                     src.WarrantyClaim != null && src.WarrantyClaim.CustomerVehicle != null
                         ? src.WarrantyClaim.CustomerVehicle.PurchaseDate
                         : DateTime.MinValue))
+                .ForMember(dest => dest.ServiceCenterId, opt => opt.MapFrom(src =>
+                    src.User != null && src.User.ServiceCenter != null ? src.User.ServiceCenter.CenterId : Guid.Empty))
+                .ForMember(dest => dest.ServiceCenterName, opt => opt.MapFrom(src =>
+                    src.User != null && src.User.ServiceCenter != null ? src.User.ServiceCenter.CenterName : string.Empty))
+
                 .ForMember(dest => dest.Parts, opt => opt.MapFrom(src =>
                     src.Parts != null ? src.Parts.ToList() : new System.Collections.Generic.List<Part>()))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.StartDate))

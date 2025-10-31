@@ -35,11 +35,11 @@ namespace WarrantyManagement.DAL.Data.Entities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }
         
-        [Required]
-        public Guid PolicyId { get; set; }
+        public Guid? PolicyId { get; set; }
         [ForeignKey(nameof(PolicyId))]
-        public WarrantyPolicy WarrantyPolicy { get; set; }
+        public WarrantyPolicy? WarrantyPolicy { get; set; }
 
         public ICollection<ClaimDetail> ClaimDetails { get; set; }
+        public ICollection<ClaimImage> Images { get; set; }
     }
 }

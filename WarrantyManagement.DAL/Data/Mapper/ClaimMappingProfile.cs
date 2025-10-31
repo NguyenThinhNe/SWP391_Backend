@@ -60,6 +60,14 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
                 .ForMember(dest => dest.ClaimStatus, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
+                .ForMember(dest => dest.Action, opt => opt.MapFrom(src =>
+                    src.ClaimDetails != null && src.ClaimDetails.Any()
+                        ? src.ClaimDetails.First().ActionType
+                        : ClaimActionType.Repair)) // Default action if none
+                 .ForMember(dest => dest.ActionDisplay, opt => opt.MapFrom(src =>
+                    src.ClaimDetails != null && src.ClaimDetails.Any()
+                        ? src.ClaimDetails.First().ActionType.ToString()
+                        : ClaimActionType.Repair.ToString()))
                 // Vehicle information from CustomerVehicle
                 .ForMember(dest => dest.VehicleName, opt => opt.MapFrom(src =>
                     src.CustomerVehicle != null ? src.CustomerVehicle.VehicleName : string.Empty))

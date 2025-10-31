@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Enums;
 
 namespace WarrantyManagement.DAL.Data.Entities
 {
@@ -22,6 +23,7 @@ namespace WarrantyManagement.DAL.Data.Entities
         [Required]
         public DateTime EndDate { get; set; }
         public int Quantity { get; set; }
+        public PartItemStatus Status { get; set; } = PartItemStatus.Available;
         public Guid PartId { get; set; }
         [ForeignKey(nameof(PartId))]
         public Part Part { get; set; }

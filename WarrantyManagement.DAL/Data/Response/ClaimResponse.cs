@@ -13,6 +13,8 @@ namespace WarrantyManagement.DAL.Data.Response
 
         public Guid ClaimId { get; set; }
         public DateTime ClaimDate { get; set; }
+        public  ClaimActionType Action{ get; set; }
+        public string ActionDisplay { get; set; }
         public bool isActive { get; set; }
         public string VIN { get; set; }
         public WarrantyClaimStatus ClaimStatus { get; set; }

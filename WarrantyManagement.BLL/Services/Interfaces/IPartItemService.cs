@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Entities;
 using WarrantyManagement.DAL.Data.Request;
 using WarrantyManagement.DAL.Data.Response;
 
@@ -59,5 +60,6 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Kiểm tra PartNumber đã tồn tại chưa
         /// </summary>
         Task<bool> PartNumberExistsAsync(string partNumber, Guid? excludePartItemId = null);
+        Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim);
     }
 }

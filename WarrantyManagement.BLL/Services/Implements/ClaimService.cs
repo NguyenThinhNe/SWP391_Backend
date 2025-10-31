@@ -19,12 +19,13 @@ namespace WarrantyManagement.BLL.Services.Implements
     {
         private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPartItemService _partItemService;
 
-
-        public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper)
+        public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper, IPartItemService partItemService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _partItemService = partItemService;
         }
         #region Create warranty claim 
         public async Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid currentUserId)
@@ -79,8 +80,8 @@ namespace WarrantyManagement.BLL.Services.Implements
                         ActionType = request.ActionType
                     };
 
-                    
 
+                    await _partItemService.HandleClaimPartItemsAsync(request, claim);
                     await claimDetailRepo.InsertAsync(detail);
                 }
                 return _mapper.Map<ClaimResponse>(claim);
@@ -566,5 +567,6 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
+       
     }
 }

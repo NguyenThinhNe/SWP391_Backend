@@ -30,6 +30,7 @@ namespace WarrantyManagement.DAL.Data.Context
         public DbSet<WarrantyPolicy> Policies { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
         public DbSet<ClaimDetail> ClaimDetails { get; set; }
+        public DbSet<ClaimImage> ClaimImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -73,7 +74,11 @@ namespace WarrantyManagement.DAL.Data.Context
                 .WithOne(cd => cd.WarrantyClaim)
                 .HasForeignKey(cd => cd.ClaimId)
                 .OnDelete(DeleteBehavior.Restrict);
-
+            modelBuilder.Entity<WarrantyClaim>()
+                .HasMany(wc => wc.Images)
+                .WithOne(ci => ci.WarrantyClaim)
+                .HasForeignKey(ci => ci.ClaimId)
+                .OnDelete(DeleteBehavior.Cascade);
             //--- PartItem - ClaimDetail
             modelBuilder.Entity<PartItem>()
                 .HasMany(pi => pi.ClaimDetails)

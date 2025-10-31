@@ -11,6 +11,7 @@
           "BCrypt.Net-Next": "4.0.3",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.3",
+          "SixLabors.ImageSharp": "3.1.12",
           "System.IdentityModel.Tokens.Jwt": "7.1.2",
           "WarrantyManagement.DAL": "1.0.0"
         },
@@ -603,6 +604,14 @@
           }
         }
       },
+      "SixLabors.ImageSharp/3.1.12": {
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.12.0"
+          }
+        }
+      },
       "System.Buffers/4.6.0": {},
       "System.ComponentModel.Annotations/5.0.0": {},
       "System.IdentityModel.Tokens.Jwt/7.1.2": {
@@ -1082,6 +1091,13 @@
       "sha512": "sha512-4/Et4Cqwa+F88l5SeFeNZ4c4Z6dEAIKbu3MaQb2Zz9F/g27T5a3wvfMcmCOaAiACjfUb4A6wrlTVfyYUZk3RRQ==",
       "path": "serilog.settings.configuration/9.0.0",
       "hashPath": "serilog.settings.configuration.9.0.0.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/3.1.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iAg6zifihXEFS/t7fiHhZBGAdCp3FavsF4i2ZIDp0JfeYeDVzvmlbY1CNhhIKimaIzrzSi5M/NBFcWvZT2rB/A==",
+      "path": "sixlabors.imagesharp/3.1.12",
+      "hashPath": "sixlabors.imagesharp.3.1.12.nupkg.sha512"
     },
     "System.Buffers/4.6.0": {
       "type": "package",

@@ -88,82 +88,82 @@ namespace WarrantyManagement.API.Controllers
         /// <param name="claimId">Claim ID to update</param>
         /// <param name="request">Update claim request</param>
         /// <returns>Updated claim information</returns>
-        [HttpPut("{claimId}")]
-        [Authorize(Roles = "SCTech")]
-        [ProducesResponseType(typeof(ClaimResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateClaim(
-            [FromRoute] Guid claimId,
-            [FromBody] UpdateClaimRequest request)
-        {
-            try
-            {
-                // Validate ModelState
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(new
-                    {
-                        message = "Dữ liệu không hợp lệ",
-                        errors = ModelState.Values
-                            .SelectMany(v => v.Errors)
-                            .Select(e => e.ErrorMessage)
-                    });
-                }
+        //[HttpPut("{claimId}")]
+        //[Authorize(Roles = "SCTech")]
+        //[ProducesResponseType(typeof(ClaimResponse), StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> UpdateClaim(
+        //    [FromRoute] Guid claimId,
+        //    [FromBody] UpdateClaimRequest request)
+        //{
+        //    try
+        //    {
+        //        // Validate ModelState
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return BadRequest(new
+        //            {
+        //                message = "Dữ liệu không hợp lệ",
+        //                errors = ModelState.Values
+        //                    .SelectMany(v => v.Errors)
+        //                    .Select(e => e.ErrorMessage)
+        //            });
+        //        }
 
-                // Validate ClaimId
-                if (claimId == Guid.Empty)
-                {
-                    return BadRequest(new { message = "ClaimId không hợp lệ" });
-                }
+        //        // Validate ClaimId
+        //        if (claimId == Guid.Empty)
+        //        {
+        //            return BadRequest(new { message = "ClaimId không hợp lệ" });
+        //        }
 
-                // Get current user ID from JWT token
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid currentUserId))
-                {
-                    return Unauthorized(new { message = "Không thể xác thực người dùng" });
-                }
+        //        // Get current user ID from JWT token
+        //        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //        if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out Guid currentUserId))
+        //        {
+        //            return Unauthorized(new { message = "Không thể xác thực người dùng" });
+        //        }
 
-                // Call service to update claim
-                var result = await _claimService.UpdateClaimAsync(request, claimId);
+        //        // Call service to update claim
+        //        var result = await _claimService.UpdateClaimAsync(request, claimId);
 
-                return Ok(new
-                {
-                    success = true,
-                    message = "Cập nhật claim thành công",
-                    data = result
-                });
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Business logic errors (claim not found, wrong status, validation errors)
-                return BadRequest(new
-                {
-                    success = false,
-                    message = ex.Message
-                });
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden, new
-                {
-                    success = false,
-                    message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                // Log the exception here
-                return StatusCode(StatusCodes.Status500InternalServerError, new
-                {
-                    success = false,
-                    message = "Đã xảy ra lỗi khi cập nhật claim",
-                    error = ex.Message
-                });
-            }
-        }
+        //        return Ok(new
+        //        {
+        //            success = true,
+        //            message = "Cập nhật claim thành công",
+        //            data = result
+        //        });
+        //    }
+        //    catch (InvalidOperationException ex)
+        //    {
+        //        // Business logic errors (claim not found, wrong status, validation errors)
+        //        return BadRequest(new
+        //        {
+        //            success = false,
+        //            message = ex.Message
+        //        });
+        //    }
+        //    catch (UnauthorizedAccessException ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status403Forbidden, new
+        //        {
+        //            success = false,
+        //            message = ex.Message
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception here
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new
+        //        {
+        //            success = false,
+        //            message = "Đã xảy ra lỗi khi cập nhật claim",
+        //            error = ex.Message
+        //        });
+        //    }
+        //}
         /// <summary>
         /// Get claim by ID
         /// </summary>

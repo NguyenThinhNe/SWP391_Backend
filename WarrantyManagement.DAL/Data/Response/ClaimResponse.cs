@@ -8,11 +8,13 @@ using WarrantyManagement.DAL.Data.Enums;
 namespace WarrantyManagement.DAL.Data.Response
 {
     public class ClaimResponse
-    {
+    {   
 
 
         public Guid ClaimId { get; set; }
         public DateTime ClaimDate { get; set; }
+        public  ClaimActionType Action{ get; set; }
+        public string ActionDisplay { get; set; }
         public bool isActive { get; set; }
         public string VIN { get; set; }
         public WarrantyClaimStatus ClaimStatus { get; set; }
@@ -25,13 +27,6 @@ namespace WarrantyManagement.DAL.Data.Response
 
         // Parts information (multiple parts)
         public List<PartItemResponse> Parts { get; set; }
-
-        // Total cost of all parts
-        public decimal TotalCost => Parts?.Sum(p => p.TotalCost) ?? 0;
-
-        // Policy information
-        public Guid PolicyId { get; set; }
-        public string PolicyName { get; set; }
 
         // Service Center information
         public Guid ServiceCenterId { get; set; }
@@ -49,11 +44,7 @@ namespace WarrantyManagement.DAL.Data.Response
         public Guid PartId { get; set; }
         public string PartNumber { get; set; }
         public string PartName { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public decimal TotalCost { get; set; }
-        
+
     }
 
     

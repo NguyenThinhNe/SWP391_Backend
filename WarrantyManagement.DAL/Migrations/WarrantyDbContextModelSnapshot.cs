@@ -61,10 +61,13 @@ namespace WarrantyManagement.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("ActionType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("ClaimId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("PartItemId")
+                    b.Property<Guid?>("PartItemId")
                         .HasColumnType("uuid");
 
                     b.HasKey("ClaimDetailId");
@@ -74,6 +77,33 @@ namespace WarrantyManagement.DAL.Migrations
                     b.HasIndex("PartItemId");
 
                     b.ToTable("ClaimDetails");
+                });
+
+            modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.ClaimImage", b =>
+                {
+                    b.Property<Guid>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ClaimId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int>("OrderIndex")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("ClaimId");
+
+                    b.ToTable("ClaimImages");
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.Customer", b =>
@@ -219,6 +249,9 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.HasKey("PartItemId");
 
@@ -376,7 +409,7 @@ namespace WarrantyManagement.DAL.Migrations
                         .HasMaxLength(400)
                         .HasColumnType("character varying(400)");
 
-                    b.Property<Guid>("PolicyId")
+                    b.Property<Guid?>("PolicyId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Status")
@@ -492,10 +525,20 @@ namespace WarrantyManagement.DAL.Migrations
                     b.HasOne("WarrantyManagement.DAL.Data.Entities.PartItem", "PartItem")
                         .WithMany("ClaimDetails")
                         .HasForeignKey("PartItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("PartItem");
+
+                    b.Navigation("WarrantyClaim");
+                });
+
+            modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.ClaimImage", b =>
+                {
+                    b.HasOne("WarrantyManagement.DAL.Data.Entities.WarrantyClaim", "WarrantyClaim")
+                        .WithMany("Images")
+                        .HasForeignKey("ClaimId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("WarrantyClaim");
                 });
@@ -620,8 +663,7 @@ namespace WarrantyManagement.DAL.Migrations
                     b.HasOne("WarrantyManagement.DAL.Data.Entities.WarrantyPolicy", "WarrantyPolicy")
                         .WithMany("warrantyClaims")
                         .HasForeignKey("PolicyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WarrantyManagement.DAL.Data.Entities.User", "User")
                         .WithMany("WarrantyClaims")
@@ -716,6 +758,8 @@ namespace WarrantyManagement.DAL.Migrations
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.WarrantyClaim", b =>
                 {
                     b.Navigation("ClaimDetails");
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.WarrantyPolicy", b =>

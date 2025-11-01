@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WarrantyManagement.BLL.Services.Interfaces;
 using WarrantyManagement.DAL.Data.Context;
 using WarrantyManagement.DAL.Data.Entities;
+using WarrantyManagement.DAL.Data.Enums;
 using WarrantyManagement.DAL.Data.Request;
 using WarrantyManagement.DAL.Data.Response;
 using WarrantyManagement.DAL.Repositories.Interfaces;
@@ -367,5 +368,76 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
+        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim)
+        {
+            var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
+            var partRepo = _unitOfWork.GetRepository<Part>();
+            var partItemRepo = _unitOfWork.GetRepository<PartItem>();
+
+            foreach (var item in request.PartItems)
+            {
+                // 1️⃣ Find the part based on part number or name
+                var part = await partRepo.FirstOrDefaultAsync(
+                    predicate: p => p.PartName == item.PartName
+                );
+                var partByNumber = await partItemRepo.FirstOrDefaultAsync(
+                    predicate: p => p.PartNumber == item.PartNumber
+                );
+
+                if (part == null)
+                    throw new KeyNotFoundException($"Part '{item.PartName}' ({item.PartNumber}) not found.");
+
+                // 2️⃣ Try to find an existing part item for this part
+                var partItem = await partItemRepo.FirstOrDefaultAsync(
+                    predicate: pi => pi.PartId == part.PartId
+                );
+
+                // If none found, optionally create a new part item (depending on business logic)
+                if (partItem == null)
+                {
+                    partItem = new PartItem
+                    {
+                        PartItemId = Guid.NewGuid(),
+                        PartId = part.PartId,
+                        PartNumber = item.PartNumber ?? partByNumber.PartNumber,
+                        Quantity = 1,
+                        StartDate = DateTime.UtcNow,
+                        EndDate = item.ReplacementDate.AddMonths(12), // Example
+                        Price = 0, // or derive from part
+                    };
+
+                    await partItemRepo.InsertAsync(partItem);
+                }
+
+                // 3️⃣ Create ClaimDetail record
+                var detail = new ClaimDetail
+                {
+                    ClaimDetailId = Guid.NewGuid(),
+                    ClaimId = claim.ClaimId,
+                    PartItemId = partItem.PartItemId,
+                    ActionType = request.ActionType
+                };
+
+                await claimDetailRepo.InsertAsync(detail);
+
+                // 4️⃣ Handle business logic by ActionType
+                switch (request.ActionType)
+                {
+                    case ClaimActionType.Repair:
+                        partItem.Status = PartItemStatus.Repaired;
+                        break;
+                    case ClaimActionType.Replacement:
+                        partItem.Status = PartItemStatus.Replaced;
+                        partItem.EndDate = item.ReplacementDate;
+                        break;
+                    case ClaimActionType.ProvidedPart:
+                        partItem.Status = PartItemStatus.Reserved;
+                        break;
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+        
     }
 }

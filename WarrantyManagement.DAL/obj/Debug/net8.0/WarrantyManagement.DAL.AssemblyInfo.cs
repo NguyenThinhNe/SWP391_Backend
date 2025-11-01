@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WarrantyManagement.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7927465c4201e5dd980af30dd15e073b3a7aea6a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37e0056462f5393872d540d3fc0afa1fac4bcab2")]
 [assembly: System.Reflection.AssemblyProductAttribute("WarrantyManagement.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WarrantyManagement.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

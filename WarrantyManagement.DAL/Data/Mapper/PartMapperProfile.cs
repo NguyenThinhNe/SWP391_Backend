@@ -14,9 +14,9 @@ namespace WarrantyManagement.DAL.Data.Mapper
         public PartMapperProfile()
         {
             CreateMap<VehiclePart, PartResponseDto>()
-                .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.Part.PartId))
-                .ForMember(dest => dest.PartName, opt => opt.MapFrom(src => src.Part.PartName))
-                .ForMember(dest => dest.PartDescription, opt => opt.MapFrom(src => src.Part.Description))
+                 .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.Part != null ? src.Part.PartId : Guid.Empty))
+                .ForMember(dest => dest.PartName, opt => opt.MapFrom(src => src.Part != null ? src.Part.PartName : null))
+                .ForMember(dest => dest.PartDescription, opt => opt.MapFrom(src => src.Part != null ? src.Part.Description : null))
                 .ForMember(dest => dest.VehiclePartId, opt => opt.MapFrom(src => src.VehiclePartId))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
                 .ForMember(dest => dest.VehiclePartDescription, opt => opt.MapFrom(src => src.Description))

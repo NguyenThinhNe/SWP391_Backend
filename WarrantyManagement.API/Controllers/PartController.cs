@@ -5,7 +5,7 @@ using WarrantyManagement.BLL.Services.Interfaces;
 
 namespace WarrantyManagement.API.Controllers
 {
-    [Route("api/part")]
+    [Route("api/parts")]
     [ApiController]
     public class PartController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace WarrantyManagement.API.Controllers
         }
 
         // GET: api/part/{vin}
-        [HttpGet("{vin}")]
+        [HttpGet("by-vin/{vin}")]
         [Authorize(Roles = "SCTech,SCStaff,EVMStaff")]
         public async Task<IActionResult> GetByVIN(string vin)
         {

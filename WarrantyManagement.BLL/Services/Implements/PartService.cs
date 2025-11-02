@@ -40,6 +40,7 @@ namespace WarrantyManagement.BLL.Services.Implements
         public async Task<IEnumerable<PartResponseDto>> GetPartsByVINAsync(string vin)
         {
             var vehiclePartRepo = _unitOfWork.GetRepository<VehiclePart>();
+           
 
             var parts = await vehiclePartRepo.GetListAsync(
                 predicate: vp => vp.VIN == vin,
@@ -47,7 +48,11 @@ namespace WarrantyManagement.BLL.Services.Implements
                     .Include(vp => vp.Part)
                     .Include(vp => vp.Vehicle)
             );
-
+            foreach (var vp in parts)
+            {
+                if (vp.Part == null)
+                    Console.WriteLine($"Missing Part for VehiclePartId: {vp.VehiclePartId}, PartId: {vp.PartId}");
+            }
             return _mapper.Map<IEnumerable<PartResponseDto>>(parts);
         }
 

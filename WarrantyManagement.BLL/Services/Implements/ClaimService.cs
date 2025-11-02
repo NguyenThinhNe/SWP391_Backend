@@ -81,7 +81,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                     };
 
 
-                    await _partItemService.HandleClaimPartItemsAsync(request, claim);
+                    await _partItemService.HandleClaimPartItemsAsync(request, claim, isUpdate : false);
                     await claimDetailRepo.InsertAsync(detail);
                 }
                 return _mapper.Map<ClaimResponse>(claim);
@@ -92,109 +92,50 @@ namespace WarrantyManagement.BLL.Services.Implements
 
 
         #endregion
-        //public async Task<ClaimResponse> UpdateClaimAsync(UpdateClaimRequest updateRequest, Guid claimId)
-        //{
-        //    return await _unitOfWork.ExecuteInTransactionAsync(async () =>
-        //    {
-        //        var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+        public async Task<ClaimResponse> UpdateClaimAsync(Guid claimId, UpdateClaimPartItemsRequest request)
+        {
+            return await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
+                var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
 
-        //        // Lấy claim với includes
-        //        var claim = await claimRepo.FirstOrDefaultAsync(
-        //            predicate: c => c.ClaimId == claimId && c.isActive,
-        //            include: q => q.Include(c => c.ClaimDetails)
-        //                .ThenInclude(cd => cd.PartItem)
-        //                .ThenInclude(pi => pi.Part)
-        //                .Include(c => c.CustomerVehicle)
-        //                .Include(c => c.WarrantyPolicy)
-        //                .Include(c => c.User)
-        //                .ThenInclude(u => u.ServiceCenter)
-        //        );
+                // ✅ 1: Load claim including ClaimDetails
+                var claim = await claimRepo.FirstOrDefaultAsync(
+                    predicate: c => c.ClaimId == claimId,
+                    include: q => q.Include(c => c.ClaimDetails)
+                );
 
-        //        if (claim == null)
-        //            throw new InvalidOperationException("Claim không tồn tại hoặc đã bị xóa");
+                if (claim == null)
+                    throw new KeyNotFoundException($"Claim with ID {claimId} not found.");
 
-        //        // Chỉ cho phép update claim Pending
-        //        if (claim.Status != WarrantyClaimStatus.Pending)
-        //            throw new InvalidOperationException($"Không thể cập nhật claim với trạng thái {claim.Status}. Chỉ được cập nhật claim Pending.");
+                // ✅ 2: VIN cannot change (validation for safety)
+                if (request.VIN != claim.VIN)
+                    throw new InvalidOperationException("VIN cannot be modified for an existing claim.");
 
-        //        // Validate VIN nếu thay đổi
-        //        if (!string.IsNullOrEmpty(updateRequest.VIN) && updateRequest.VIN != claim.VIN)
-        //        {
-        //            var vehicleRepo = _unitOfWork.GetRepository<CustomerVehicle>();
-        //            var vehicleExists = await vehicleRepo.CountAsync(v => v.VIN == updateRequest.VIN) > 0;
-        //            if (!vehicleExists)
-        //                throw new InvalidOperationException($"VIN {updateRequest.VIN} không tồn tại");
-        //        }
+                // ✅ 3: Remove all existing ClaimDetails (we will recreate)
+                if (claim.ClaimDetails.Any())
+                    claimDetailRepo.DeleteRangeAsync(claim.ClaimDetails);
 
-        //        // Validate PolicyId nếu thay đổi
-        //        if (updateRequest.PolicyId != Guid.Empty && updateRequest.PolicyId != claim.PolicyId)
-        //        {
-        //            var policyRepo = _unitOfWork.GetRepository<WarrantyPolicy>();
-        //            var policyExists = await policyRepo.CountAsync(p => p.PolicyId == updateRequest.PolicyId) > 0;
-        //            if (!policyExists)
-        //                throw new InvalidOperationException("Policy không tồn tại");
-        //        }
+                // ✅ 4: Reprocess all PartItems
+                var tempRequest = new ClaimRequest
+                {
+                    VIN = claim.VIN,
+                    ClaimDate = claim.ClaimDate,
+                    IssueDescription = claim.IssueDescription,
+                    ActionType = request.ActionType,
+                    PartItems = request.PartItems
+                };
 
-        //        // Map thông tin cơ bản
-        //        _mapper.Map(updateRequest, claim);
-        //        claimRepo.UpdateAsync(claim);
+                await _partItemService.HandleClaimPartItemsAsync(tempRequest, claim, isUpdate: true);
 
-        //        // Xử lý PartItems nếu có
-        //        if (updateRequest.PartItems != null && updateRequest.PartItems.Any())
-        //        {
-        //            var partRepo = _unitOfWork.GetRepository<Part>();
-        //            var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
-        //            var partItemRepo = _unitOfWork.GetRepository<PartItem>();
+                await _unitOfWork.SaveChangesAsync();
 
-        //            // Xóa ClaimDetails và PartItems cũ
-        //            if (claim.ClaimDetails.Any())
-        //            {
-        //                var oldPartItems = claim.ClaimDetails.Select(cd => cd.PartItem).ToList();
-        //                claimDetailRepo.DeleteRangeAsync(claim.ClaimDetails);
-        //                partItemRepo.DeleteRangeAsync(oldPartItems);
-        //            }
+                // ✅ 5: Return updated claim
+                return await GetClaimByIdAsync(claimId);
+            });
+        }
 
-        //            // Validate tất cả PartIds
-        //            var partIds = updateRequest.PartItems.Select(p => p.PartId).ToList();
-        //            var validPartCount = await partRepo.CountAsync(p => partIds.Contains(p.PartId));
-        //            if (validPartCount != partIds.Count)
-        //                throw new InvalidOperationException("Một hoặc nhiều PartId không hợp lệ");
 
-        //            // Tạo PartItems và ClaimDetails mới
-        //            var newClaimDetails = updateRequest.PartItems.Select(partReq =>
-        //            {
-        //                var partItem = _mapper.Map<PartItem>(partReq);
-        //                partItem.PartItemId = Guid.NewGuid();
-
-        //                return new ClaimDetail
-        //                {
-        //                    ClaimDetailId = Guid.NewGuid(),
-        //                    ClaimId = claimId,
-        //                    PartItemId = partItem.PartItemId,
-        //                    PartItem = partItem
-        //                };
-        //            }).ToList();
-
-        //            await claimDetailRepo.InsertRangeAsync(newClaimDetails);
-        //        }
-
-        //        // Transaction tự động commit trong ExecuteInTransactionAsync
-
-        //        // Lấy lại claim đã update để map sang response
-        //        var updatedClaim = await claimRepo.FirstOrDefaultAsync(
-        //            predicate: c => c.ClaimId == claimId,
-        //            include: q => q.Include(c => c.ClaimDetails)
-        //                .ThenInclude(cd => cd.PartItem)
-        //                .ThenInclude(pi => pi.Part)
-        //                .Include(c => c.CustomerVehicle)
-        //                .Include(c => c.WarrantyPolicy)
-        //                .Include(c => c.User)
-        //                .ThenInclude(u => u.ServiceCenter)
-        //        );
-
-        //        return _mapper.Map<ClaimResponse>(updatedClaim);
-        //    });
-        //}
 
         #region Get Claims
 
@@ -567,6 +508,18 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
-       
+          private ClaimRequest ConvertToClaimRequest(UpdateClaimPartItemsRequest request)
+        {
+            return new ClaimRequest
+            {
+                
+                VIN = request.VIN,
+                
+                PartItems = request.PartItems,
+                ActionType = request.ActionType,
+            };
+        }
     }
-}
+ 
+
+    }

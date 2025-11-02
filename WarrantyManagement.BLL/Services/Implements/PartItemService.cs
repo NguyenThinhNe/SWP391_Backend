@@ -12,6 +12,7 @@ using WarrantyManagement.DAL.Data.Enums;
 using WarrantyManagement.DAL.Data.Request;
 using WarrantyManagement.DAL.Data.Response;
 using WarrantyManagement.DAL.Repositories.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WarrantyManagement.BLL.Services.Implements
 {
@@ -368,7 +369,7 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
-        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim)
+        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim ,bool isUpdate = false)
         {
             var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
             var partRepo = _unitOfWork.GetRepository<Part>();
@@ -388,25 +389,46 @@ namespace WarrantyManagement.BLL.Services.Implements
                     throw new KeyNotFoundException($"Part '{item.PartName}' ({item.PartNumber}) not found.");
 
                 // 2️⃣ Try to find an existing part item for this part
-                var partItem = await partItemRepo.FirstOrDefaultAsync(
-                    predicate: pi => pi.PartId == part.PartId
-                );
+                PartItem partItem;
 
-                // If none found, optionally create a new part item (depending on business logic)
-                if (partItem == null)
+                if (isUpdate)
                 {
+                    // ✅ ALWAYS create a new PartItem for update
                     partItem = new PartItem
                     {
                         PartItemId = Guid.NewGuid(),
                         PartId = part.PartId,
-                        PartNumber = item.PartNumber ?? partByNumber.PartNumber,
+                        PartNumber = item.PartNumber,      // ✅ Use the NEW part number
                         Quantity = 1,
                         StartDate = DateTime.UtcNow,
-                        EndDate = item.ReplacementDate.AddMonths(12), // Example
-                        Price = 0, // or derive from part
+                        EndDate = item.ReplacementDate.AddMonths(12),
+                        Price = 0
                     };
 
                     await partItemRepo.InsertAsync(partItem);
+                }
+                else
+                {
+                    // ✅ Original logic for CreateClaim
+                    partItem = await partItemRepo.FirstOrDefaultAsync(
+                        predicate: pi => pi.PartId == part.PartId
+                    );
+
+                    if (partItem == null)
+                    {
+                        partItem = new PartItem
+                        {
+                            PartItemId = Guid.NewGuid(),
+                            PartId = part.PartId,
+                            PartNumber = item.PartNumber,
+                            Quantity = 1,
+                            StartDate = DateTime.UtcNow,
+                            EndDate = item.ReplacementDate.AddMonths(12),
+                            Price = 0
+                        };
+
+                        await partItemRepo.InsertAsync(partItem);
+                    }
                 }
 
                 // 3️⃣ Create ClaimDetail record

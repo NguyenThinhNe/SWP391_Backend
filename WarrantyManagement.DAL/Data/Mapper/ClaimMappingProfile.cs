@@ -40,17 +40,17 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.InventoryId, opt => opt.Ignore()) // Set in service if needed
                 .ForMember(dest => dest.ClaimDetails, opt => opt.Ignore()); // Handled in service
                                                                             // Update claim request to entity mapping can be added here if needed
-            CreateMap<UpdateClaimRequest, WarrantyClaim>()
-               .ForMember(dest => dest.ClaimDate, opt => opt.MapFrom(src => src.ClaimDate))
-               .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
-               .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
-               
-               .ForMember(dest => dest.PolicyId, opt => opt.MapFrom(src => src.PolicyId))
-               .ForMember(dest => dest.ClaimDetails, opt => opt.Ignore()) // handled separately
-               .ForMember(dest => dest.Status, opt => opt.Ignore())       // don’t override current status
-               .ForMember(dest => dest.UserId, opt => opt.Ignore())       // assigned from logged user
-               .ForMember(dest => dest.CustomerVehicle, opt => opt.Ignore())
-               .ForMember(dest => dest.WarrantyPolicy, opt => opt.Ignore());
+            CreateMap<UpdateClaimPartItemsRequest, ClaimRequest>()
+                .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
+                .ForMember(dest => dest.ActionType, opt => opt.MapFrom(src => src.ActionType))
+                .ForMember(dest => dest.PartItems, opt => opt.MapFrom(src => src.PartItems))
+
+                // ✅ These fields come from the database, not the update DTO
+                .ForMember(dest => dest.ClaimDate, opt => opt.Ignore())
+                .ForMember(dest => dest.IssueDescription, opt => opt.Ignore())
+
+                // ✅ Ensure we don't accidentally map anything else
+                .ForAllOtherMembers(opt => opt.Ignore());
             // ✅ WarrantyClaim → ClaimResponse
             CreateMap<WarrantyClaim, ClaimResponse>()
                 // Direct claim fields

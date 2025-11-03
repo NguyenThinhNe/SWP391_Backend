@@ -66,5 +66,46 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             return _mapper.Map<IEnumerable<UserResponse>>(technicians);
         }
+        public async Task<UserResponse> ToggleUserActiveStatusAsync(Guid userId, bool isActive)
+        {
+            var user = await _userRepository.FirstOrDefaultAsync(
+                predicate:u => u.UserId == userId);
+            if (user == null)
+                throw new KeyNotFoundException("User not found.");
+
+            // Update status
+            user.IsActive = isActive;
+
+            // Update using repository
+            _userRepository.UpdateAsync(user);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Return updated DTO
+            return _mapper.Map<UserResponse>(user);
+        }
+        public async Task<IEnumerable<UserResponse>> GetAllUsersAsync()
+        {
+            // include ServiceCenter để map ServiceCenterName
+            Func<IQueryable<User>, IIncludableQueryable<User, object>> include = q => q.Include(u => u.ServiceCenter);
+
+            var users = await _userRepository.GetListAsync(
+                include: include
+            );
+
+            return _mapper.Map<IEnumerable<UserResponse>>(users);
+        }
+
+        public async Task<IEnumerable<UserResponse>> GetActiveUsersAsync()
+        {
+            // include ServiceCenter để map ServiceCenterName
+            Func<IQueryable<User>, IIncludableQueryable<User, object>> include = q => q.Include(u => u.ServiceCenter);
+
+            var users = await _userRepository.GetListAsync(
+                predicate: u => u.IsActive == true,
+                include: include
+            );
+
+            return _mapper.Map<IEnumerable<UserResponse>>(users);
+        }
     }
 }

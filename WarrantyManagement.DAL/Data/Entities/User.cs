@@ -31,7 +31,8 @@ namespace WarrantyManagement.DAL.Data.Entities
         public DateTime CreatedTime { get; set; } = DateTime.Now;
         public string Name { get; set; }
         public UserRole Role { get; set; } = UserRole.SCTech;
-        
+        public bool IsActive { get; set; } = true;
+
         // Foreign key reference
         public Guid? ServiceCenterId { get; set; }
         [ForeignKey(nameof(ServiceCenterId))]

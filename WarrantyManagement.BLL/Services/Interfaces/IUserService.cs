@@ -13,5 +13,8 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         Task<IEnumerable<UserResponse>> GetUsersByServiceCenterAsync(Guid centerId);
         Task<IEnumerable<UserResponse>> GetUsersByRoleAsync(UserRole role);
         Task<IEnumerable<UserResponse>> GetTechniciansAsync();
+        Task<UserResponse> ToggleUserActiveStatusAsync(Guid userId, bool isActive);
+        Task<IEnumerable<UserResponse>> GetAllUsersAsync();
+        Task<IEnumerable<UserResponse>> GetActiveUsersAsync();
     }
 }

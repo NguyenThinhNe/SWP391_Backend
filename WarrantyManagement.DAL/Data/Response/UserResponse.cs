@@ -16,6 +16,7 @@ namespace WarrantyManagement.DAL.Data.Response
         public DateTime CreatedTime { get; set; }
         public string Name { get; set; }
         public string Role { get; set; }
+        public bool IsActive { get; set; }
 
         // Thông tin trung tâm dịch vụ
         public Guid? ServiceCenterId { get; set; }

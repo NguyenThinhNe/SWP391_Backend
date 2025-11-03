@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WarrantyManagement.BLL.Services.Interfaces;
 using WarrantyManagement.DAL.Data.Enums;
+using WarrantyManagement.DAL.Data.Response;
 
 namespace WarrantyManagement.API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -37,6 +39,7 @@ namespace WarrantyManagement.API.Controllers
         /// <param name="role">Tên role</param>
         /// <returns>Danh sách người dùng</returns>
         [HttpGet("by-role/{role}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsersByRole(UserRole role)
         {
             var users = await _userService.GetUsersByRoleAsync(role);
@@ -55,6 +58,67 @@ namespace WarrantyManagement.API.Controllers
                 return NotFound(new { message = "Không tìm thấy kỹ thuật viên nào." });
 
             return Ok(users);
+        }
+        // <summary>
+        /// Activate or deactivate a user account.
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <param name="isActive">true to activate, false to deactivate</param>
+        /// <returns>Updated user info</returns>
+        [HttpPut("{userId}/active")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SetUserActiveStatus(Guid userId, [FromQuery] bool isActive)
+        {
+            try
+            {
+                var updatedUser = await _userService.ToggleUserActiveStatusAsync(userId, isActive);
+
+                return Ok(new
+                {
+                    message = isActive
+                        ? "User account activated successfully."
+                        : "User account deactivated successfully.",
+                    data = updatedUser
+                });
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while updating user status.", error = ex.Message });
+            }
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsers()
+        {
+            try
+            {
+                var users = await _userService.GetAllUsersAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving users.", error = ex.Message });
+            }
+        }
+
+        // GET: api/users/active
+        [HttpGet("active")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<UserResponse>>> GetActiveUsers()
+        {
+            try
+            {
+                var users = await _userService.GetActiveUsersAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving active users.", error = ex.Message });
+            }
         }
     }
 }

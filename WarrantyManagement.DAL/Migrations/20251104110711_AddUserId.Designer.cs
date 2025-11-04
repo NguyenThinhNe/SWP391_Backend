@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WarrantyManagement.DAL.Data.Context;
@@ -11,9 +12,11 @@ using WarrantyManagement.DAL.Data.Context;
 namespace WarrantyManagement.DAL.Migrations
 {
     [DbContext(typeof(WarrantyDbContext))]
-    partial class WarrantyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251104110711_AddUserId")]
+    partial class AddUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

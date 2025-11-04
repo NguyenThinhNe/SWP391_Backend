@@ -246,5 +246,37 @@ namespace WarrantyManagement.BLL.Services.Implements
                 return true;
             });
         }
+        public async Task<bool> AssignTechnicianAsync(Guid campaignId, Guid technicianId)
+        {
+            var campaignRepo = _unitOfWork.GetRepository<Campaign>();
+            var techRepo = _unitOfWork.GetRepository<User>();
+
+            return await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                // ✅ Check campaign existence
+                var campaignExists = await campaignRepo.CountAsync(c => c.CampaignId == campaignId) > 0;
+                if (!campaignExists)
+                    throw new KeyNotFoundException($"Campaign with ID {campaignId} not found");
+
+                // ✅ Check technician existence
+                var technician = await techRepo.FirstOrDefaultAsync(predicate:t => t.UserId == technicianId);
+
+                if (technician == null)
+                    throw new KeyNotFoundException($"Technician with ID {technicianId} not found");
+
+                // ✅ Check availability
+                if (!technician.IsActive)
+                    throw new InvalidOperationException("Technician is not available to assign");
+
+                // ✅ Check if already assigned
+              
+                // OPTIONAL ✅ Mark technician as unavailable once assigned
+                technician.IsActive = false;
+                techRepo.UpdateAsync(technician);
+
+                return true;
+            });
+        }
+
     }
 }

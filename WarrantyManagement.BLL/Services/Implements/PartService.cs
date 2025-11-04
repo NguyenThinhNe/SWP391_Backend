@@ -31,6 +31,7 @@ namespace WarrantyManagement.BLL.Services.Implements
             var parts = await vehiclePartRepo.GetListAsync(
                 include: query => query
                     .Include(vp => vp.Part)
+                        .ThenInclude(p => p.PartItems)
                     .Include(vp => vp.Vehicle)
             );
 
@@ -46,6 +47,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 predicate: vp => vp.VIN == vin,
                 include: query => query
                     .Include(vp => vp.Part)
+                        .ThenInclude(p => p.PartItems)
                     .Include(vp => vp.Vehicle)
             );
             foreach (var vp in parts)
@@ -64,6 +66,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 predicate: vp => vp.PartId == partId,
                 include: query => query
                     .Include(vp => vp.Part)
+                        .ThenInclude(p => p.PartItems)
                     .Include(vp => vp.Vehicle)
             );
 

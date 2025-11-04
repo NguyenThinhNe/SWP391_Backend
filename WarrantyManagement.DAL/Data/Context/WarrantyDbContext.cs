@@ -107,7 +107,7 @@ namespace WarrantyManagement.DAL.Data.Context
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+           
             //--- Part - VehiclePart
             modelBuilder.Entity<Part>()
                 .HasMany(vp => vp.VehicleParts)

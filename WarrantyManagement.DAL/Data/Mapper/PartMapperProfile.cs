@@ -17,6 +17,11 @@ namespace WarrantyManagement.DAL.Data.Mapper
                  .ForMember(dest => dest.PartId, opt => opt.MapFrom(src => src.Part != null ? src.Part.PartId : Guid.Empty))
                 .ForMember(dest => dest.PartName, opt => opt.MapFrom(src => src.Part != null ? src.Part.PartName : null))
                 .ForMember(dest => dest.PartDescription, opt => opt.MapFrom(src => src.Part != null ? src.Part.Description : null))
+                .ForMember(dest => dest.PartNumbers,
+                    opt => opt.MapFrom(src =>
+                    src.Part.PartItems.Select(pi => pi.PartNumber).ToList()
+                ))
+
                 .ForMember(dest => dest.VehiclePartId, opt => opt.MapFrom(src => src.VehiclePartId))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
                 .ForMember(dest => dest.VehiclePartDescription, opt => opt.MapFrom(src => src.Description))

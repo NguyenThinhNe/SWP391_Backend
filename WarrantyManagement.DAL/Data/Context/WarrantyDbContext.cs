@@ -107,7 +107,7 @@ namespace WarrantyManagement.DAL.Data.Context
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+           
             //--- Part - VehiclePart
             modelBuilder.Entity<Part>()
                 .HasMany(vp => vp.VehicleParts)
@@ -127,6 +127,12 @@ namespace WarrantyManagement.DAL.Data.Context
                 .HasMany(cv => cv.CustomerVehicles)
                 .WithOne(c => c.Campaign)
                 .HasForeignKey(c => c.CampaignId)
+                .OnDelete(DeleteBehavior.Restrict);
+            // --- User - Campaign (one-to-one)
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Campaign)
+                .WithOne(c => c.User)
+                .HasForeignKey<Campaign>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
             // --- Some optional text fields max length
             modelBuilder.Entity<User>()

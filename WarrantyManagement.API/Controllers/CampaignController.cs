@@ -263,5 +263,42 @@ namespace WarrantyManagement.API.Controllers
                 return StatusCode(500, new { message = "An error occurred while removing vehicles from campaign", error = ex.Message });
             }
         }
+        /// <summary>
+        /// Assign a technician to a campaign
+        /// </summary>
+        [HttpPost("{id}/technicians/{technicianId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [Authorize(Roles = "SCStaff")]
+        public async Task<IActionResult> AssignTechnician(Guid id, Guid technicianId)
+        {
+            try
+            {
+                var result = await _campaignService.AssignTechnicianAsync(id, technicianId);
+
+                if (!result)
+                    return BadRequest(new { message = "Failed to assign technician to campaign" });
+
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "An error occurred while assigning technician to campaign",
+                    error = ex.Message
+                });
+            }
+        }
+
     }
 }

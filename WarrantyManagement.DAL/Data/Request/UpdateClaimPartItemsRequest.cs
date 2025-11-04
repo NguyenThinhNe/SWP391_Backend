@@ -20,5 +20,6 @@ namespace WarrantyManagement.DAL.Data.Request
         [Required]
         [MinLength(1)]
         public List<PartItemRequest> PartItems { get; set; }
+        public string IssueDescription { get; set; }
     }
 }

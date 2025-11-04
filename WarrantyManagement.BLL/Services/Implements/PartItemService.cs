@@ -369,7 +369,7 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
-        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim ,bool isUpdate = false)
+        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim, bool isUpdate = false)
         {
             var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
             var partRepo = _unitOfWork.GetRepository<Part>();
@@ -460,6 +460,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             await _unitOfWork.SaveChangesAsync();
         }
-        
+
+
     }
 }

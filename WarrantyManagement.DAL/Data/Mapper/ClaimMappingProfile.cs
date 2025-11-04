@@ -44,10 +44,10 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.VIN, opt => opt.MapFrom(src => src.VIN))
                 .ForMember(dest => dest.ActionType, opt => opt.MapFrom(src => src.ActionType))
                 .ForMember(dest => dest.PartItems, opt => opt.MapFrom(src => src.PartItems))
-
+                .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.IssueDescription))
                 // ✅ These fields come from the database, not the update DTO
                 .ForMember(dest => dest.ClaimDate, opt => opt.Ignore())
-                .ForMember(dest => dest.IssueDescription, opt => opt.Ignore())
+                
 
                 // ✅ Ensure we don't accidentally map anything else
                 .ForAllOtherMembers(opt => opt.Ignore());

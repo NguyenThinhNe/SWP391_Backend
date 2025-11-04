@@ -40,6 +40,6 @@ namespace WarrantyManagement.DAL.Data.Entities
 
         public ICollection<WarrantyClaim> WarrantyClaims { get; set; }
         public ICollection<Report> Reports { get; set; }
-        
+        public Campaign? Campaign { get; set; }
     }
 }

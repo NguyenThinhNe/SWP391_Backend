@@ -37,5 +37,6 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// Remove vehicles from campaign
         /// </summary>
         Task<bool> RemoveVehiclesFromCampaignAsync(Guid campaignId, List<string> vehicleVins);
+        Task<bool> AssignTechnicianAsync(Guid campaignId, Guid technicianId);
     }
 }

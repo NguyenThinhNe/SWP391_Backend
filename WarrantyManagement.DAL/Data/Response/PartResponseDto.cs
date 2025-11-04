@@ -11,6 +11,7 @@ namespace WarrantyManagement.DAL.Data.Response
         public Guid PartId { get; set; }
         public string PartName { get; set; }
         public string? PartDescription { get; set; }
+        public List<string> PartNumbers { get; set; }
 
         // --- VehiclePart Info ---
         public Guid VehiclePartId { get; set; }

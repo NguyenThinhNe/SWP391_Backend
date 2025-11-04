@@ -52,7 +52,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasKey("CampaignId");
 
-                    b.ToTable("Campaigns");
+                    b.ToTable("Campaigns", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.ClaimDetail", b =>
@@ -76,7 +76,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("PartItemId");
 
-                    b.ToTable("ClaimDetails");
+                    b.ToTable("ClaimDetails", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.ClaimImage", b =>
@@ -103,7 +103,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("ClaimId");
 
-                    b.ToTable("ClaimImages");
+                    b.ToTable("ClaimImages", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.Customer", b =>
@@ -133,7 +133,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.CustomerVehicle", b =>
@@ -167,7 +167,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("CustomerVehicles");
+                    b.ToTable("CustomerVehicles", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.Inventory", b =>
@@ -188,7 +188,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("CenterId");
 
-                    b.ToTable("Inventories");
+                    b.ToTable("Inventories", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.Part", b =>
@@ -218,7 +218,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("WorkOrderId");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Parts", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.PartItem", b =>
@@ -259,7 +259,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("PartItems");
+                    b.ToTable("PartItems", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.Report", b =>
@@ -294,7 +294,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reports");
+                    b.ToTable("Reports", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.ServiceCenter", b =>
@@ -310,7 +310,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasKey("CenterId");
 
-                    b.ToTable("ServiceCenters");
+                    b.ToTable("ServiceCenters", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.User", b =>
@@ -362,7 +362,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("ServiceCenterId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.VehiclePart", b =>
@@ -395,7 +395,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("VIN");
 
-                    b.ToTable("VehicleParts");
+                    b.ToTable("VehicleParts", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.WarrantyClaim", b =>
@@ -436,7 +436,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("VIN");
 
-                    b.ToTable("WarrantyClaims");
+                    b.ToTable("WarrantyClaims", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.WarrantyPolicy", b =>
@@ -468,7 +468,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasKey("PolicyId");
 
-                    b.ToTable("Policies");
+                    b.ToTable("Policies", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.WorkOrder", b =>
@@ -514,7 +514,7 @@ namespace WarrantyManagement.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WorkOrders");
+                    b.ToTable("WorkOrders", (string)null);
                 });
 
             modelBuilder.Entity("WarrantyManagement.DAL.Data.Entities.ClaimDetail", b =>

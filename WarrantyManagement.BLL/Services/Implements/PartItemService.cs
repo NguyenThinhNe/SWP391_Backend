@@ -369,7 +369,7 @@ namespace WarrantyManagement.BLL.Services.Implements
         }
 
         #endregion
-        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim, bool isUpdate = false)
+        public async Task HandleClaimPartItemsAsync(ClaimRequest request, WarrantyClaim claim)
         {
             var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
             var partRepo = _unitOfWork.GetRepository<Part>();
@@ -377,61 +377,25 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             foreach (var item in request.PartItems)
             {
-                // 1️⃣ Find the part based on part number or name
+                // 1️⃣ Find the part
                 var part = await partRepo.FirstOrDefaultAsync(
                     predicate: p => p.PartName == item.PartName
                 );
-                var partByNumber = await partItemRepo.FirstOrDefaultAsync(
+
+                if (part == null)
+                    throw new KeyNotFoundException($"Part '{item.PartName}' not found.");
+
+                // 2️⃣ Find an existing PartItem based on PartNumber
+                var partItem = await partItemRepo.FirstOrDefaultAsync(
                     predicate: p => p.PartNumber == item.PartNumber
                 );
 
-                if (part == null)
-                    throw new KeyNotFoundException($"Part '{item.PartName}' ({item.PartNumber}) not found.");
-
-                // 2️⃣ Try to find an existing part item for this part
-                PartItem partItem;
-
-                if (isUpdate)
-                {
-                    // ✅ ALWAYS create a new PartItem for update
-                    partItem = new PartItem
-                    {
-                        PartItemId = Guid.NewGuid(),
-                        PartId = part.PartId,
-                        PartNumber = item.PartNumber,      // ✅ Use the NEW part number
-                        Quantity = 1,
-                        StartDate = DateTime.UtcNow,
-                        EndDate = item.ReplacementDate.AddMonths(12),
-                        Price = 0
-                    };
-
-                    await partItemRepo.InsertAsync(partItem);
-                }
-                else
-                {
-                    // ✅ Original logic for CreateClaim
-                    partItem = await partItemRepo.FirstOrDefaultAsync(
-                        predicate: pi => pi.PartId == part.PartId
+                if (partItem == null)
+                    throw new KeyNotFoundException(
+                        $"PartItem with PartNumber '{item.PartNumber}' does not exist. Cannot claim a non-existing part."
                     );
 
-                    if (partItem == null)
-                    {
-                        partItem = new PartItem
-                        {
-                            PartItemId = Guid.NewGuid(),
-                            PartId = part.PartId,
-                            PartNumber = item.PartNumber,
-                            Quantity = 1,
-                            StartDate = DateTime.UtcNow,
-                            EndDate = item.ReplacementDate.AddMonths(12),
-                            Price = 0
-                        };
-
-                        await partItemRepo.InsertAsync(partItem);
-                    }
-                }
-
-                // 3️⃣ Create ClaimDetail record
+                // 3️⃣ Create ClaimDetail
                 var detail = new ClaimDetail
                 {
                     ClaimDetailId = Guid.NewGuid(),
@@ -442,16 +406,18 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 await claimDetailRepo.InsertAsync(detail);
 
-                // 4️⃣ Handle business logic by ActionType
+                // 4️⃣ Update part item status according to action
                 switch (request.ActionType)
                 {
                     case ClaimActionType.Repair:
                         partItem.Status = PartItemStatus.Repaired;
                         break;
+
                     case ClaimActionType.Replacement:
                         partItem.Status = PartItemStatus.Replaced;
                         partItem.EndDate = item.ReplacementDate;
                         break;
+
                     case ClaimActionType.ProvidedPart:
                         partItem.Status = PartItemStatus.Reserved;
                         break;
@@ -460,6 +426,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             await _unitOfWork.SaveChangesAsync();
         }
+
 
 
     }

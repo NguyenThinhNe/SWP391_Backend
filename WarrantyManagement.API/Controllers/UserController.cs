@@ -23,6 +23,7 @@ namespace WarrantyManagement.API.Controllers
         /// <param name="centerId">ID trung tâm dịch vụ</param>
         /// <returns>Danh sách người dùng</returns>
         [HttpGet("by-center/{centerId}")]
+        [Authorize(Roles= "Admin")]
         public async Task<IActionResult> GetUsersByServiceCenter(Guid centerId)
         {
             var users = await _userService.GetUsersByServiceCenterAsync(centerId);
@@ -50,6 +51,7 @@ namespace WarrantyManagement.API.Controllers
             return Ok(users);
         }
         [HttpGet("technicians")]
+        [Authorize(Roles = "SCStaff,Admin")]
         public async Task<IActionResult> GetTechnicians()
         {
             var users = await _userService.GetTechniciansAsync();

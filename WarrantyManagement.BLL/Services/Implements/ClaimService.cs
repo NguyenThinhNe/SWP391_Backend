@@ -81,7 +81,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                     };
 
 
-                    await _partItemService.HandleClaimPartItemsAsync(request, claim, isUpdate : false);
+                    await _partItemService.HandleClaimPartItemsAsync(request, claim);
                     await claimDetailRepo.InsertAsync(detail);
                 }
                 return _mapper.Map<ClaimResponse>(claim);
@@ -126,7 +126,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                     PartItems = request.PartItems
                 };
 
-                await _partItemService.HandleClaimPartItemsAsync(tempRequest, claim, isUpdate: true);
+                await _partItemService.HandleClaimPartItemsAsync(tempRequest, claim);
 
                 await _unitOfWork.SaveChangesAsync();
 

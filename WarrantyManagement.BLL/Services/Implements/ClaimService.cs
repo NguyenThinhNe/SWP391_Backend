@@ -101,7 +101,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 // ✅ 1: Load claim including ClaimDetails
                 var claim = await claimRepo.FirstOrDefaultAsync(
-                    predicate: c => c.ClaimId == claimId,
+                    predicate: c => c.ClaimId == claimId && c.Status == WarrantyClaimStatus.Pending,
                     include: q => q.Include(c => c.ClaimDetails)
                 );
 
@@ -121,7 +121,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 {
                     VIN = claim.VIN,
                     ClaimDate = claim.ClaimDate,
-                    IssueDescription = claim.IssueDescription,
+                    IssueDescription = request.IssueDescription,
                     ActionType = request.ActionType,
                     PartItems = request.PartItems
                 };

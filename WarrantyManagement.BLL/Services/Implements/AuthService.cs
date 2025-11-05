@@ -61,7 +61,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                     Name = user.Name,
                     Role = user.Role.ToString(),
                     ServiceCenterId = user.ServiceCenterId,
-                    ServiceCenterName = user.ServiceCenter.CenterName,
+                    ServiceCenterName = user.ServiceCenter?.CenterName,
                     CoverImage = user.CoverImage,
                     CreatedTime = user.CreatedTime
                 };

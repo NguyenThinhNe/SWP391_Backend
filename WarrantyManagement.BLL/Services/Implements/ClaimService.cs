@@ -69,6 +69,20 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 await claimRepo.InsertAsync(claim);
 
+                foreach (var img in request.ClaimImages)
+                {
+                    var claimImage = new ClaimImage
+                    {
+                        ClaimId = claim.ClaimId,
+                        ImageId = Guid.NewGuid(),
+                        ImageUrl = img.ImageUrl,
+                        Description = img.Description,
+                        OrderIndex = img.OrderIndex
+                    };
+
+                    await claimImageRepo.InsertAsync(claimImage);
+                }
+
 
                 foreach (var item in request.PartItems)
                 {
@@ -152,6 +166,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
+                .Include(c => c.Images)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.ClaimId == claimId);
 
@@ -176,6 +191,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 .Include(c => c.WarrantyPolicy)
                 .Include(c => c.User)
                     .ThenInclude(u => u.ServiceCenter)
+                .Include(c => c.Images)
                 .AsNoTracking()
                 .AsQueryable();
 

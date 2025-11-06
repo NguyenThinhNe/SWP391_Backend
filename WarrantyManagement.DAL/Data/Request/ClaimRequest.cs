@@ -32,6 +32,8 @@ namespace WarrantyManagement.DAL.Data.Request
         [MinLength(1, ErrorMessage = "At least one part must be selected")]
         public List<PartItemRequest> PartItems { get; set; }
         public ClaimActionType ActionType { get; set; }
+
+        public List<ClaimImages> ClaimImages { get; set; }
     }
 
     public class PartItemRequest

@@ -97,6 +97,8 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.TechnicianName, opt => opt.MapFrom(src =>
                     src.User != null ? src.User.Name : string.Empty))
 
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
+
                 // TotalCost is calculated in ClaimResponse itself
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
@@ -108,7 +110,7 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.PartName, opt => opt.MapFrom(src =>
                     src.Part != null ? src.Part.PartName : string.Empty));
 
-            CreateMap<ClaimImage, CLaimImageResponse>()
+            CreateMap<ClaimImage, ClaimImageResponse>()
                 .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.ImageId))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

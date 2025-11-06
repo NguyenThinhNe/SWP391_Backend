@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarrantyManagement.DAL.Data.Entities;
 using WarrantyManagement.DAL.Data.Enums;
 
 namespace WarrantyManagement.DAL.Data.Response
 {
     public class ClaimResponse
     {   
-
-
         public Guid ClaimId { get; set; }
         public DateTime ClaimDate { get; set; }
         public  ClaimActionType Action{ get; set; }
@@ -36,6 +35,7 @@ namespace WarrantyManagement.DAL.Data.Response
         public Guid UserId { get; set; }
         public string TechnicianName { get; set; }
 
+        public List<ClaimImageResponse> Images { get; set; }
     }
 
     public class PartItemResponse {

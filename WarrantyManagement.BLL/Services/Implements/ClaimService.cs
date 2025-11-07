@@ -284,6 +284,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                     predicate: c => c.ClaimId == claimId,
                     include: q => q
                         .Include(c => c.CustomerVehicle)
+                            .ThenInclude(v => v.Customer)
                         .Include(c => c.ClaimDetails)           // cần claim details
                             .ThenInclude(cd => cd.PartItem)     // nếu đã có PartItem nav
                                 .ThenInclude(pi => pi.Part)
@@ -331,10 +332,54 @@ namespace WarrantyManagement.BLL.Services.Implements
                 claim.Status = WarrantyClaimStatus.Accepted;
                 claimRepo.UpdateAsync(claim);
                 await _unitOfWork.SaveChangesAsync();
+                await CreateWorkOrderForApprovedClaim(claim);
                 return await GetClaimByIdAsync(claimId);
             });
         }
+        private async Task CreateWorkOrderForApprovedClaim(WarrantyClaim claim)
+        {
+            // Lấy CustomerId từ Vehicle
+            var customerId = claim.CustomerVehicle?.CustomerId;
 
+            if (!customerId.HasValue)
+                throw new InvalidOperationException("Cannot create work order: Customer not found for vehicle");
+
+            // Lấy danh sách PartId từ ClaimDetails
+            var partIds = claim.ClaimDetails
+                .Where(cd => cd.PartItem != null)
+                .Select(cd => cd.PartItem.PartId)
+                .Distinct()
+                .ToList();
+
+            // ✅ Tạo WorkOrder trực tiếp KHÔNG qua Service (để tránh nested transaction)
+            var workOrderRepo = _unitOfWork.GetRepository<WorkOrder>();
+
+            var workOrder = new WorkOrder
+            {
+                WorkOrderId = Guid.NewGuid(),
+                ClaimId = claim.ClaimId,
+                CustomerId = customerId.Value,
+                UserId = claim.UserId, // Technician
+                StartDate = DateTime.UtcNow,
+                Priority = WorkOrderPriority.Medium,
+                Status = WorkOrderStatus.Pending,
+                Description = $"Work order for claim: {claim.IssueDescription}"
+            };
+
+            // Thêm Parts nếu có
+            if (partIds != null && partIds.Any())
+            {
+                var partRepo = _unitOfWork.GetRepository<Part>();
+                var parts = await partRepo.GetListAsync(
+                    predicate: p => partIds.Contains(p.PartId),
+                    include: null
+                );
+                workOrder.Parts = parts.ToList();
+            }
+
+            await workOrderRepo.InsertAsync(workOrder);
+            // ⚠️ KHÔNG gọi SaveChanges ở đây vì đang trong transaction của ApproveClaimAsync
+        }
         public async Task<ClaimResponse> RejectClaimAsync(Guid claimId, Guid evmStaffId, string rejectionReason)
         {
             return await _unitOfWork.ExecuteInTransactionAsync(async () =>
@@ -350,9 +395,9 @@ namespace WarrantyManagement.BLL.Services.Implements
                     throw new KeyNotFoundException($"Claim with ID {claimId} not found");
                 }
 
-                ValidateStatusTransition(claim.Status, WarrantyClaimStatus.Accepted);
+                ValidateStatusTransition(claim.Status, WarrantyClaimStatus.Rejected);
 
-                claim.Status = WarrantyClaimStatus.Accepted;
+                claim.Status = WarrantyClaimStatus.Rejected;
                 // TODO: Lưu rejectionReason nếu cần (có thể thêm field vào WarrantyClaim entity)
 
                 claimRepo.UpdateAsync(claim);
@@ -388,14 +433,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                 await _unitOfWork.SaveChangesAsync();
                 if (newStatus == WarrantyClaimStatus.Accepted)
                 {
-                    var workOrderRequest = new WorkOrderRequest
-                    {
-                        ClaimId = claim.ClaimId,
-                       
-                    };
-
-                    // Gọi WorkOrderService để tạo work order
-                    await _workOrderService.CreateWorkOrderAsync(workOrderRequest);
+                    await CreateWorkOrderForApprovedClaim(claim);
                 }
                 return await GetClaimByIdAsync(claimId);
             });
@@ -449,6 +487,7 @@ namespace WarrantyManagement.BLL.Services.Implements
                     new List<WarrantyClaimStatus>
                     {
                         WarrantyClaimStatus.Accepted,
+                        WarrantyClaimStatus.Rejected,
                         WarrantyClaimStatus.Overdued
                     }
                 },

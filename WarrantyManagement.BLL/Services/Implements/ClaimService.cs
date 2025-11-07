@@ -20,12 +20,13 @@ namespace WarrantyManagement.BLL.Services.Implements
         private readonly IUnitOfWork<WarrantyDbContext> _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IPartItemService _partItemService;
-
-        public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper, IPartItemService partItemService)
+        private readonly IWorkOrderService _workOrderService;
+        public ClaimService(IUnitOfWork<WarrantyDbContext> unitOfWork, IMapper mapper, IPartItemService partItemService, IWorkOrderService workOrderService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _partItemService = partItemService;
+            _workOrderService = workOrderService;
         }
         #region Create warranty claim 
         public async Task<ClaimResponse> CreateClaimAsync(ClaimRequest request, Guid currentUserId)
@@ -385,7 +386,17 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 claimRepo.UpdateAsync(claim);
                 await _unitOfWork.SaveChangesAsync();
+                if (newStatus == WarrantyClaimStatus.Accepted)
+                {
+                    var workOrderRequest = new WorkOrderRequest
+                    {
+                        ClaimId = claim.ClaimId,
+                       
+                    };
 
+                    // Gọi WorkOrderService để tạo work order
+                    await _workOrderService.CreateWorkOrderAsync(workOrderRequest);
+                }
                 return await GetClaimByIdAsync(claimId);
             });
         }

@@ -11,7 +11,7 @@ pipeline {
 
         // Sonar Scanner info
         SCANNER_HOME = tool 'sonarqube-scanner'
-        SONAR_HOST_URL = 'https://sonarqube.fleeforezz.site'
+        SONAR_HOST_URL = 'https://sonarqube.hikarimoon.pro'
 
         // Docker info
         DOCKER_USER = 'fleeforezz'

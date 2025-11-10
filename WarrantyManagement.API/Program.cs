@@ -49,6 +49,7 @@ namespace WarrantyManagement.API
             builder.Services.AddScoped<IVehicleService, VehicleService>();
             builder.Services.AddScoped<IPartService, PartService>();
             builder.Services.AddScoped<ICampaignService, CampaignService>();
+            builder.Services.AddScoped<IWarrantyValidationService, WarrantyValidationService>();
             // CORS
             builder.Services.AddCors(options =>
             {

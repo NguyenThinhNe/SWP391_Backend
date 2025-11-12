@@ -102,7 +102,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             return true;
         }
-
+       
         public async Task<CampaignResponse> GetCampaignByIdAsync(Guid campaignId)
         {
             var _campaignRepo = _unitOfWork.GetRepository<Campaign>();
@@ -276,6 +276,45 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 return true;
             });
+        }
+
+        public async Task<IEnumerable<CampaignResponse>> GetCampaignByUserId(Guid userId)
+        {
+            var _campaignRepo = _unitOfWork.GetRepository<Campaign>();
+
+            var campaigns = await _campaignRepo.GetListAsync(
+                predicate: c => c.UserId == userId,
+                include: q => q
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter)
+                    .Include(c => c.CustomerVehicles),
+                orderBy: q => q.OrderByDescending(c => c.CreatedDate)
+            );
+
+            if (campaigns == null || !campaigns.Any())
+                throw new KeyNotFoundException($"No campaigns found for user ID {userId}");
+
+            return _mapper.Map<IEnumerable<CampaignResponse>>(campaigns);
+        }
+
+        public async Task<IEnumerable<CampaignResponse>> GetCampaignByServiceCenterId(Guid serviceCenterId)
+        {
+            var _campaignRepo = _unitOfWork.GetRepository<Campaign>();
+
+            // Truy vấn campaign qua user → service center
+            var campaigns = await _campaignRepo.GetListAsync(
+                predicate: c => c.User != null && c.User.ServiceCenterId == serviceCenterId,
+                include: q => q
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter)
+                    .Include(c => c.CustomerVehicles),
+                orderBy: q => q.OrderByDescending(c => c.CreatedDate)
+            );
+
+            if (campaigns == null || !campaigns.Any())
+                throw new KeyNotFoundException($"No campaigns found for service center ID {serviceCenterId}");
+
+            return _mapper.Map<IEnumerable<CampaignResponse>>(campaigns);
         }
 
     }

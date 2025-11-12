@@ -28,6 +28,8 @@ namespace WarrantyManagement.BLL.Services.Interfaces
         /// </summary>
         Task<CampaignResponse> GetCampaignByIdAsync(Guid campaignId);
         Task<IEnumerable<CampaignResponse>> GetAllCampaignsAsync();
+        Task<IEnumerable<CampaignResponse>> GetCampaignByServiceCenterId(Guid serviceCenterId);
+        Task<IEnumerable<CampaignResponse>> GetCampaignByUserId(Guid userId);
         Task<CampaignResponse> GetCampaignByStatusAsync(CampaignStatus status);
         Task<IEnumerable<CampaignResponse>> GetActiveCampaignsAsync();
         Task<bool> UpdateCampaignStatusAsync(Guid campaignId, CampaignStatus newStatus);

@@ -113,11 +113,13 @@ namespace WarrantyManagement.BLL.Services.Implements
             {
                 var claimRepo = _unitOfWork.GetRepository<WarrantyClaim>();
                 var claimDetailRepo = _unitOfWork.GetRepository<ClaimDetail>();
+                var claimImageRepo = _unitOfWork.GetRepository<ClaimImage>();
 
-                // ✅ 1: Load claim including ClaimDetails
+                // ✅ 1: Load claim including ClaimDetails and Images
                 var claim = await claimRepo.FirstOrDefaultAsync(
                     predicate: c => c.ClaimId == claimId && c.Status == WarrantyClaimStatus.Pending,
                     include: q => q.Include(c => c.ClaimDetails)
+                                  .Include(c => c.Images)
                 );
 
                 if (claim == null)
@@ -127,11 +129,41 @@ namespace WarrantyManagement.BLL.Services.Implements
                 if (request.VIN != claim.VIN)
                     throw new InvalidOperationException("VIN cannot be modified for an existing claim.");
 
-                // ✅ 3: Remove all existing ClaimDetails (we will recreate)
+                // ✅ 3: Update IssueDescription if provided
+                if (!string.IsNullOrWhiteSpace(request.IssueDescription))
+                {
+                    claim.IssueDescription = request.IssueDescription;
+                    claimRepo.UpdateAsync(claim);
+                }
+
+                // ✅ 4: Remove all existing ClaimDetails (we will recreate)
                 if (claim.ClaimDetails.Any())
                     claimDetailRepo.DeleteRangeAsync(claim.ClaimDetails);
 
-                // ✅ 4: Reprocess all PartItems
+                // ✅ 5: Update ClaimImages if provided
+                if (request.ClaimImages != null && request.ClaimImages.Any())
+                {
+                    // Xóa tất cả ảnh cũ
+                    if (claim.Images.Any())
+                        claimImageRepo.DeleteRangeAsync(claim.Images);
+
+                    // Thêm ảnh mới
+                    foreach (var img in request.ClaimImages)
+                    {
+                        var claimImage = new ClaimImage
+                        {
+                            ClaimId = claim.ClaimId,
+                            ImageId = Guid.NewGuid(),
+                            ImageUrl = img.ImageUrl,
+                            Description = img.Description,
+                            OrderIndex = img.OrderIndex
+                        };
+
+                        await claimImageRepo.InsertAsync(claimImage);
+                    }
+                }
+
+                // ✅ 6: Reprocess all PartItems
                 var tempRequest = new ClaimRequest
                 {
                     VIN = claim.VIN,
@@ -145,7 +177,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 await _unitOfWork.SaveChangesAsync();
 
-                // ✅ 5: Return updated claim
+                // ✅ 7: Return updated claim
                 return await GetClaimByIdAsync(claimId);
             });
         }

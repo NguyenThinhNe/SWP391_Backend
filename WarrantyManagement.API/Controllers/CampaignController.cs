@@ -299,6 +299,52 @@ namespace WarrantyManagement.API.Controllers
                 });
             }
         }
+        /// <summary>
+        /// Get all campaigns assigned to a specific user
+        /// </summary>
+        [HttpGet("user/{userId}")]
+        [ProducesResponseType(typeof(IEnumerable<CampaignResponse>), 200)]
+        [ProducesResponseType(404)]
+        [Authorize(Roles = "EVMStaff,SCTech,SCStaff")]
+        public async Task<IActionResult> GetCampaignsByUserId(Guid userId)
+        {
+            try
+            {
+                var result = await _campaignService.GetCampaignByUserId(userId);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving campaigns by user", error = ex.Message });
+            }
+        }
 
+        /// <summary>
+        /// Get all campaigns under a specific service center
+        /// </summary>
+        [HttpGet("service-center/{serviceCenterId}")]
+        [ProducesResponseType(typeof(IEnumerable<CampaignResponse>), 200)]
+        [ProducesResponseType(404)]
+        [Authorize(Roles = "EVMStaff,SCStaff,SCTech")]
+        public async Task<IActionResult> GetCampaignsByServiceCenterId(Guid serviceCenterId)
+        {
+            try
+            {
+                var result = await _campaignService.GetCampaignByServiceCenterId(serviceCenterId);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving campaigns by service center", error = ex.Message });
+            }
+        }
     }
 }

@@ -270,8 +270,7 @@ namespace WarrantyManagement.BLL.Services.Implements
 
                 // ✅ Check if already assigned
               
-                // OPTIONAL ✅ Mark technician as unavailable once assigned
-                technician.IsActive = false;
+                
                 techRepo.UpdateAsync(technician);
 
                 return true;

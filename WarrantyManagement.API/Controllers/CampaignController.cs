@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WarrantyManagement.BLL.Services.Interfaces;
+using WarrantyManagement.DAL.Data.Entities;
 using WarrantyManagement.DAL.Data.Enums;
 using WarrantyManagement.DAL.Data.Request;
 using WarrantyManagement.DAL.Data.Response;
@@ -273,31 +274,8 @@ namespace WarrantyManagement.API.Controllers
         [Authorize(Roles = "SCStaff")]
         public async Task<IActionResult> AssignTechnician(Guid id, Guid technicianId)
         {
-            try
-            {
-                var result = await _campaignService.AssignTechnicianAsync(id, technicianId);
-
-                if (!result)
-                    return BadRequest(new { message = "Failed to assign technician to campaign" });
-
-                return NoContent();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(new { message = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    message = "An error occurred while assigning technician to campaign",
-                    error = ex.Message
-                });
-            }
+            var updated = await _campaignService.AssignTechnicianAsync(id, technicianId);
+            return Ok(updated);
         }
         /// <summary>
         /// Get all campaigns assigned to a specific user

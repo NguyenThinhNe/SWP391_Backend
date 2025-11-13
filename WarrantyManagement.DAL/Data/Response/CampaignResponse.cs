@@ -15,6 +15,8 @@ namespace WarrantyManagement.DAL.Data.Response
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public CampaignStatus Status { get; set; } 
+        public Guid? TechnicanId { get; set; }
+        public Guid? ServiceCenterId { get; set; }
         public List<VehicleBasicInfo> Vehicles { get; set; } = new List<VehicleBasicInfo>();
 
     }

@@ -57,7 +57,10 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             var campaign = await _campaignRepo.FirstOrDefaultAsync(
                 predicate: c => c.CampaignId == campaignId,
-                include: q => q.Include(c => c.CustomerVehicles));
+                include: q => q
+                    .Include(c => c.CustomerVehicles)
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter));
 
             if (campaign == null)
                 throw new KeyNotFoundException($"Campaign with ID {campaignId} not found");
@@ -78,7 +81,6 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             return _mapper.Map<CampaignResponse>(campaign);
         }
-
         public async Task<bool> DeleteCampaignAsync(Guid campaignId)
         {
             var _campaignRepo = _unitOfWork.GetRepository<Campaign>();
@@ -102,14 +104,17 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             return true;
         }
-       
+
         public async Task<CampaignResponse> GetCampaignByIdAsync(Guid campaignId)
         {
             var _campaignRepo = _unitOfWork.GetRepository<Campaign>();
 
             var campaign = await _campaignRepo.FirstOrDefaultAsync(
                 predicate: c => c.CampaignId == campaignId,
-                include: q => q.Include(c => c.CustomerVehicles));
+                include: q => q
+                    .Include(c => c.CustomerVehicles)
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter));
 
             if (campaign == null)
                 throw new KeyNotFoundException($"Campaign with ID {campaignId} not found");
@@ -122,7 +127,10 @@ namespace WarrantyManagement.BLL.Services.Implements
             var _campaignRepo = _unitOfWork.GetRepository<Campaign>();
 
             var campaigns = await _campaignRepo.GetListAsync(
-                include: q => q.Include(c => c.CustomerVehicles),
+                include: q => q
+                    .Include(c => c.CustomerVehicles)
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter),
                 orderBy: q => q.OrderByDescending(c => c.CreatedDate));
 
             return _mapper.Map<IEnumerable<CampaignResponse>>(campaigns);
@@ -134,7 +142,10 @@ namespace WarrantyManagement.BLL.Services.Implements
 
             var campaign = await _campaignRepo.FirstOrDefaultAsync(
                 predicate: c => c.Status == status,
-                include: q => q.Include(c => c.CustomerVehicles),
+                include: q => q
+                    .Include(c => c.CustomerVehicles)
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter),
                 orderBy: q => q.OrderByDescending(c => c.StartDate));
 
             if (campaign == null)
@@ -152,7 +163,10 @@ namespace WarrantyManagement.BLL.Services.Implements
                 predicate: c => c.Status == CampaignStatus.Pending &&
                                c.StartDate <= now &&
                                c.EndDate >= now,
-                include: q => q.Include(c => c.CustomerVehicles),
+                include: q => q
+                    .Include(c => c.CustomerVehicles)
+                    .Include(c => c.User)
+                        .ThenInclude(u => u.ServiceCenter),
                 orderBy: q => q.OrderBy(c => c.EndDate));
 
             return _mapper.Map<IEnumerable<CampaignResponse>>(campaigns);
@@ -246,34 +260,45 @@ namespace WarrantyManagement.BLL.Services.Implements
                 return true;
             });
         }
-        public async Task<bool> AssignTechnicianAsync(Guid campaignId, Guid technicianId)
+        public async Task<CampaignResponse> AssignTechnicianAsync(Guid campaignId, Guid technicianId)
         {
             var campaignRepo = _unitOfWork.GetRepository<Campaign>();
             var techRepo = _unitOfWork.GetRepository<User>();
 
             return await _unitOfWork.ExecuteInTransactionAsync(async () =>
             {
-                // ✅ Check campaign existence
-                var campaignExists = await campaignRepo.CountAsync(c => c.CampaignId == campaignId) > 0;
-                if (!campaignExists)
+                // Load campaign including User and ServiceCenter
+                var campaign = await campaignRepo.FirstOrDefaultAsync(
+                    predicate: c => c.CampaignId == campaignId,
+                    include: q => q
+                        .Include(c => c.CustomerVehicles)
+                        .Include(c => c.User)
+                            .ThenInclude(u => u.ServiceCenter)
+                );
+
+                if (campaign == null)
                     throw new KeyNotFoundException($"Campaign with ID {campaignId} not found");
 
-                // ✅ Check technician existence
-                var technician = await techRepo.FirstOrDefaultAsync(predicate:t => t.UserId == technicianId);
+                // Load technician with ServiceCenter
+                var technician = await techRepo.FirstOrDefaultAsync(
+                    predicate: t => t.UserId == technicianId,
+                    include: q => q.Include(u => u.ServiceCenter));
 
                 if (technician == null)
                     throw new KeyNotFoundException($"Technician with ID {technicianId} not found");
 
-                // ✅ Check availability
                 if (!technician.IsActive)
                     throw new InvalidOperationException("Technician is not available to assign");
 
-                // ✅ Check if already assigned
-              
-                
-                techRepo.UpdateAsync(technician);
+                // Assign technician
+                campaign.UserId = technicianId;
+                campaign.User = technician; // Keep navigation in sync
 
-                return true;
+                campaignRepo.UpdateAsync(campaign);
+                await _unitOfWork.SaveChangesAsync();
+
+                // Return mapped response with AssignedTechnicianId and ServiceCenterId populated
+                return _mapper.Map<CampaignResponse>(campaign);
             });
         }
 

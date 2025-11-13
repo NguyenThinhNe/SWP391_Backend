@@ -28,6 +28,9 @@ namespace WarrantyManagement.DAL.Data.Mapper
                 .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.TechnicanId, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.ServiceCenterId, opt => opt.MapFrom(src => src.User != null ? src.User.ServiceCenterId : (Guid?)null))
+     
                 .ForMember(dest => dest.Vehicles,
                      opt => opt.MapFrom(src => src.CustomerVehicles ?? new List<CustomerVehicle>()));
 
